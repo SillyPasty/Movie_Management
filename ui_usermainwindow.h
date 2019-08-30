@@ -67,7 +67,7 @@ public:
     QLabel *label_7;
     QWidget *tab_order;
     QPushButton *pushButton_cancelOrder;
-    QWidget *widget;
+    QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_11;
@@ -78,7 +78,7 @@ public:
     QFrame *line_3;
     QTableWidget *tableWidget_order;
     QWidget *tab_personalInfo;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget3;
     QGridLayout *gridLayout_3;
     QLabel *label_2;
     QLabel *label_phone;
@@ -86,7 +86,7 @@ public:
     QLabel *label_email;
     QLabel *label_10;
     QLabel *label_password;
-    QWidget *layoutWidget3;
+    QWidget *layoutWidget4;
     QVBoxLayout *verticalLayout_4;
     QPushButton *pushButton_editPersonalInfo;
     QPushButton *pushButton_changeUser;
@@ -247,10 +247,10 @@ public:
         pushButton_cancelOrder = new QPushButton(tab_order);
         pushButton_cancelOrder->setObjectName(QStringLiteral("pushButton_cancelOrder"));
         pushButton_cancelOrder->setGeometry(QRect(330, 240, 80, 20));
-        widget = new QWidget(tab_order);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 396, 224));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget2 = new QWidget(tab_order);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(10, 10, 396, 224));
+        verticalLayout = new QVBoxLayout(layoutWidget2);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -258,27 +258,27 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_11 = new QLabel(widget);
+        label_11 = new QLabel(layoutWidget2);
         label_11->setObjectName(QStringLiteral("label_11"));
 
         horizontalLayout_4->addWidget(label_11);
 
-        lineEdit_movieName_2 = new QLineEdit(widget);
+        lineEdit_movieName_2 = new QLineEdit(layoutWidget2);
         lineEdit_movieName_2->setObjectName(QStringLiteral("lineEdit_movieName_2"));
 
         horizontalLayout_4->addWidget(lineEdit_movieName_2);
 
-        label_9 = new QLabel(widget);
+        label_9 = new QLabel(layoutWidget2);
         label_9->setObjectName(QStringLiteral("label_9"));
 
         horizontalLayout_4->addWidget(label_9);
 
-        lineEdit_cinemaName_2 = new QLineEdit(widget);
+        lineEdit_cinemaName_2 = new QLineEdit(layoutWidget2);
         lineEdit_cinemaName_2->setObjectName(QStringLiteral("lineEdit_cinemaName_2"));
 
         horizontalLayout_4->addWidget(lineEdit_cinemaName_2);
 
-        pushButton_search_2 = new QPushButton(widget);
+        pushButton_search_2 = new QPushButton(layoutWidget2);
         pushButton_search_2->setObjectName(QStringLiteral("pushButton_search_2"));
 
         horizontalLayout_4->addWidget(pushButton_search_2);
@@ -286,14 +286,14 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_4);
 
-        line_3 = new QFrame(widget);
+        line_3 = new QFrame(layoutWidget2);
         line_3->setObjectName(QStringLiteral("line_3"));
         line_3->setFrameShape(QFrame::HLine);
         line_3->setFrameShadow(QFrame::Sunken);
 
         verticalLayout->addWidget(line_3);
 
-        tableWidget_order = new QTableWidget(widget);
+        tableWidget_order = new QTableWidget(layoutWidget2);
         tableWidget_order->setObjectName(QStringLiteral("tableWidget_order"));
 
         verticalLayout->addWidget(tableWidget_order);
@@ -301,58 +301,58 @@ public:
         tabWidget->addTab(tab_order, QString());
         tab_personalInfo = new QWidget();
         tab_personalInfo->setObjectName(QStringLiteral("tab_personalInfo"));
-        layoutWidget2 = new QWidget(tab_personalInfo);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(51, 51, 211, 141));
-        gridLayout_3 = new QGridLayout(layoutWidget2);
+        layoutWidget3 = new QWidget(tab_personalInfo);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(51, 51, 211, 141));
+        gridLayout_3 = new QGridLayout(layoutWidget3);
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         gridLayout_3->setContentsMargins(0, 0, 0, 0);
-        label_2 = new QLabel(layoutWidget2);
+        label_2 = new QLabel(layoutWidget3);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout_3->addWidget(label_2, 0, 0, 1, 1);
 
-        label_phone = new QLabel(layoutWidget2);
+        label_phone = new QLabel(layoutWidget3);
         label_phone->setObjectName(QStringLiteral("label_phone"));
 
         gridLayout_3->addWidget(label_phone, 0, 1, 1, 1);
 
-        label_8 = new QLabel(layoutWidget2);
+        label_8 = new QLabel(layoutWidget3);
         label_8->setObjectName(QStringLiteral("label_8"));
 
         gridLayout_3->addWidget(label_8, 1, 0, 1, 1);
 
-        label_email = new QLabel(layoutWidget2);
+        label_email = new QLabel(layoutWidget3);
         label_email->setObjectName(QStringLiteral("label_email"));
 
         gridLayout_3->addWidget(label_email, 1, 1, 1, 1);
 
-        label_10 = new QLabel(layoutWidget2);
+        label_10 = new QLabel(layoutWidget3);
         label_10->setObjectName(QStringLiteral("label_10"));
 
         gridLayout_3->addWidget(label_10, 2, 0, 1, 1);
 
-        label_password = new QLabel(layoutWidget2);
+        label_password = new QLabel(layoutWidget3);
         label_password->setObjectName(QStringLiteral("label_password"));
 
         gridLayout_3->addWidget(label_password, 2, 1, 1, 1);
 
-        layoutWidget3 = new QWidget(tab_personalInfo);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(260, 100, 124, 91));
-        verticalLayout_4 = new QVBoxLayout(layoutWidget3);
+        layoutWidget4 = new QWidget(tab_personalInfo);
+        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(260, 100, 124, 91));
+        verticalLayout_4 = new QVBoxLayout(layoutWidget4);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        pushButton_editPersonalInfo = new QPushButton(layoutWidget3);
+        pushButton_editPersonalInfo = new QPushButton(layoutWidget4);
         pushButton_editPersonalInfo->setObjectName(QStringLiteral("pushButton_editPersonalInfo"));
 
         verticalLayout_4->addWidget(pushButton_editPersonalInfo);
 
-        pushButton_changeUser = new QPushButton(layoutWidget3);
+        pushButton_changeUser = new QPushButton(layoutWidget4);
         pushButton_changeUser->setObjectName(QStringLiteral("pushButton_changeUser"));
 
         verticalLayout_4->addWidget(pushButton_changeUser);
@@ -379,7 +379,7 @@ public:
         retranslateUi(UserMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), UserMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(UserMainWindow);

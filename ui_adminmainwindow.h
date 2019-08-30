@@ -42,8 +42,8 @@ public:
     QPushButton *pushButton_exit;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QLabel *label_userInfo;
     QFrame *line;
+    QLabel *label_userInfo;
     QLabel *label_currentTime;
     QTabWidget *tabWidget;
     QWidget *tab_search;
@@ -66,6 +66,7 @@ public:
     QPushButton *pushButton_search;
     QFrame *line_2;
     QTableWidget *tableWidget_aviMovies;
+    QLabel *label_totalIncome;
     QWidget *tab_towUp;
     QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_3;
@@ -77,7 +78,7 @@ public:
     QFrame *line_3;
     QTableView *tableView_currentHall;
     QWidget *tab_order;
-    QWidget *widget;
+    QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout_6;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_11;
@@ -108,7 +109,7 @@ public:
     {
         if (AdminMainWindow->objectName().isEmpty())
             AdminMainWindow->setObjectName(QStringLiteral("AdminMainWindow"));
-        AdminMainWindow->resize(469, 447);
+        AdminMainWindow->resize(463, 449);
         centralwidget = new QWidget(AdminMainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         pushButton_exit = new QPushButton(centralwidget);
@@ -120,17 +121,17 @@ public:
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        label_userInfo = new QLabel(gridLayoutWidget);
-        label_userInfo->setObjectName(QStringLiteral("label_userInfo"));
-
-        gridLayout->addWidget(label_userInfo, 0, 0, 1, 1);
-
         line = new QFrame(gridLayoutWidget);
         line->setObjectName(QStringLiteral("line"));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
 
         gridLayout->addWidget(line, 1, 0, 1, 2);
+
+        label_userInfo = new QLabel(gridLayoutWidget);
+        label_userInfo->setObjectName(QStringLiteral("label_userInfo"));
+
+        gridLayout->addWidget(label_userInfo, 0, 0, 1, 1);
 
         label_currentTime = new QLabel(gridLayoutWidget);
         label_currentTime->setObjectName(QStringLiteral("label_currentTime"));
@@ -143,7 +144,7 @@ public:
         tab_search->setObjectName(QStringLiteral("tab_search"));
         layoutWidget = new QWidget(tab_search);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 10, 402, 281));
+        layoutWidget->setGeometry(QRect(0, 10, 421, 261));
         verticalLayout_5 = new QVBoxLayout(layoutWidget);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
@@ -234,6 +235,9 @@ public:
 
         verticalLayout_5->addWidget(tableWidget_aviMovies);
 
+        label_totalIncome = new QLabel(tab_search);
+        label_totalIncome->setObjectName(QStringLiteral("label_totalIncome"));
+        label_totalIncome->setGeometry(QRect(360, 280, 54, 12));
         tabWidget->addTab(tab_search, QString());
         tab_towUp = new QWidget();
         tab_towUp->setObjectName(QStringLiteral("tab_towUp"));
@@ -282,40 +286,40 @@ public:
         tabWidget->addTab(tab_towUp, QString());
         tab_order = new QWidget();
         tab_order->setObjectName(QStringLiteral("tab_order"));
-        widget = new QWidget(tab_order);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 401, 271));
-        verticalLayout_6 = new QVBoxLayout(widget);
+        layoutWidget2 = new QWidget(tab_order);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(10, 10, 401, 271));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget2);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         verticalLayout_6->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_11 = new QLabel(widget);
+        label_11 = new QLabel(layoutWidget2);
         label_11->setObjectName(QStringLiteral("label_11"));
 
         horizontalLayout_4->addWidget(label_11);
 
-        lineEdit_movieName_2 = new QLineEdit(widget);
+        lineEdit_movieName_2 = new QLineEdit(layoutWidget2);
         lineEdit_movieName_2->setObjectName(QStringLiteral("lineEdit_movieName_2"));
 
         horizontalLayout_4->addWidget(lineEdit_movieName_2);
 
-        label_9 = new QLabel(widget);
+        label_9 = new QLabel(layoutWidget2);
         label_9->setObjectName(QStringLiteral("label_9"));
 
         horizontalLayout_4->addWidget(label_9);
 
-        lineEdit_cinemaName_2 = new QLineEdit(widget);
+        lineEdit_cinemaName_2 = new QLineEdit(layoutWidget2);
         lineEdit_cinemaName_2->setObjectName(QStringLiteral("lineEdit_cinemaName_2"));
 
         horizontalLayout_4->addWidget(lineEdit_cinemaName_2);
 
-        pushButton_search_2 = new QPushButton(widget);
+        pushButton_search_2 = new QPushButton(layoutWidget2);
         pushButton_search_2->setObjectName(QStringLiteral("pushButton_search_2"));
 
         horizontalLayout_4->addWidget(pushButton_search_2);
 
-        pushButton_addNewMovie = new QPushButton(widget);
+        pushButton_addNewMovie = new QPushButton(layoutWidget2);
         pushButton_addNewMovie->setObjectName(QStringLiteral("pushButton_addNewMovie"));
 
         horizontalLayout_4->addWidget(pushButton_addNewMovie);
@@ -323,14 +327,14 @@ public:
 
         verticalLayout_6->addLayout(horizontalLayout_4);
 
-        line_4 = new QFrame(widget);
+        line_4 = new QFrame(layoutWidget2);
         line_4->setObjectName(QStringLiteral("line_4"));
         line_4->setFrameShape(QFrame::HLine);
         line_4->setFrameShadow(QFrame::Sunken);
 
         verticalLayout_6->addWidget(line_4);
 
-        tableWidget_order = new QTableWidget(widget);
+        tableWidget_order = new QTableWidget(layoutWidget2);
         tableWidget_order->setObjectName(QStringLiteral("tableWidget_order"));
 
         verticalLayout_6->addWidget(tableWidget_order);
@@ -397,7 +401,7 @@ public:
         AdminMainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(AdminMainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 469, 21));
+        menubar->setGeometry(QRect(0, 0, 463, 21));
         AdminMainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(AdminMainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -406,7 +410,7 @@ public:
         retranslateUi(AdminMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), AdminMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(AdminMainWindow);
@@ -424,6 +428,7 @@ public:
         checkBox_isPlayed->setText(QApplication::translate("AdminMainWindow", "\345\267\262\346\224\276\346\230\240", Q_NULLPTR));
         checkBox->setText(QApplication::translate("AdminMainWindow", "\346\234\252\346\224\276\346\230\240", Q_NULLPTR));
         pushButton_search->setText(QApplication::translate("AdminMainWindow", "\346\237\245\350\257\242", Q_NULLPTR));
+        label_totalIncome->setText(QApplication::translate("AdminMainWindow", "TextLabel", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_search), QApplication::translate("AdminMainWindow", "\350\256\242\345\215\225\347\256\241\347\220\206", Q_NULLPTR));
         label->setText(QApplication::translate("AdminMainWindow", "\351\200\211\346\213\251\345\275\261\345\216\205", Q_NULLPTR));
         pushButton_addNewHall->setText(QApplication::translate("AdminMainWindow", "+", Q_NULLPTR));

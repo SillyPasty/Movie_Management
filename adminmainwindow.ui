@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>469</width>
-    <height>447</height>
+    <width>463</width>
+    <height>449</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,17 +37,17 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_userInfo">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0" colspan="2">
       <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_userInfo">
+       <property name="text">
+        <string>TextLabel</string>
        </property>
       </widget>
      </item>
@@ -61,7 +61,7 @@
      <item row="3" column="0" colspan="2">
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>3</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_search">
         <attribute name="title">
@@ -70,10 +70,10 @@
         <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>0</x>
            <y>10</y>
-           <width>402</width>
-           <height>281</height>
+           <width>421</width>
+           <height>261</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -163,6 +163,19 @@
           </item>
          </layout>
         </widget>
+        <widget class="QLabel" name="label_totalIncome">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>280</y>
+           <width>54</width>
+           <height>12</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="tab_towUp">
         <attribute name="title">
@@ -229,7 +242,7 @@
         <attribute name="title">
          <string>场次管理</string>
         </attribute>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -385,7 +398,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>469</width>
+     <width>463</width>
      <height>21</height>
     </rect>
    </property>

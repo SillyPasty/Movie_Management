@@ -21,10 +21,12 @@ private:
 private slots:
     void on_pushButton_login_clicked();
     void userExchange();
+    void on_pushButton_register_clicked();
 
 signals:
     void showUserMainWindow();
     void showAdminMainWindow();
+    void showRegisterWindow();
 
 };
 

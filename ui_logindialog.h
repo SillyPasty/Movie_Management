@@ -27,15 +27,16 @@ QT_BEGIN_NAMESPACE
 class Ui_LoginDialog
 {
 public:
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout;
     QLabel *label;
     QLineEdit *lineEdit_userName;
     QLabel *label_2;
     QLineEdit *lineEdit_password;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton_login;
+    QPushButton *pushButton_register;
     QPushButton *pushButton_exit;
 
     void setupUi(QDialog *LoginDialog)
@@ -43,48 +44,51 @@ public:
         if (LoginDialog->objectName().isEmpty())
             LoginDialog->setObjectName(QStringLiteral("LoginDialog"));
         LoginDialog->resize(379, 311);
-        widget = new QWidget(LoginDialog);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(80, 80, 201, 91));
-        gridLayout = new QGridLayout(widget);
+        layoutWidget = new QWidget(LoginDialog);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(80, 80, 201, 91));
+        gridLayout = new QGridLayout(layoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QStringLiteral("label"));
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
-        lineEdit_userName = new QLineEdit(widget);
+        lineEdit_userName = new QLineEdit(layoutWidget);
         lineEdit_userName->setObjectName(QStringLiteral("lineEdit_userName"));
 
         gridLayout->addWidget(lineEdit_userName, 0, 1, 1, 1);
 
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout->addWidget(label_2, 1, 0, 1, 1);
 
-        lineEdit_password = new QLineEdit(widget);
+        lineEdit_password = new QLineEdit(layoutWidget);
         lineEdit_password->setObjectName(QStringLiteral("lineEdit_password"));
 
         gridLayout->addWidget(lineEdit_password, 1, 1, 1, 1);
 
-        widget1 = new QWidget(LoginDialog);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(80, 190, 201, 22));
-        horizontalLayout = new QHBoxLayout(widget1);
+        layoutWidget1 = new QWidget(LoginDialog);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(80, 190, 201, 22));
+        horizontalLayout = new QHBoxLayout(layoutWidget1);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton_login = new QPushButton(widget1);
+        pushButton_login = new QPushButton(layoutWidget1);
         pushButton_login->setObjectName(QStringLiteral("pushButton_login"));
 
         horizontalLayout->addWidget(pushButton_login);
 
-        pushButton_exit = new QPushButton(widget1);
+        pushButton_register = new QPushButton(layoutWidget1);
+        pushButton_register->setObjectName(QStringLiteral("pushButton_register"));
+
+        horizontalLayout->addWidget(pushButton_register);
+
+        pushButton_exit = new QPushButton(LoginDialog);
         pushButton_exit->setObjectName(QStringLiteral("pushButton_exit"));
-
-        horizontalLayout->addWidget(pushButton_exit);
-
+        pushButton_exit->setGeometry(QRect(230, 260, 96, 20));
 
         retranslateUi(LoginDialog);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), LoginDialog, SLOT(close()));
@@ -98,6 +102,7 @@ public:
         label->setText(QApplication::translate("LoginDialog", "\347\224\250\346\210\267\345\220\215", Q_NULLPTR));
         label_2->setText(QApplication::translate("LoginDialog", "\345\257\206\347\240\201", Q_NULLPTR));
         pushButton_login->setText(QApplication::translate("LoginDialog", "\347\231\273\351\231\206", Q_NULLPTR));
+        pushButton_register->setText(QApplication::translate("LoginDialog", "\346\263\250\345\206\214", Q_NULLPTR));
         pushButton_exit->setText(QApplication::translate("LoginDialog", "\351\200\200\345\207\272", Q_NULLPTR));
     } // retranslateUi
 

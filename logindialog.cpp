@@ -31,3 +31,8 @@ void LoginDialog::userExchange()
     this->show();
     //emit showMainWindow();
 }
+
+void LoginDialog::on_pushButton_register_clicked()
+{
+    emit showRegisterWindow();
+}

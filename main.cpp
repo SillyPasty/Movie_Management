@@ -3,6 +3,7 @@
 #include "usermainwindow.h"
 #include "infochange.h"
 #include "logindialog.h"
+#include "registerwindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -12,9 +13,11 @@ int main(int argc, char *argv[])
     AdminMainWindow aw;
     LoginDialog ldg;
     InfoChange ifc;
+    RegisterWindow rw;
 
     ldg.show();
 
+    QObject::connect(&ldg, SIGNAL(showRegisterWindow()), &rw, SLOT(receiveRegister()));
     //  login skip
     QObject::connect(&ldg, SIGNAL(showUserMainWindow()), &uw, SLOT(receiveLogin()));
     QObject::connect(&ldg, SIGNAL(showAdminMainWindow()), &aw, SLOT(receiveLogin()));

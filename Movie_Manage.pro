@@ -29,19 +29,22 @@ SOURCES += \
         usermainwindow.cpp \
     adminmainwindow.cpp \
     logindialog.cpp \
-    infochange.cpp
+    infochange.cpp \
+    registerwindow.cpp
 
 HEADERS += \
         usermainwindow.h \
     adminmainwindow.h \
     logindialog.h \
-    infochange.h
+    infochange.h \
+    registerwindow.h
 
 FORMS += \
         usermainwindow.ui \
     adminmainwindow.ui \
     logindialog.ui \
-    infochange.ui
+    infochange.ui \
+    registerwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
