@@ -1,0 +1,14 @@
+INPUT(
+./release\main.o
+./release\usermainwindow.o
+./release\adminmainwindow.o
+./release\logindialog.o
+./release\infochange.o
+./release\registerwindow.o
+./release\sqlfuns.o
+./release\moc_usermainwindow.o
+./release\moc_adminmainwindow.o
+./release\moc_logindialog.o
+./release\moc_infochange.o
+./release\moc_registerwindow.o
+);

@@ -2,6 +2,7 @@
 #define REGISTERWINDOW_H
 
 #include <QDialog>
+#include "sqlfuns.h"
 
 namespace Ui {
 class RegisterWindow;

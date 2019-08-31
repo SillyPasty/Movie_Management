@@ -379,7 +379,7 @@ public:
         retranslateUi(UserMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), UserMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(UserMainWindow);

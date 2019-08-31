@@ -1,7 +1,0 @@
-debug/
-release/
-Makefile
-*.stash
-*.user
-*.Debug
-*.Release

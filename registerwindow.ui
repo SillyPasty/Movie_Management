@@ -13,13 +13,13 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>60</x>
      <y>40</y>
      <width>201</width>
-     <height>230</height>
+     <height>262</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -52,20 +52,35 @@
      </layout>
     </item>
     <item>
+     <widget class="QComboBox" name="comboBox_sex">
+      <item>
+       <property name="text">
+        <string>male</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>female</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>unknown</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QRadioButton" name="radioButton_male">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>男</string>
+         <string>姓  名</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="radioButton_female">
-        <property name="text">
-         <string>女</string>
-        </property>
-       </widget>
+       <widget class="QLineEdit" name="lineEdit_realName"/>
       </item>
      </layout>
     </item>
@@ -151,6 +166,19 @@
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="label_test">
+   <property name="geometry">
+    <rect>
+     <x>23</x>
+     <y>10</y>
+     <width>551</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
   </widget>
  </widget>
  <resources/>

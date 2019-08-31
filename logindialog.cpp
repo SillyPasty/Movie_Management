@@ -18,18 +18,26 @@ void LoginDialog::on_pushButton_login_clicked()
 {
     QString user = ui->lineEdit_userName->text().trimmed();
     QString pswd = ui->lineEdit_password->text().trimmed();
-
-    if(user == "admin")
-        emit  showAdminMainWindow();
-    else if(user == "user")
-        emit  showUserMainWindow();
-    this->close();
+    SqlFuns sf;
+    QString psw = sf.queryPassword(user);
+    if(psw == pswd)
+    {
+        int flag = sf.queryIsadmin(user);
+        if(flag)
+            emit  showAdminMainWindow();
+        else
+            emit  showUserMainWindow();
+        this->close();
+    }
+    else if(psw == "")
+        QMessageBox::critical(nullptr, "用户不存在", "请重新输入");
+    else
+        QMessageBox::critical(nullptr, "密码错误", "请重新输入");
 }
 
 void LoginDialog::userExchange()
 {
     this->show();
-    //emit showMainWindow();
 }
 
 void LoginDialog::on_pushButton_register_clicked()

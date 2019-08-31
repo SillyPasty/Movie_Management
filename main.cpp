@@ -4,6 +4,8 @@
 #include "infochange.h"
 #include "logindialog.h"
 #include "registerwindow.h"
+#include "sqlfuns.h"
+#include <unistd.h>
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -14,6 +16,11 @@ int main(int argc, char *argv[])
     LoginDialog ldg;
     InfoChange ifc;
     RegisterWindow rw;
+    SqlFuns sf;
+    //  init database
+    while(!sf.connect("dataBase.db"))
+        sleep(1);
+    sf.createTables();
 
     ldg.show();
 

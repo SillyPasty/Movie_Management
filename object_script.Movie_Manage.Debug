@@ -1,0 +1,14 @@
+INPUT(
+./debug\main.o
+./debug\usermainwindow.o
+./debug\adminmainwindow.o
+./debug\logindialog.o
+./debug\infochange.o
+./debug\registerwindow.o
+./debug\sqlfuns.o
+./debug\moc_usermainwindow.o
+./debug\moc_adminmainwindow.o
+./debug\moc_logindialog.o
+./debug\moc_infochange.o
+./debug\moc_registerwindow.o
+);
