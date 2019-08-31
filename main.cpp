@@ -5,6 +5,7 @@
 #include "logindialog.h"
 #include "registerwindow.h"
 #include "sqlfuns.h"
+#include "addnewfilm.h"
 #include <unistd.h>
 #include <QApplication>
 
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     LoginDialog ldg;
     InfoChange ifc;
     RegisterWindow rw;
+    AddNewFilm anf;
     SqlFuns sf;
     //  init database
     while(!sf.connect("dataBase.db"))
@@ -28,6 +30,8 @@ int main(int argc, char *argv[])
     //  login skip
     QObject::connect(&ldg, SIGNAL(showUserMainWindow()), &uw, SLOT(receiveLogin()));
     QObject::connect(&ldg, SIGNAL(showAdminMainWindow()), &aw, SLOT(receiveLogin()));
+
+    QObject::connect(&aw, SIGNAL(showAddNewFilmWindow()), &anf, SLOT(receiveAddNewFilm()));
 
     //  change user skip
     QObject::connect(&uw, SIGNAL(showLoginWindow()), &ldg, SLOT(userExchange()));

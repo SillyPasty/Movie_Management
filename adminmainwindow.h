@@ -25,10 +25,13 @@ private slots:
 
     void on_pushButton_editPersonalInfo_clicked();
 
+    void on_pushButton_addNewMovie_clicked();
+
 signals:
     void showLoginWindow();
     void timeout();
     void showInfoChangeWindow();
+    void showAddNewFilmWindow();
 };
 
 #endif // ADMINMAINWINDOW_H

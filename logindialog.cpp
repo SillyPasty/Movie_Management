@@ -23,6 +23,7 @@ void LoginDialog::on_pushButton_login_clicked()
     if(psw == pswd)
     {
         int flag = sf.queryIsadmin(user);
+        global_userName = user;
         if(flag)
             emit  showAdminMainWindow();
         else

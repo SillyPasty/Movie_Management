@@ -63,10 +63,10 @@ public:
     {
         if (RegisterWindow->objectName().isEmpty())
             RegisterWindow->setObjectName(QStringLiteral("RegisterWindow"));
-        RegisterWindow->resize(329, 313);
+        RegisterWindow->resize(384, 370);
         layoutWidget = new QWidget(RegisterWindow);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(60, 40, 201, 262));
+        layoutWidget->setGeometry(QRect(90, 50, 201, 292));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);

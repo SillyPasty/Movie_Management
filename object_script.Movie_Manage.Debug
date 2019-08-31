@@ -6,9 +6,11 @@ INPUT(
 ./debug\infochange.o
 ./debug\registerwindow.o
 ./debug\sqlfuns.o
+./debug\addnewfilm.o
 ./debug\moc_usermainwindow.o
 ./debug\moc_adminmainwindow.o
 ./debug\moc_logindialog.o
 ./debug\moc_infochange.o
 ./debug\moc_registerwindow.o
+./debug\moc_addnewfilm.o
 );

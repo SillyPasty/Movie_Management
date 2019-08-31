@@ -31,7 +31,8 @@ SOURCES += \
     logindialog.cpp \
     infochange.cpp \
     registerwindow.cpp \
-    sqlfuns.cpp
+    sqlfuns.cpp \
+    addnewfilm.cpp
 
 HEADERS += \
         usermainwindow.h \
@@ -39,14 +40,16 @@ HEADERS += \
     logindialog.h \
     infochange.h \
     registerwindow.h \
-    sqlfuns.h
+    sqlfuns.h \
+    addnewfilm.h
 
 FORMS += \
         usermainwindow.ui \
     adminmainwindow.ui \
     logindialog.ui \
     infochange.ui \
-    registerwindow.ui
+    registerwindow.ui \
+    addnewfilm.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

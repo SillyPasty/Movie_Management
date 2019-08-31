@@ -40,3 +40,8 @@ void AdminMainWindow::on_pushButton_editPersonalInfo_clicked()
 {
     emit showInfoChangeWindow();
 }
+
+void AdminMainWindow::on_pushButton_addNewMovie_clicked()
+{
+    emit showAddNewFilmWindow();
+}

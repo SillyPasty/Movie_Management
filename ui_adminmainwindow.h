@@ -410,7 +410,7 @@ public:
         retranslateUi(AdminMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), AdminMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(AdminMainWindow);
