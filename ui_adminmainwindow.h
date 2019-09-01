@@ -87,8 +87,8 @@ public:
     QLineEdit *lineEdit_cinemaName_2;
     QPushButton *pushButton_search_2;
     QPushButton *pushButton_addNewMovie;
+    QTableView *tableView_movie;
     QFrame *line_4;
-    QTableWidget *tableWidget_order;
     QWidget *tab_personalInfo;
     QWidget *layoutWidget_3;
     QGridLayout *gridLayout_3;
@@ -109,15 +109,15 @@ public:
     {
         if (AdminMainWindow->objectName().isEmpty())
             AdminMainWindow->setObjectName(QStringLiteral("AdminMainWindow"));
-        AdminMainWindow->resize(463, 449);
+        AdminMainWindow->resize(1141, 784);
         centralwidget = new QWidget(AdminMainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         pushButton_exit = new QPushButton(centralwidget);
         pushButton_exit->setObjectName(QStringLiteral("pushButton_exit"));
-        pushButton_exit->setGeometry(QRect(360, 380, 80, 20));
+        pushButton_exit->setGeometry(QRect(960, 660, 80, 20));
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 20, 431, 351));
+        gridLayoutWidget->setGeometry(QRect(10, 20, 1031, 621));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -144,7 +144,7 @@ public:
         tab_search->setObjectName(QStringLiteral("tab_search"));
         layoutWidget = new QWidget(tab_search);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(0, 10, 421, 261));
+        layoutWidget->setGeometry(QRect(10, 10, 401, 261));
         verticalLayout_5 = new QVBoxLayout(layoutWidget);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
@@ -288,7 +288,7 @@ public:
         tab_order->setObjectName(QStringLiteral("tab_order"));
         layoutWidget2 = new QWidget(tab_order);
         layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 10, 401, 271));
+        layoutWidget2->setGeometry(QRect(10, 10, 1001, 541));
         verticalLayout_6 = new QVBoxLayout(layoutWidget2);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         verticalLayout_6->setContentsMargins(0, 0, 0, 0);
@@ -327,17 +327,17 @@ public:
 
         verticalLayout_6->addLayout(horizontalLayout_4);
 
+        tableView_movie = new QTableView(layoutWidget2);
+        tableView_movie->setObjectName(QStringLiteral("tableView_movie"));
+
+        verticalLayout_6->addWidget(tableView_movie);
+
         line_4 = new QFrame(layoutWidget2);
         line_4->setObjectName(QStringLiteral("line_4"));
         line_4->setFrameShape(QFrame::HLine);
         line_4->setFrameShadow(QFrame::Sunken);
 
         verticalLayout_6->addWidget(line_4);
-
-        tableWidget_order = new QTableWidget(layoutWidget2);
-        tableWidget_order->setObjectName(QStringLiteral("tableWidget_order"));
-
-        verticalLayout_6->addWidget(tableWidget_order);
 
         tabWidget->addTab(tab_order, QString());
         tab_personalInfo = new QWidget();
@@ -401,7 +401,7 @@ public:
         AdminMainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(AdminMainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 463, 21));
+        menubar->setGeometry(QRect(0, 0, 1141, 21));
         AdminMainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(AdminMainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -410,7 +410,7 @@ public:
         retranslateUi(AdminMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), AdminMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(AdminMainWindow);

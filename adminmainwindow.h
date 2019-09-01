@@ -5,6 +5,7 @@
 #include <sqlfuns.h>
 #include <QTimer>
 #include <QDateTime>
+#include <QAbstractItemView>
 
 namespace Ui {
 class AdminMainWindow;
@@ -16,6 +17,7 @@ class AdminMainWindow : public QMainWindow
 
 public:
     explicit AdminMainWindow(QWidget *parent = nullptr);
+    void updateMovieTable();
     ~AdminMainWindow();
 
 private:

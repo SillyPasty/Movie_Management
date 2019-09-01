@@ -43,6 +43,7 @@ void AddNewFilm::on_pushButton_confirm_clicked()
         int ticketRemain = sf.queryHallSeates(hall); //  通过数据库查询
         QString seatMaps = sf.queryHallSeatMap(hall); //  数据库
         sf.addNewFilm(movieId, name, cinema, hall, startTime, endTime, length, price, ticketRemain, type, isRecommened, date, seatMaps);
+        emit movieInfoChange();
         this->close();
     }
     else

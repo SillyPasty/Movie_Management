@@ -23,6 +23,9 @@ private slots:
 
 private:
     Ui::AddNewFilm *ui;
+
+signals:
+    void movieInfoChange();
 };
 
 #endif // ADDNEWFILM_H
