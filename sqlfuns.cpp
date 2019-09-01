@@ -292,3 +292,45 @@ void SqlFuns::changeUserInfo(QString email, QString passwd, QString phoneNum)
     model.setData(model.index(0, 5), phoneNum);
     model.submitAll();
 }
+
+QSqlTableModel* SqlFuns::queryAdminMovie(QString movieName, QString hallId)
+{
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable("movie");
+    model->setSort(12, Qt::DescendingOrder);
+    QString ord;
+    QString cinema = queryCinema(global_userName);
+    cinema = formal(cinema);
+    ord = "cinema = " + cinema;
+    if(movieName != "")
+    {
+        movieName = formal(movieName);
+        ord = ord + "and movieName = " + movieName;
+    }
+    if(hallId != "")
+    {
+        hallId = formal(hallId);
+        ord = ord + "and hall = " + hallId;
+    }
+    model->setFilter(ord);
+    model->select();
+    return model;
+}
+
+QSqlTableModel* SqlFuns::queryAdminHall(QString hallId)
+{
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable("hall");
+    QString ord;
+    QString cinema = queryCinema(global_userName);
+    cinema = formal(cinema);
+    ord = "cinema = " + cinema;
+    if(hallId != "")
+    {
+        hallId = formal(hallId);
+        ord = ord + "and hallId = " + hallId;
+    }
+    model->setFilter(ord);
+    model->select();
+    return model;
+}

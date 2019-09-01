@@ -84,7 +84,10 @@ public:
     QLabel *label_11;
     QLineEdit *lineEdit_movieName_2;
     QLabel *label_9;
-    QLineEdit *lineEdit_cinemaName_2;
+    QComboBox *comboBox_hall_2;
+    QSpacerItem *horizontalSpacer_4;
+    QSpacerItem *horizontalSpacer_3;
+    QSpacerItem *horizontalSpacer_2;
     QPushButton *pushButton_search_2;
     QPushButton *pushButton_addNewMovie;
     QTableView *tableView_movie;
@@ -102,6 +105,7 @@ public:
     QVBoxLayout *verticalLayout_4;
     QPushButton *pushButton_editPersonalInfo;
     QPushButton *pushButton_changeUser;
+    QLabel *label_test;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -309,10 +313,22 @@ public:
 
         horizontalLayout_4->addWidget(label_9);
 
-        lineEdit_cinemaName_2 = new QLineEdit(layoutWidget2);
-        lineEdit_cinemaName_2->setObjectName(QStringLiteral("lineEdit_cinemaName_2"));
+        comboBox_hall_2 = new QComboBox(layoutWidget2);
+        comboBox_hall_2->setObjectName(QStringLiteral("comboBox_hall_2"));
 
-        horizontalLayout_4->addWidget(lineEdit_cinemaName_2);
+        horizontalLayout_4->addWidget(comboBox_hall_2);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_4);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_3);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_2);
 
         pushButton_search_2 = new QPushButton(layoutWidget2);
         pushButton_search_2->setObjectName(QStringLiteral("pushButton_search_2"));
@@ -398,6 +414,9 @@ public:
 
         gridLayout->addWidget(tabWidget, 3, 0, 1, 2);
 
+        label_test = new QLabel(centralwidget);
+        label_test->setObjectName(QStringLiteral("label_test"));
+        label_test->setGeometry(QRect(290, 670, 54, 12));
         AdminMainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(AdminMainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -410,7 +429,7 @@ public:
         retranslateUi(AdminMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), AdminMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(AdminMainWindow);
@@ -434,7 +453,7 @@ public:
         pushButton_addNewHall->setText(QApplication::translate("AdminMainWindow", "+", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_towUp), QApplication::translate("AdminMainWindow", "\345\275\261\345\216\205\347\256\241\347\220\206", Q_NULLPTR));
         label_11->setText(QApplication::translate("AdminMainWindow", "\347\224\265\345\275\261\345\220\215", Q_NULLPTR));
-        label_9->setText(QApplication::translate("AdminMainWindow", "\345\275\261\351\231\242\345\220\215", Q_NULLPTR));
+        label_9->setText(QApplication::translate("AdminMainWindow", "\345\275\261\345\216\205", Q_NULLPTR));
         pushButton_search_2->setText(QApplication::translate("AdminMainWindow", "\346\237\245\350\257\242", Q_NULLPTR));
         pushButton_addNewMovie->setText(QApplication::translate("AdminMainWindow", "\346\267\273\345\212\240\345\234\272\346\254\241", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_order), QApplication::translate("AdminMainWindow", "\345\234\272\346\254\241\347\256\241\347\220\206", Q_NULLPTR));
@@ -447,6 +466,7 @@ public:
         pushButton_editPersonalInfo->setText(QApplication::translate("AdminMainWindow", "\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_changeUser->setText(QApplication::translate("AdminMainWindow", "\345\210\207\346\215\242\347\224\250\346\210\267", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_personalInfo), QApplication::translate("AdminMainWindow", "\344\270\252\344\272\272\344\277\241\346\201\257", Q_NULLPTR));
+        label_test->setText(QApplication::translate("AdminMainWindow", "TextLabel", Q_NULLPTR));
     } // retranslateUi
 
 };

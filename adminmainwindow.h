@@ -17,7 +17,8 @@ class AdminMainWindow : public QMainWindow
 
 public:
     explicit AdminMainWindow(QWidget *parent = nullptr);
-    void updateMovieTable();
+    void updateMovieTable(QSqlTableModel *model);
+    void updateHallTable(QSqlTableModel *model);
     ~AdminMainWindow();
 
 private:
@@ -34,7 +35,12 @@ private slots:
     void on_pushButton_addNewMovie_clicked();
 
     void on_pushButton_addNewHall_clicked();
-    void movieInfoChange();
+
+    void receiveMovieInfoChange();
+
+    void on_pushButton_search_2_clicked();
+
+    void on_comboBox_hall_currentTextChanged(const QString &arg1);
 
 signals:
     void showLoginWindow();

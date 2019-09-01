@@ -33,6 +33,8 @@ public:
     int queryIsadmin(QString userName);      //  查询用户是否为管理院
     int queryHallSeates(QString hallId);
     QString queryCinema(QString userId);
+    QSqlTableModel *queryAdminMovie(QString movieName, QString hallId);
+    QSqlTableModel *queryAdminHall(QString hallId);
     //  查询行列
     int queryRow(QString hallId, QString cinema);
     int queryColumn(QString hallId, QString cinema);

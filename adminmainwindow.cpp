@@ -15,16 +15,13 @@ AdminMainWindow::~AdminMainWindow()
 {
     delete ui;
 }
-void AdminMainWindow::updateMovieTable()
+void AdminMainWindow::updateMovieTable(QSqlTableModel *model)
 {
-    QSqlTableModel *model = new QSqlTableModel;
-    model->setTable("movie");
-    model->setSort(1, Qt::AscendingOrder);
-    model->select();
 
     ui->tableView_movie->setModel(model);
     ui->tableView_movie->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_movie->setSelectionBehavior(QAbstractItemView::SelectRows);
+    //  设置部分显示
     ui->tableView_movie->setColumnHidden(0, true);
     ui->tableView_movie->setColumnHidden(1, true);
     ui->tableView_movie->setColumnHidden(17, true);
@@ -34,6 +31,21 @@ void AdminMainWindow::updateMovieTable()
     ui->tableView_movie->resizeColumnsToContents();
     ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
+
+void AdminMainWindow::updateHallTable(QSqlTableModel *model)
+{
+    ui->tableView_currentHall->setModel(model);
+    ui->tableView_currentHall->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_currentHall->setSelectionBehavior(QAbstractItemView::SelectRows);
+    // 设置部分显示
+    ui->tableView_currentHall->setColumnHidden(0, true);
+    ui->tableView_currentHall->setColumnHidden(2, true);
+    ui->tableView_currentHall->setColumnHidden(4, true);
+    //  设置大小宽度
+    ui->tableView_movie->resizeColumnsToContents();
+    ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}
+
 void AdminMainWindow::receiveLogin()
 {
     SqlFuns sf;
@@ -44,8 +56,14 @@ void AdminMainWindow::receiveLogin()
     ui->label_phone->setText(infoList[1]);
     ui->label_password->setText(infoList[2]);
 
-    updateMovieTable();
-
+    updateMovieTable(sf.queryAdminMovie("",""));
+    updateHallTable(sf.queryAdminHall(""));
+    ui->comboBox_hall_2->clear();
+    ui->comboBox_hall_2->addItem("");
+    ui->comboBox_hall_2->addItems(sf.queryHallId(sf.queryCinema(global_userName)));
+    ui->comboBox_hall->clear();
+    ui->comboBox_hall->addItem("");
+    ui->comboBox_hall->addItems(sf.queryHallId(sf.queryCinema(global_userName)));
 
     this->show();
 }
@@ -82,9 +100,10 @@ void AdminMainWindow::on_pushButton_addNewHall_clicked()
     sf.addNewHall("LD3LaserDolByHall", "LUMIERE", 116, 9, 16, "200000000000000020000000000000002000000000000000200000000000222220000000000022222000000000002222200000000000222220000000000022000000000000000022", "Dolby Atmos/X-DMAX");
 }
 
-void AdminMainWindow::movieInfoChange()
+void AdminMainWindow::receiveMovieInfoChange()
 {
-    updateMovieTable();
+    SqlFuns sf;
+    updateMovieTable(sf.queryAdminMovie("",""));
 }
 
 
@@ -96,4 +115,20 @@ void AdminMainWindow::infoChangeDone()
     ui->label_email->setText(infoList[0]);
     ui->label_phone->setText(infoList[1]);
     ui->label_password->setText(infoList[2]); 
+}
+
+void AdminMainWindow::on_pushButton_search_2_clicked()
+{
+    SqlFuns sf;
+    QString movieName = ui->lineEdit_movieName_2->text().trimmed();
+    QString hallId = ui->comboBox_hall_2->currentText();
+    updateMovieTable(sf.queryAdminMovie(movieName, hallId));
+}
+
+
+void AdminMainWindow::on_comboBox_hall_currentTextChanged(const QString &arg1)
+{
+    SqlFuns sf;
+    QString hallId = ui->comboBox_hall->currentText();
+    updateHallTable(sf.queryAdminHall(hallId));
 }
