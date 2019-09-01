@@ -34,6 +34,7 @@ private slots:
     void on_pushButton_addNewMovie_clicked();
 
     void on_pushButton_addNewHall_clicked();
+    void movieInfoChange();
 
 signals:
     void showLoginWindow();

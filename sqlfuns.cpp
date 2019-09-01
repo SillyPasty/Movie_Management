@@ -54,7 +54,7 @@ void SqlFuns::createTables()
                "column INTEGER,"
                "type TEXT)");
 
-    query.exec("CREATE TABLE order ("
+    query.exec("CREATE TABLE orders ("
                "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                "userId TEXT,"
                "movieId TEXT,"

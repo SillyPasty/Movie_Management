@@ -144,7 +144,7 @@ public:
         tab_search->setObjectName(QStringLiteral("tab_search"));
         layoutWidget = new QWidget(tab_search);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 10, 401, 261));
+        layoutWidget->setGeometry(QRect(10, 10, 1001, 531));
         verticalLayout_5 = new QVBoxLayout(layoutWidget);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
@@ -237,13 +237,13 @@ public:
 
         label_totalIncome = new QLabel(tab_search);
         label_totalIncome->setObjectName(QStringLiteral("label_totalIncome"));
-        label_totalIncome->setGeometry(QRect(360, 280, 54, 12));
+        label_totalIncome->setGeometry(QRect(960, 550, 54, 12));
         tabWidget->addTab(tab_search, QString());
         tab_towUp = new QWidget();
         tab_towUp->setObjectName(QStringLiteral("tab_towUp"));
         layoutWidget1 = new QWidget(tab_towUp);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 10, 401, 271));
+        layoutWidget1->setGeometry(QRect(10, 10, 1001, 541));
         verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);

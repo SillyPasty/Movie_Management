@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     QObject::connect(&ifc, SIGNAL(infoChanged()), &aw, SLOT(infoChangeDone()));
     QObject::connect(&ifc, SIGNAL(infoChanged()), &uw, SLOT(infoChangeDone()));
 
-    QObject::connect(&anf, SIGNAL(infoChanged()), &aw, SLOT(infoChangeDone()));
+    QObject::connect(&anf, SIGNAL(moveInfoChange()), &aw, SLOT(movieInfoChange()));
 
 
 
