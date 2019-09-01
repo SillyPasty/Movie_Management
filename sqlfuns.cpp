@@ -50,6 +50,8 @@ void SqlFuns::createTables()
                "cinema TEXT,"
                "totalSeats INTEGER,"
                "seatMap TEXT,"
+               "row INTEGER,"
+               "column INTEGER,"
                "type TEXT)");
 
     query.exec("CREATE TABLE order ("
@@ -57,7 +59,9 @@ void SqlFuns::createTables()
                "userId TEXT,"
                "movieId TEXT,"
                "hallId TEXT,"
-               "seats TEXT,"
+               "seat1pos INTEGER,"
+               "seat2pos INTEGER,"
+               "seat3pos INTEGER,"
                "isPaid INTEGER)");
 }
 
@@ -137,26 +141,26 @@ void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString 
 
     int row = model.rowCount();
     model.insertRows(row, 1);
-    model.setData(model.index(row, 2), movieId);
-    model.setData(model.index(row, 3), name);
-    model.setData(model.index(row, 4), cinema);
-    model.setData(model.index(row, 5), hall);
-    model.setData(model.index(row, 6), startTime);
-    model.setData(model.index(row, 7), endTime);
-    model.setData(model.index(row, 8), length);
-    model.setData(model.index(row, 9), 0);
-    model.setData(model.index(row, 10), price);
-    model.setData(model.index(row, 11), ticketRemain);
-    model.setData(model.index(row, 12), type);
-    model.setData(model.index(row, 13), isRecommened);
-    model.setData(model.index(row, 14), ticketRemain);
+    model.setData(model.index(row, 1), movieId);
+    model.setData(model.index(row, 2), name);
+    model.setData(model.index(row, 3), cinema);
+    model.setData(model.index(row, 4), hall);
+    model.setData(model.index(row, 5), startTime);
+    model.setData(model.index(row, 6), endTime);
+    model.setData(model.index(row, 7), length);
+    model.setData(model.index(row, 8), 0);
+    model.setData(model.index(row, 9), price);
+    model.setData(model.index(row, 10), ticketRemain);
+    model.setData(model.index(row, 11), type);
+    model.setData(model.index(row, 12), isRecommened);
+    model.setData(model.index(row, 13), ticketRemain);
+    model.setData(model.index(row, 14), 0);
     model.setData(model.index(row, 15), 0);
-    model.setData(model.index(row, 16), 0);
-    model.setData(model.index(row, 17), date);
+    model.setData(model.index(row, 16), date);
     // 行数和列数
-    model.setData(model.index(row, 18), 0);
-    model.setData(model.index(row, 19), 0);
-    model.setData(model.index(row, 20), seatMaps);
+    model.setData(model.index(row, 17), queryRow(hall, cinema));
+    model.setData(model.index(row, 18), queryColumn(hall, cinema));
+    model.setData(model.index(row, 19), seatMaps);
 
     model.submitAll();
 }
@@ -170,6 +174,24 @@ int SqlFuns::queryHallSeates(QString hallId)
     model.select();
     QSqlRecord record = model.record(0);
     return record.value("totalSeats").toInt();
+}
+
+void SqlFuns::addNewHall(QString hallId, QString cinema, int totalseats, int row, int column, QString seatMap, QString type)
+{
+    QSqlTableModel model;
+    model.setTable("hall");
+    model.select();
+    //  查询row 和 col
+    int rows = model.rowCount();
+    model.insertRows(rows, 1);
+    model.setData(model.index(rows, 1), hallId);
+    model.setData(model.index(rows, 2), cinema);
+    model.setData(model.index(rows, 3), totalseats);
+    model.setData(model.index(rows, 4), seatMap);
+    model.setData(model.index(rows, 5), row);
+    model.setData(model.index(rows, 6), column);
+    model.setData(model.index(rows, 7), type);
+    model.submitAll();
 }
 
 QString SqlFuns::queryCinema(QString userId)
@@ -205,4 +227,68 @@ QString SqlFuns::queryHallSeatMap(QString hallId)
     model.select();
     QSqlRecord record = model.record(0);
     return record.value("seatMap").toString();
+}
+
+int SqlFuns::queryRow(QString hallId, QString cinema)
+{
+    QSqlTableModel model;
+    model.setTable("hall");
+    hallId = formal(hallId);
+    cinema = formal(cinema);
+    model.setFilter("hallId = " + hallId + " and cinema = " + cinema);
+    model.select();
+    QSqlRecord record = model.record(0);
+    return record.value("row").toInt();
+}
+
+int SqlFuns::queryColumn(QString hallId, QString cinema)
+{
+    QSqlTableModel model;
+    model.setTable("hall");
+    hallId = formal(hallId);
+    cinema = formal(cinema);
+    model.setFilter("hallId = " + hallId + " and cinema = " + cinema);
+    model.select();
+    QSqlRecord record = model.record(0);
+    return record.value("column").toInt();
+}
+
+QString SqlFuns::queryType(QString hallId, QString cinema)
+{
+    QSqlTableModel model;
+    model.setTable("hall");
+    hallId = formal(hallId);
+    cinema = formal(cinema);
+    model.setFilter("hallId = " + hallId + " and cinema = " + cinema);
+    model.select();
+    QSqlRecord record = model.record(0);
+    return record.value("type").toString();
+}
+
+QStringList SqlFuns::queryEmailPhonePsd(QString userId)
+{
+    QSqlTableModel model;
+    QStringList qsl;
+    model.setTable("user");
+    userId = formal(userId);
+    model.setFilter("userId = " + userId);
+    model.select();
+    QSqlRecord record = model.record(0);
+    qsl.append(record.value("email").toString());
+    qsl.append(record.value("phoneNumber").toString());
+    qsl.append(record.value("password").toString());
+    return qsl;
+}
+
+void SqlFuns::changeUserInfo(QString email, QString passwd, QString phoneNum)
+{
+    QSqlTableModel model;
+    model.setTable("user");
+    QString userId = formal(global_userName);
+    model.setFilter("userId = " + userId);
+    model.select();
+    model.setData(model.index(0, 2), passwd);
+    model.setData(model.index(0, 6), email);
+    model.setData(model.index(0, 5), phoneNum);
+    model.submitAll();
 }

@@ -19,6 +19,13 @@ RegisterWindow::~RegisterWindow()
 
 void RegisterWindow::receiveRegister()
 {
+    ui->lineEdit_userName->clear();
+    ui->lineEdit_realName->clear();
+    ui->lineEdit_psd->clear();
+    ui->lineEdit_email->clear();
+    ui->lineEdit_number->clear();
+    ui->lineEdit_cinemaId->clear();
+    ui->lineEdit_adminKey->clear();
     this->show();
 }
 
@@ -39,7 +46,7 @@ void RegisterWindow::on_checkBox_isAdmin_clicked(bool checked)
 }
 
 void RegisterWindow::on_pushButton_confirm_clicked()
-{
+{    
     //  向数据库中写入新信息
     SqlFuns sf;
     QString userName = ui->lineEdit_userName->text().trimmed();

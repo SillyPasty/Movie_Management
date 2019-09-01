@@ -2,6 +2,7 @@
 #define USERMAINWINDOW_H
 
 #include <QMainWindow>
+#include "sqlfuns.h"
 
 namespace Ui {
 class UserMainWindow;
@@ -22,6 +23,7 @@ private slots:
     void on_pushButton_changeUser_clicked();
     void receiveLogin();
     void timerUpdate();
+    void infoChangeDone();
 
     void on_pushButton_editPersonalInfo_clicked();
 

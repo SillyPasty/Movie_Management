@@ -2,6 +2,7 @@
 #define INFOCHANGE_H
 
 #include <QDialog>
+#include "sqlfuns.h"
 
 namespace Ui {
 class InfoChange;
@@ -21,6 +22,9 @@ private:
 private slots:
     void receiveInfoChange();
     void on_pushButton_confirm_clicked();
+
+signals:
+    void infoChanged();
 };
 
 #endif // INFOCHANGE_H

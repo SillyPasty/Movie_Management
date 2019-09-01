@@ -26,6 +26,12 @@ void UserMainWindow::on_pushButton_changeUser_clicked()
 
 void UserMainWindow::receiveLogin()
 {
+    SqlFuns sf;
+    ui->label_userInfo->setText(global_userName);
+    QStringList infoList = sf.queryEmailPhonePsd(global_userName);
+    ui->label_email->setText(infoList[0]);
+    ui->label_phone->setText(infoList[1]);
+    ui->label_password->setText(infoList[2]);
     this->show();
 }
 
@@ -39,4 +45,14 @@ void UserMainWindow::timerUpdate()  //显示当前时间
 void UserMainWindow::on_pushButton_editPersonalInfo_clicked()
 {
     emit showInfoChangeWindow();
+}
+
+void UserMainWindow::infoChangeDone()
+{
+    SqlFuns sf;
+    ui->label_userInfo->setText(global_userName);
+    QStringList infoList = sf.queryEmailPhonePsd(global_userName);
+    ui->label_email->setText(infoList[0]);
+    ui->label_phone->setText(infoList[1]);
+    ui->label_password->setText(infoList[2]);
 }

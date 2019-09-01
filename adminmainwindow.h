@@ -2,6 +2,9 @@
 #define ADMINMAINWINDOW_H
 
 #include <QMainWindow>
+#include <sqlfuns.h>
+#include <QTimer>
+#include <QDateTime>
 
 namespace Ui {
 class AdminMainWindow;
@@ -22,10 +25,13 @@ private slots:
     void on_pushButton_changeUser_clicked();
     void receiveLogin();
     void timerUpdate();
+    void infoChangeDone();
 
     void on_pushButton_editPersonalInfo_clicked();
 
     void on_pushButton_addNewMovie_clicked();
+
+    void on_pushButton_addNewHall_clicked();
 
 signals:
     void showLoginWindow();

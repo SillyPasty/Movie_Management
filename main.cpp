@@ -40,6 +40,9 @@ int main(int argc, char *argv[])
     //  change info skip
     QObject::connect(&aw, SIGNAL(showInfoChangeWindow()), &ifc, SLOT(receiveInfoChange()));
     QObject::connect(&uw, SIGNAL(showInfoChangeWindow()), &ifc, SLOT(receiveInfoChange()));
+    QObject::connect(&ifc, SIGNAL(infoChanged()), &aw, SLOT(infoChangeDone()));
+    QObject::connect(&ifc, SIGNAL(infoChanged()), &uw, SLOT(infoChangeDone()));
+
 
 
 

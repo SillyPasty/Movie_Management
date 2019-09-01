@@ -19,6 +19,8 @@ public:
 private slots:
     void on_pushButton_confirm_clicked();
     void receiveAddNewFilm();
+    void on_comboBox_hall_currentTextChanged(const QString &arg1);
+
 private:
     Ui::AddNewFilm *ui;
 };

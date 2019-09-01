@@ -61,7 +61,7 @@
      <item row="3" column="0" colspan="2">
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="tab_search">
         <attribute name="title">
@@ -201,7 +201,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox"/>
+             <widget class="QComboBox" name="comboBox_hall"/>
             </item>
             <item>
              <spacer name="horizontalSpacer">

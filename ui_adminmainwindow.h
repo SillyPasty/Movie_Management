@@ -72,7 +72,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label;
-    QComboBox *comboBox;
+    QComboBox *comboBox_hall;
     QSpacerItem *horizontalSpacer;
     QPushButton *pushButton_addNewHall;
     QFrame *line_3;
@@ -254,10 +254,10 @@ public:
 
         horizontalLayout_2->addWidget(label);
 
-        comboBox = new QComboBox(layoutWidget1);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox_hall = new QComboBox(layoutWidget1);
+        comboBox_hall->setObjectName(QStringLiteral("comboBox_hall"));
 
-        horizontalLayout_2->addWidget(comboBox);
+        horizontalLayout_2->addWidget(comboBox_hall);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -410,7 +410,7 @@ public:
         retranslateUi(AdminMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), AdminMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(AdminMainWindow);

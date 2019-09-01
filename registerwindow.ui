@@ -167,19 +167,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="label_test">
-   <property name="geometry">
-    <rect>
-     <x>23</x>
-     <y>10</y>
-     <width>551</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections>

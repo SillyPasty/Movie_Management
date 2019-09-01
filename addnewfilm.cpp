@@ -28,7 +28,7 @@ void AddNewFilm::on_pushButton_confirm_clicked()
     QString date = ui->dateEdit_date->date().toString("yyyy-MM-dd");
     QString startTime =  ui->timeEdit_startTime->time().toString("hh:mm:ss");
     QString endTime = ui->timeEdit_endTime->time().toString("hh:mm:ss");
-    QString type = ui->comboBox_type->currentText();
+    QString type = ui->lineEdit_type->text().trimmed();
     QString hall = ui->comboBox_hall->currentText();
     if(startTime < endTime)
     {
@@ -60,6 +60,15 @@ void AddNewFilm::receiveAddNewFilm()
     QString cinema = sf.queryCinema(global_userName);
     ui->lineEdit_cinema->setText(cinema);
     ui->lineEdit_cinema->setReadOnly(true);
+    ui->lineEdit_type->setReadOnly(true);
     // 给定hall id 在combobox 通过cinema查询
+    ui->comboBox_hall->clear();
     ui->comboBox_hall->addItems(sf.queryHallId(cinema));
+}
+
+void AddNewFilm::on_comboBox_hall_currentTextChanged(const QString &arg1)
+{
+    SqlFuns sf;
+    QString cinema = sf.queryCinema(global_userName);
+    ui->lineEdit_type->setText(sf.queryType(arg1, cinema));
 }

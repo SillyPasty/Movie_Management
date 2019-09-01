@@ -26,7 +26,7 @@
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -93,6 +93,20 @@
      </layout>
     </item>
     <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>种    类</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_type"/>
+      </item>
+     </layout>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
        <widget class="QLabel" name="label_5">
@@ -135,41 +149,6 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>种类</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="comboBox_type">
-        <item>
-         <property name="text">
-          <string>2D</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>3D</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>4D</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>iMax</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
      <widget class="QCheckBox" name="checkBox_isRecommened">
       <property name="text">
        <string>是否推荐</string>
@@ -178,7 +157,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>80</x>

@@ -57,7 +57,6 @@ public:
     QHBoxLayout *horizontalLayout_8;
     QPushButton *pushButton_confirm;
     QPushButton *pushButton_exit;
-    QLabel *label_test;
 
     void setupUi(QDialog *RegisterWindow)
     {
@@ -200,9 +199,6 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_8);
 
-        label_test = new QLabel(RegisterWindow);
-        label_test->setObjectName(QStringLiteral("label_test"));
-        label_test->setGeometry(QRect(23, 10, 551, 20));
 
         retranslateUi(RegisterWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), RegisterWindow, SLOT(close()));
@@ -229,7 +225,6 @@ public:
         checkBox_isAdmin->setText(QApplication::translate("RegisterWindow", "\347\256\241\347\220\206\345\221\230", Q_NULLPTR));
         pushButton_confirm->setText(QApplication::translate("RegisterWindow", "\346\263\250\345\206\214", Q_NULLPTR));
         pushButton_exit->setText(QApplication::translate("RegisterWindow", "\345\217\226\346\266\210", Q_NULLPTR));
-        label_test->setText(QApplication::translate("RegisterWindow", "TextLabel", Q_NULLPTR));
     } // retranslateUi
 
 };

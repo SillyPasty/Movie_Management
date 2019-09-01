@@ -16,6 +16,7 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::on_pushButton_login_clicked()
 {
+
     QString user = ui->lineEdit_userName->text().trimmed();
     QString pswd = ui->lineEdit_password->text().trimmed();
     SqlFuns sf;
@@ -38,6 +39,8 @@ void LoginDialog::on_pushButton_login_clicked()
 
 void LoginDialog::userExchange()
 {
+    ui->lineEdit_userName->clear();
+    ui->lineEdit_password->clear();
     this->show();
 }
 
