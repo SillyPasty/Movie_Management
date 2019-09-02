@@ -56,6 +56,8 @@ void AdminMainWindow::receiveLogin()
     ui->label_phone->setText(infoList[1]);
     ui->label_password->setText(infoList[2]);
 
+
+
     updateMovieTable(sf.queryAdminMovie("",""));
     updateHallTable(sf.queryAdminHall(""));
     ui->comboBox_hall_2->clear();

@@ -24,17 +24,17 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_userInfo">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0" colspan="2">
       <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_userInfo">
+       <property name="text">
+        <string>TextLabel</string>
        </property>
       </widget>
      </item>
@@ -48,7 +48,7 @@
      <item row="2" column="0" colspan="2">
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_search">
         <attribute name="title">
@@ -67,56 +67,118 @@
           <string>购买</string>
          </property>
         </widget>
-        <widget class="QWidget" name="layoutWidget">
+        <widget class="Line" name="line_2">
+         <property name="geometry">
+          <rect>
+           <x>11</x>
+           <y>230</y>
+           <width>394</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QTableView" name="tableView_movie">
+         <property name="geometry">
+          <rect>
+           <x>11</x>
+           <y>71</y>
+           <width>394</width>
+           <height>153</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QWidget" name="">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>10</y>
-           <width>396</width>
-           <height>224</height>
+           <y>11</y>
+           <width>398</width>
+           <height>58</height>
           </rect>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>电影名</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>电影名</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_movieName"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>影院名</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_cinema"/>
+              </item>
+             </layout>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_movieName"/>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>影院名</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_cinemaName"/>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_search">
-              <property name="text">
-               <string>查询</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QLabel" name="label_13">
+                <property name="text">
+                 <string>语 言</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_language">
+                <item>
+                 <property name="text">
+                  <string>全部</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>国语</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>英文</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>其他</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_12">
+                <property name="text">
+                 <string>类  型</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_type"/>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
           <item>
-           <widget class="Line" name="line_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+           <widget class="QPushButton" name="pushButton_search">
+            <property name="text">
+             <string>查询</string>
             </property>
            </widget>
-          </item>
-          <item>
-           <widget class="QTableWidget" name="tableWidget_aviMovies"/>
           </item>
          </layout>
         </widget>
@@ -197,19 +259,6 @@
         <attribute name="title">
          <string>订单信息</string>
         </attribute>
-        <widget class="QPushButton" name="pushButton_cancelOrder">
-         <property name="geometry">
-          <rect>
-           <x>330</x>
-           <y>240</y>
-           <width>80</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>取消订单</string>
-         </property>
-        </widget>
         <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
@@ -260,6 +309,32 @@
           </item>
           <item>
            <widget class="QTableWidget" name="tableWidget_order"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>240</y>
+           <width>168</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QPushButton" name="pushButton_pay">
+            <property name="text">
+             <string>付款</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_cancelOrder">
+            <property name="text">
+             <string>取消订单</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

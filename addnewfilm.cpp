@@ -30,6 +30,7 @@ void AddNewFilm::on_pushButton_confirm_clicked()
     QString endTime = ui->timeEdit_endTime->time().toString("hh:mm:ss");
     QString type = ui->lineEdit_type->text().trimmed();
     QString hall = ui->comboBox_hall->currentText();
+    QString language = ui->comboBox_language->currentText();
     if(startTime < endTime)
     {
         float price = ui->lineEdit_price->text().trimmed().toFloat();
@@ -42,7 +43,7 @@ void AddNewFilm::on_pushButton_confirm_clicked()
         QString movieId = name + cinema + ui->timeEdit_startTime->time().toString("hhmmss") + ui->dateEdit_date->date().toString("yyyyMMdd");  //  自定义
         int ticketRemain = sf.queryHallSeates(hall); //  通过数据库查询
         QString seatMaps = sf.queryHallSeatMap(hall); //  数据库
-        sf.addNewFilm(movieId, name, cinema, hall, startTime, endTime, length, price, ticketRemain, type, isRecommened, date, seatMaps);
+        sf.addNewFilm(movieId, name, cinema, hall, startTime, endTime, length, price, ticketRemain, type, isRecommened, date, seatMaps, language);
         emit movieInfoChange();
         this->close();
     }

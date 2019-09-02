@@ -14,6 +14,9 @@ class UserMainWindow : public QMainWindow
 
 public:
     explicit UserMainWindow(QWidget *parent = nullptr);
+
+    void updateMovieTable(QSqlTableModel *model);
+
     ~UserMainWindow();
 
 private:
@@ -26,6 +29,10 @@ private slots:
     void infoChangeDone();
 
     void on_pushButton_editPersonalInfo_clicked();
+
+    void on_pushButton_confirmTopUp_clicked();
+
+    void on_pushButton_search_clicked();
 
 signals:
     void showLoginWindow();

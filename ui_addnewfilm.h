@@ -58,6 +58,9 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_6;
     QTimeEdit *timeEdit_endTime;
+    QHBoxLayout *horizontalLayout_10;
+    QLabel *label_8;
+    QComboBox *comboBox_language;
     QCheckBox *checkBox_isRecommened;
     QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_9;
@@ -68,13 +71,13 @@ public:
     {
         if (AddNewFilm->objectName().isEmpty())
             AddNewFilm->setObjectName(QStringLiteral("AddNewFilm"));
-        AddNewFilm->resize(319, 346);
+        AddNewFilm->resize(313, 384);
         label_test = new QLabel(AddNewFilm);
         label_test->setObjectName(QStringLiteral("label_test"));
-        label_test->setGeometry(QRect(130, 330, 54, 12));
+        label_test->setGeometry(QRect(0, 170, 54, 12));
         layoutWidget = new QWidget(AddNewFilm);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(60, 20, 201, 263));
+        layoutWidget->setGeometry(QRect(60, 20, 201, 293));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -198,6 +201,21 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_3);
 
+        horizontalLayout_10 = new QHBoxLayout();
+        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
+        label_8 = new QLabel(layoutWidget);
+        label_8->setObjectName(QStringLiteral("label_8"));
+
+        horizontalLayout_10->addWidget(label_8);
+
+        comboBox_language = new QComboBox(layoutWidget);
+        comboBox_language->setObjectName(QStringLiteral("comboBox_language"));
+
+        horizontalLayout_10->addWidget(comboBox_language);
+
+
+        verticalLayout->addLayout(horizontalLayout_10);
+
         checkBox_isRecommened = new QCheckBox(layoutWidget);
         checkBox_isRecommened->setObjectName(QStringLiteral("checkBox_isRecommened"));
 
@@ -205,7 +223,7 @@ public:
 
         layoutWidget1 = new QWidget(AddNewFilm);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(80, 290, 168, 22));
+        layoutWidget1->setGeometry(QRect(80, 320, 168, 22));
         horizontalLayout_9 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
         horizontalLayout_9->setContentsMargins(0, 0, 0, 0);
@@ -238,6 +256,13 @@ public:
         label_5->setText(QApplication::translate("AddNewFilm", "\346\227\245    \346\234\237", Q_NULLPTR));
         label_4->setText(QApplication::translate("AddNewFilm", "\345\274\200\345\247\213\346\227\266\351\227\264", Q_NULLPTR));
         label_6->setText(QApplication::translate("AddNewFilm", "\347\273\223\346\235\237\346\227\266\351\227\264", Q_NULLPTR));
+        label_8->setText(QApplication::translate("AddNewFilm", "\350\257\255    \350\250\200", Q_NULLPTR));
+        comboBox_language->clear();
+        comboBox_language->insertItems(0, QStringList()
+         << QApplication::translate("AddNewFilm", "\345\233\275\350\257\255", Q_NULLPTR)
+         << QApplication::translate("AddNewFilm", "\350\213\261\346\226\207", Q_NULLPTR)
+         << QApplication::translate("AddNewFilm", "\345\205\266\344\273\226", Q_NULLPTR)
+        );
         checkBox_isRecommened->setText(QApplication::translate("AddNewFilm", "\346\230\257\345\220\246\346\216\250\350\215\220", Q_NULLPTR));
         pushButton_confirm->setText(QApplication::translate("AddNewFilm", "\347\241\256\345\256\232", Q_NULLPTR));
         pushButton_cancel->setText(QApplication::translate("AddNewFilm", "\345\217\226\346\266\210", Q_NULLPTR));

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>346</height>
+    <width>313</width>
+    <height>384</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLabel" name="label_test">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>330</y>
+     <x>0</x>
+     <y>170</y>
      <width>54</width>
      <height>12</height>
     </rect>
@@ -32,7 +32,7 @@
      <x>60</x>
      <y>20</y>
      <width>201</width>
-     <height>263</height>
+     <height>293</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -149,6 +149,36 @@
      </layout>
     </item>
     <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_10">
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>语    言</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBox_language">
+        <item>
+         <property name="text">
+          <string>国语</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>英文</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>其他</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
      <widget class="QCheckBox" name="checkBox_isRecommened">
       <property name="text">
        <string>是否推荐</string>
@@ -161,7 +191,7 @@
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>290</y>
+     <y>320</y>
      <width>168</width>
      <height>22</height>
     </rect>

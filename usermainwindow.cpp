@@ -11,6 +11,8 @@ UserMainWindow::UserMainWindow(QWidget *parent) :
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
     timer->start(1000);
+
+    ui->lineEdit_currentBalance->setReadOnly(true);
 }
 
 UserMainWindow::~UserMainWindow()
@@ -27,11 +29,19 @@ void UserMainWindow::on_pushButton_changeUser_clicked()
 void UserMainWindow::receiveLogin()
 {
     SqlFuns sf;
+    QString tem;
     ui->label_userInfo->setText(global_userName);
     QStringList infoList = sf.queryEmailPhonePsd(global_userName);
+
     ui->label_email->setText(infoList[0]);
     ui->label_phone->setText(infoList[1]);
     ui->label_password->setText(infoList[2]);
+
+    ui->comboBox_type->addItems(sf.queryType());
+    ui->comboBox_cinema->addItems(sf.queryCinema());
+
+    ui->lineEdit_currentBalance->setText(tem.sprintf("%.2f", sf.queryBalance()));
+    updateMovieTable(sf.queryUserMovie("", "", "", ""));
     this->show();
 }
 
@@ -55,4 +65,51 @@ void UserMainWindow::infoChangeDone()
     ui->label_email->setText(infoList[0]);
     ui->label_phone->setText(infoList[1]);
     ui->label_password->setText(infoList[2]);
+}
+
+void UserMainWindow::on_pushButton_confirmTopUp_clicked()
+{
+    SqlFuns sf;
+    QString tmp, addB = ui->lineEdit_topUp->text().trimmed();
+    float amount = addB.toFloat();
+    ui->lineEdit_currentBalance->setText(tmp.sprintf("%.2f",sf.changeUserBalance(amount)));
+}
+
+void UserMainWindow::updateMovieTable(QSqlTableModel *model)
+{
+
+    ui->tableView_movie->setModel(model);
+    ui->tableView_movie->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_movie->setSelectionBehavior(QAbstractItemView::SelectRows);
+    //  设置部分显示
+    ui->tableView_movie->setColumnHidden(0, true);
+    ui->tableView_movie->setColumnHidden(1, true);
+    ui->tableView_movie->setColumnHidden(7, true);
+    ui->tableView_movie->setColumnHidden(8, true);
+    ui->tableView_movie->setColumnHidden(12, true);
+    ui->tableView_movie->setColumnHidden(13, true);
+    ui->tableView_movie->setColumnHidden(14, true);
+    ui->tableView_movie->setColumnHidden(15, true);
+    ui->tableView_movie->setColumnHidden(17, true);
+    ui->tableView_movie->setColumnHidden(18, true);
+    ui->tableView_movie->setColumnHidden(19, true);
+
+    ui->tableView_movie->resizeColumnsToContents();
+    ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}
+
+void UserMainWindow::on_pushButton_search_clicked()
+{
+    SqlFuns sf;
+    QString movieName = ui->lineEdit_movieName->text().trimmed();
+    QString cinemaName = ui->comboBox_cinema->currentText();
+    QString language = ui->comboBox_language->currentText();
+    QString type = ui->comboBox_type->currentText();
+    if(cinemaName == "全部")
+        cinemaName = "";
+    if(language == "全部")
+        language = "";
+    if(type == "全部")
+        type = "";
+    updateMovieTable(sf.queryUserMovie(movieName, cinemaName, type, language));
 }

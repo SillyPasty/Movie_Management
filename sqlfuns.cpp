@@ -42,7 +42,8 @@ void SqlFuns::createTables()
                "date TEXT,"
                "rowNum INT,"
                "coloumNum INT,"
-               "seatMaps TEXT)");
+               "seatMaps TEXT,"
+               "language TEXT)");
 
     query.exec("CREATE TABLE hall ("
                "id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -132,7 +133,7 @@ int SqlFuns::queryIsadmin(QString userName)
     return flag;
 }
 
-void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString hall, QString startTime, QString endTime, int length, float price, int ticketRemain, QString type, int isRecommened, QString date, QString seatMaps)
+void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString hall, QString startTime, QString endTime, int length, float price, int ticketRemain, QString type, int isRecommened, QString date, QString seatMaps, QString language)
 {
     QSqlTableModel model;
     model.setTable("movie");
@@ -161,7 +162,7 @@ void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString 
     model.setData(model.index(row, 17), queryRow(hall, cinema));
     model.setData(model.index(row, 18), queryColumn(hall, cinema));
     model.setData(model.index(row, 19), seatMaps);
-
+    model.setData(model.index(row, 20), language);
     model.submitAll();
 }
 
@@ -317,6 +318,41 @@ QSqlTableModel* SqlFuns::queryAdminMovie(QString movieName, QString hallId)
     return model;
 }
 
+QSqlTableModel* SqlFuns::queryUserMovie(QString movieName, QString cinema, QString type, QString language)
+{
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable("movie");
+    model->setSort(12, Qt::DescendingOrder);
+    QString ord = "isPlayed = 0";
+
+    if(cinema != "")
+    {
+        cinema = formal(cinema);
+        ord = ord + " and cinema = " + cinema;
+    }
+
+    if(type != "")
+    {
+        type = formal(type);
+        ord = ord + " and type = " + type;
+    }
+
+    if(language != "")
+    {
+        language = formal(language);
+        ord = ord + " and language = " + language;
+    }
+
+    if(movieName != "")
+    {
+        movieName = formal(movieName);
+        ord = ord + " and movieName = " + movieName;
+    }
+    model->setFilter(ord);
+    model->select();
+    return model;
+}
+
 QSqlTableModel* SqlFuns::queryAdminHall(QString hallId)
 {
     QSqlTableModel *model = new QSqlTableModel;
@@ -333,4 +369,54 @@ QSqlTableModel* SqlFuns::queryAdminHall(QString hallId)
     model->setFilter(ord);
     model->select();
     return model;
+}
+
+float SqlFuns::queryBalance()
+{
+    QSqlTableModel model;
+    model.setTable("user");
+    QString userId = formal(global_userName);
+    model.setFilter("userId = " + userId);
+    model.select();
+    return model.record(0).value("balance").toFloat();
+}
+
+float SqlFuns::changeUserBalance(float amount)
+{
+    QSqlTableModel model;
+    model.setTable("user");
+    QString userId = formal(global_userName);
+    model.setFilter("userId = " + userId);
+    model.select();
+    float cur = model.record(0).value("balance").toFloat();
+    cur += amount;
+    model.setData(model.index(0, 7), cur);
+    model.submitAll();
+    return cur;
+}
+
+QStringList SqlFuns::queryType()
+{
+    QSqlTableModel model;
+    QStringList qsl;
+    qsl.append("全部");
+    model.setTable("hall");
+    model.select();
+    for(int i = 0; i < model.rowCount(); i++)
+        qsl.append(model.record(i).value("type").toString());
+    qsl.removeDuplicates();
+    return qsl;
+}
+
+QStringList SqlFuns::queryCinema()
+{
+    QSqlTableModel model;
+    QStringList qsl;
+    qsl.append("全部");
+    model.setTable("hall");
+    model.select();
+    for(int i = 0; i < model.rowCount(); i++)
+        qsl.append(model.record(i).value("cinema").toString());
+    qsl.removeDuplicates();
+    return qsl;
 }

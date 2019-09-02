@@ -22,11 +22,12 @@ public:
     void registerUser(QString userId, QString password, QString name, QString sex, QString phonenumber, QString email, int isAdmin, QString cinema);
 
     //  添加电影 影厅
-    void addNewFilm(QString movieId, QString name, QString cinema, QString hall, QString startTime, QString endTime, int length, float price, int ticketRemain, QString type, int isRecommened, QString date, QString seatMaps);
+    void addNewFilm(QString movieId, QString name, QString cinema, QString hall, QString startTime, QString endTime, int length, float price, int ticketRemain, QString type, int isRecommened, QString date, QString seatMaps, QString language);
     void addNewHall(QString hallId, QString cinema, int totalseats, int row, int column, QString seatMap, QString type);
 
     //  更改信息
     void changeUserInfo(QString email, QString passwd, QString phoneNum);
+    float changeUserBalance(float amount);
 
     //  查询函数
     QString queryPassword(QString userName); //
@@ -35,13 +36,18 @@ public:
     QString queryCinema(QString userId);
     QSqlTableModel *queryAdminMovie(QString movieName, QString hallId);
     QSqlTableModel *queryAdminHall(QString hallId);
+    QSqlTableModel *queryUserMovie(QString movieName, QString cinema, QString type, QString language);
     //  查询行列
     int queryRow(QString hallId, QString cinema);
     int queryColumn(QString hallId, QString cinema);
     QStringList queryHallId(QString cinema);     //  返回列表
     QStringList queryEmailPhonePsd(QString userId);
+    QStringList queryType();
+    QStringList queryCinema();
     QString queryType(QString hallId, QString cinema);
     QString queryHallSeatMap(QString hallId);
+    float queryBalance();
+
     SqlFuns();
 };
 
