@@ -334,3 +334,97 @@ QSqlTableModel* SqlFuns::queryAdminHall(QString hallId)
     model->select();
     return model;
 }
+
+int SqlFuns::add_new_film_judge(QString hallId, QString start_time, QString end_time, Qstring film_date)
+{
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable("movie");
+    int start_time_to_int = return_minute(start_time, film_date);
+    int end_time_to_int = return_minute(end_time, film_date);
+    int entry_begin_time = start_time_to_int - 10;
+    int exit_end_time = end_time_to_int + 10;
+    QString cinema = queryCinema(global_userName);
+    cinema = formal(cinema);
+    QString ord;
+    ord = "cinema = " + cinema;
+    if(hallId != "")
+    {
+        hallId = formal(hallId);
+        ord = ord + "and hall = " + hallId;
+    }
+    model->setFilter(ord);
+    model->select();     
+    int item_num = model.rowCount();
+    for(int i = 0; i < item_num; i++)
+    {
+        QSqlRecord record = model.record(i);
+        int exist_film_entry_begin = SqlFuns::return_minute(record.value("starttime").toString(), record.value("date").toString()) - 10;
+        int exist_film_exit_end = SqlFuns::return_minute(record.value("endtime").toString(), record.value("date").toString()) + 10;
+        if(entry_begin_time > exist_film_entry_begin && entry_begin_time < exist_film_exit_end)
+            return 1;    
+        if(entry_begin_time < exist_film_entry_begin && exit_end_time > exist_film_entry_begin)
+            return 1;    
+    }
+    ord = "cinema = " + cinema;
+    if(hallId != "")
+    {
+        hallId = formal(hallId);
+        ord = ord + "and hall != " + hallId;
+    }
+    model->setFilter(ord);
+    model->select();     
+    int item_num = model.rowCount();    
+    for(int i = 0; i < item_num; i++)
+    {
+        QSqlRecord record = model.record(i);
+        int exist_film_start_time = SqlFuns::return_minute(record.value("starttime").toString(), record.value("date").toString());
+        int exist_film_end_time = SqlFuns::return_minute(record.value("endtime").toString(), record.value("date").toString());
+        if(abs(exist_film_start_time - start_time_to_int) < 10)
+            return 2;
+        if(abs(exist_film_end_time - end_time_to_int) < 10)
+            return 2;
+        if(abs(exist_film_end_time - start_time_to_int) < 20)
+            return 2;
+        if(abs(end_time_to_int - exist_film_start_time) < 20)                
+            return 2;
+    }    
+    return 0;
+}
+
+
+int SqlFuns::return_minute(QString time_to _convert, QString date_to_convert)
+{
+    int return_time_interval_by_min = 0;
+    int day_interval = 0;
+    QString convert_year = date_to_convert.section('-', 0, 0);
+    int year_to_int = convert_year.toint();
+    Qstring convert_month = date_to_convert.section('-', 1, 1);
+    int month_to_int = convert_month.toint();
+    Qstring convert_day = date_to_convert.section('-', 2, 2);
+    Qstring convert_hour = time_to_convert.section(':', 3, 3);
+    Qstring convert_minute = time_to_convert.section(':', 4, 4);
+    for(int i = 1970; i < year_to_int; i++)
+    {
+        if((i % 4 == 0 && i % 100 != 0)||(i % 400 == 0))
+            day_interval = day_interval + 366;
+        else day_interval = day_interval + 365;    
+    }
+    for(int i = 1; i < month_to_int.toint(); i++)
+    {
+        if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10) // i < 12
+            day_interval = day_interval + 31;
+        else
+            if(i == 4 || i == 6 || i == 9 || i == 11) // i < 12
+                day_interval = day_interval + 30;
+        else
+        {
+            if((year_to_int % 4 == 0 && year_to_int % 100 != 0)||(year_to_int % 400 == 0))
+                day_interval = day_interval + 29;
+            else day_interval = day_interval +28;
+        }
+    }
+    day_interval = day_interval + (convert_day.toint() - 1);
+    return_time_interval_by_min = return_time_interval_by_min + (day_interval * 60 * 24);
+    return_time_interval_by_min = return_time_interval_by_min + (convert_hour.toint() * 60) + convert_minute.toint();
+    return return_time_interval_by_min;
+}
