@@ -26,7 +26,6 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
-#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -45,9 +44,8 @@ public:
     QTabWidget *tabWidget;
     QWidget *tab_search;
     QPushButton *pushButton_buy;
-    QFrame *line_2;
-    QTableView *tableView_movie;
     QWidget *widget;
+    QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_7;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
@@ -61,6 +59,8 @@ public:
     QLabel *label_12;
     QComboBox *comboBox_type;
     QPushButton *pushButton_search;
+    QTableView *tableView_movie;
+    QFrame *line_2;
     QWidget *tab_towUp;
     QPushButton *pushButton_confirmTopUp;
     QWidget *layoutWidget;
@@ -82,8 +82,8 @@ public:
     QLabel *label_9;
     QLineEdit *lineEdit_cinemaName_2;
     QPushButton *pushButton_search_2;
+    QTableView *tableView_orders;
     QFrame *line_3;
-    QTableWidget *tableWidget_order;
     QWidget *widget1;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *pushButton_pay;
@@ -110,12 +110,12 @@ public:
     {
         if (UserMainWindow->objectName().isEmpty())
             UserMainWindow->setObjectName(QStringLiteral("UserMainWindow"));
-        UserMainWindow->resize(458, 431);
+        UserMainWindow->resize(885, 645);
         centralWidget = new QWidget(UserMainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 10, 431, 331));
+        gridLayoutWidget->setGeometry(QRect(10, 0, 591, 471));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -144,23 +144,18 @@ public:
         tab_search->setObjectName(QStringLiteral("tab_search"));
         pushButton_buy = new QPushButton(tab_search);
         pushButton_buy->setObjectName(QStringLiteral("pushButton_buy"));
-        pushButton_buy->setGeometry(QRect(330, 240, 80, 20));
-        line_2 = new QFrame(tab_search);
-        line_2->setObjectName(QStringLiteral("line_2"));
-        line_2->setGeometry(QRect(11, 230, 394, 16));
-        line_2->setFrameShape(QFrame::HLine);
-        line_2->setFrameShadow(QFrame::Sunken);
-        tableView_movie = new QTableView(tab_search);
-        tableView_movie->setObjectName(QStringLiteral("tableView_movie"));
-        tableView_movie->setGeometry(QRect(11, 71, 394, 153));
+        pushButton_buy->setGeometry(QRect(480, 370, 80, 20));
         widget = new QWidget(tab_search);
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 11, 398, 58));
-        horizontalLayout_7 = new QHBoxLayout(widget);
+        widget->setGeometry(QRect(10, 11, 551, 351));
+        verticalLayout_5 = new QVBoxLayout(widget);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
-        horizontalLayout_7->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        horizontalLayout_7->setContentsMargins(0, 0, 0, 0);
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
@@ -224,6 +219,21 @@ public:
 
         horizontalLayout_7->addWidget(pushButton_search);
 
+
+        verticalLayout_5->addLayout(horizontalLayout_7);
+
+        tableView_movie = new QTableView(widget);
+        tableView_movie->setObjectName(QStringLiteral("tableView_movie"));
+
+        verticalLayout_5->addWidget(tableView_movie);
+
+        line_2 = new QFrame(widget);
+        line_2->setObjectName(QStringLiteral("line_2"));
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout_5->addWidget(line_2);
+
         tabWidget->addTab(tab_search, QString());
         tab_towUp = new QWidget();
         tab_towUp->setObjectName(QStringLiteral("tab_towUp"));
@@ -285,7 +295,7 @@ public:
         tab_order->setObjectName(QStringLiteral("tab_order"));
         layoutWidget1 = new QWidget(tab_order);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 10, 396, 224));
+        layoutWidget1->setGeometry(QRect(10, 10, 561, 351));
         verticalLayout = new QVBoxLayout(layoutWidget1);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -322,6 +332,11 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_4);
 
+        tableView_orders = new QTableView(layoutWidget1);
+        tableView_orders->setObjectName(QStringLiteral("tableView_orders"));
+
+        verticalLayout->addWidget(tableView_orders);
+
         line_3 = new QFrame(layoutWidget1);
         line_3->setObjectName(QStringLiteral("line_3"));
         line_3->setFrameShape(QFrame::HLine);
@@ -329,14 +344,9 @@ public:
 
         verticalLayout->addWidget(line_3);
 
-        tableWidget_order = new QTableWidget(layoutWidget1);
-        tableWidget_order->setObjectName(QStringLiteral("tableWidget_order"));
-
-        verticalLayout->addWidget(tableWidget_order);
-
         widget1 = new QWidget(tab_order);
         widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(240, 240, 168, 22));
+        widget1->setGeometry(QRect(400, 380, 168, 22));
         horizontalLayout_5 = new QHBoxLayout(widget1);
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -417,11 +427,11 @@ public:
 
         pushButton_exit = new QPushButton(centralWidget);
         pushButton_exit->setObjectName(QStringLiteral("pushButton_exit"));
-        pushButton_exit->setGeometry(QRect(360, 350, 80, 20));
+        pushButton_exit->setGeometry(QRect(630, 520, 80, 20));
         UserMainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(UserMainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 458, 21));
+        menuBar->setGeometry(QRect(0, 0, 885, 21));
         UserMainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(UserMainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -433,7 +443,7 @@ public:
         retranslateUi(UserMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), UserMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(UserMainWindow);

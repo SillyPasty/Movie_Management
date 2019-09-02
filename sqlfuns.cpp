@@ -57,8 +57,14 @@ void SqlFuns::createTables()
 
     query.exec("CREATE TABLE orders ("
                "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+               "orderId TEXT,"
                "userId TEXT,"
                "movieId TEXT,"
+               "movieName TEXT,"
+               "cinema TEXT,"
+               "startTime TEXT,"
+               "endTime TEXT,"
+               "date TEXT,"
                "hallId TEXT,"
                "seat1pos INTEGER,"
                "seat2pos INTEGER,"
@@ -419,4 +425,105 @@ QStringList SqlFuns::queryCinema()
         qsl.append(model.record(i).value("cinema").toString());
     qsl.removeDuplicates();
     return qsl;
+}
+
+QStringList SqlFuns::queryOrderInfo(QString movieId)
+{
+    QSqlTableModel model;
+    model.setTable("movie");
+    movieId = formal(movieId);
+    model.setFilter("movieId = " + movieId);
+    model.select();
+    QStringList qsl;
+    qsl.append(model.record(0).value("cinema").toString());
+    qsl.append(model.record(0).value("startTime").toString());
+    qsl.append(model.record(0).value("endTime").toString());
+    qsl.append(model.record(0).value("date").toString());
+    qsl.append(model.record(0).value("hall").toString());
+    return qsl;
+}
+
+QString SqlFuns::queryMovieName(QString movieId)
+{
+    QSqlTableModel model;
+    movieId = formal(movieId);
+    model.setTable("movie");
+    model.setFilter("movieId = " + movieId);
+    model.select();
+    return model.record(0).value("movieName").toString();
+}
+
+void SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int seat3pos, QString curTimeDate)
+{
+    QSqlTableModel model;
+    model.setTable("orders");
+    model.select();
+    //  查询row 和 col
+    int rows = model.rowCount();
+    model.insertRows(rows, 1);
+
+    QString movieName = queryMovieName(movieId);
+    QStringList info = queryOrderInfo(movieId);
+
+    QString orderId;
+    orderId = info[0] + info[4] + curTimeDate;
+
+    model.setData(model.index(rows, 1), orderId);
+    model.setData(model.index(rows, 2), global_userName);
+    model.setData(model.index(rows, 3), movieId);
+    model.setData(model.index(rows, 4), movieName);
+    model.setData(model.index(rows, 5), info[0]);
+    model.setData(model.index(rows, 6), info[1]);
+    model.setData(model.index(rows, 7), info[2]);
+    model.setData(model.index(rows, 8), info[3]);
+    model.setData(model.index(rows, 9), info[4]);
+    model.setData(model.index(rows, 10), seat1pos);
+    model.setData(model.index(rows, 11), seat2pos);
+    model.setData(model.index(rows, 12), seat3pos);
+    model.setData(model.index(rows, 13), 0);
+    model.submitAll();
+}
+
+QSqlTableModel* SqlFuns::queryUserOrder(QString movieName, QString cinema)
+{
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable("orders");
+    model->setSort(9, Qt::DescendingOrder);
+    QString ord = "userId = " + formal(global_userName);
+
+    if(cinema != "")
+    {
+        cinema = formal(cinema);
+        ord = ord + " and cinema = " + cinema;
+    }
+
+    if(movieName != "")
+    {
+        movieName = formal(movieName);
+        ord = ord + " and movieName = " + movieName;
+    }
+    model->setFilter(ord);
+    model->select();
+    return model;
+}
+
+void SqlFuns::changePaymentStage(QString orderId)
+{
+    QSqlTableModel model;
+    model.setTable("orders");
+    model.setFilter("orderId = " + formal(orderId));
+    model.select();
+    model.setData(model.index(0, 13), 1);
+    model.submitAll();
+
+}
+
+float SqlFuns::queryPrice(QString movieId)
+{
+    QSqlTableModel model;
+    model.setTable("movie");
+    model.setFilter("movieId = " + formal(movieId));
+    model.select();
+    float cur = model.record(0).value("price").toFloat();;
+    return cur;
 }

@@ -16,6 +16,7 @@ public:
     explicit UserMainWindow(QWidget *parent = nullptr);
 
     void updateMovieTable(QSqlTableModel *model);
+    void updateOrdersTable(QSqlTableModel *model);
 
     ~UserMainWindow();
 
@@ -33,6 +34,12 @@ private slots:
     void on_pushButton_confirmTopUp_clicked();
 
     void on_pushButton_search_clicked();
+
+    void on_pushButton_buy_clicked();
+
+    void on_pushButton_search_2_clicked();
+
+    void on_pushButton_pay_clicked();
 
 signals:
     void showLoginWindow();

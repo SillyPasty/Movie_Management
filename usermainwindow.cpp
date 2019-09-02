@@ -42,6 +42,7 @@ void UserMainWindow::receiveLogin()
 
     ui->lineEdit_currentBalance->setText(tem.sprintf("%.2f", sf.queryBalance()));
     updateMovieTable(sf.queryUserMovie("", "", "", ""));
+    updateOrdersTable(sf.queryUserOrder("", ""));
     this->show();
 }
 
@@ -112,4 +113,74 @@ void UserMainWindow::on_pushButton_search_clicked()
     if(type == "全部")
         type = "";
     updateMovieTable(sf.queryUserMovie(movieName, cinemaName, type, language));
+}
+
+void UserMainWindow::on_pushButton_buy_clicked()
+{
+    SqlFuns sf;
+    int row = ui->tableView_movie->currentIndex().row();
+    QAbstractItemModel *model = ui->tableView_movie->model();
+    QString movieId = model->data(model->index(row, 1)).toString();
+    if(movieId == "")
+        QMessageBox::critical(nullptr, "未选择", "请选择场次");
+    else
+    {
+        QDateTime curDateTime = QDateTime::currentDateTime();
+        QString cur = curDateTime.toString("yyyyMMddhhmmss");
+
+        sf.addNewOrder(movieId, 1, 0, 0, cur);
+
+        updateOrdersTable(sf.queryUserOrder("", ""));
+    }
+}
+
+void UserMainWindow::updateOrdersTable(QSqlTableModel *model)
+{
+
+    ui->tableView_orders->setModel(model);
+    ui->tableView_orders->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_orders->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+//    int row = ui->tableView_movie->currentIndex().row();
+//    QString orderId = model->data(model->index(row, 1)).toString();
+    //  设置部分显示
+    ui->tableView_orders->setColumnHidden(0, true);
+    ui->tableView_orders->setColumnHidden(1, true);
+    ui->tableView_orders->setColumnHidden(2, true);
+    ui->tableView_orders->setColumnHidden(3, true);
+
+    ui->tableView_movie->resizeColumnsToContents();
+    ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}
+
+void UserMainWindow::on_pushButton_search_2_clicked()
+{
+    SqlFuns sf;
+    QString cinema = ui->lineEdit_cinemaName_2->text().trimmed();
+    QString movieName = ui->lineEdit_movieName_2->text().trimmed();
+    updateOrdersTable(sf.queryUserOrder(movieName, cinema));
+}
+
+void UserMainWindow::on_pushButton_pay_clicked()
+{
+    SqlFuns sf;
+    int row = ui->tableView_orders->currentIndex().row();
+    QAbstractItemModel *model = ui->tableView_orders->model();
+    QString orderId = model->data(model->index(row, 1)).toString();
+    QString movieId = model->data(model->index(row, 3)).toString();
+    QString tmp;
+    int tickets = 0;
+    for(int i = 10; i < 13; i++)
+        if(model->data(model->index(row, i)).toInt())
+            tickets++;
+    float bal = sf.queryBalance();
+    float total = sf.queryPrice(movieId) * tickets;
+    if(bal < total)
+        QMessageBox::critical(nullptr, "余额不足", "无法购买");
+    else
+    {
+        sf.changePaymentStage(orderId);
+        updateOrdersTable(sf.queryUserOrder("", ""));
+        ui->lineEdit_currentBalance->setText(tmp.sprintf("%.2f",sf.changeUserBalance(-1 * total)));
+    }
 }

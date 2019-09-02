@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>458</width>
-    <height>431</height>
+    <width>885</width>
+    <height>645</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>431</width>
-      <height>331</height>
+      <y>0</y>
+      <width>591</width>
+      <height>471</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -48,7 +48,7 @@
      <item row="2" column="0" colspan="2">
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_search">
         <attribute name="title">
@@ -57,8 +57,8 @@
         <widget class="QPushButton" name="pushButton_buy">
          <property name="geometry">
           <rect>
-           <x>330</x>
-           <y>240</y>
+           <x>480</x>
+           <y>370</y>
            <width>80</width>
            <height>20</height>
           </rect>
@@ -67,116 +67,107 @@
           <string>购买</string>
          </property>
         </widget>
-        <widget class="Line" name="line_2">
-         <property name="geometry">
-          <rect>
-           <x>11</x>
-           <y>230</y>
-           <width>394</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-        <widget class="QTableView" name="tableView_movie">
-         <property name="geometry">
-          <rect>
-           <x>11</x>
-           <y>71</y>
-           <width>394</width>
-           <height>153</height>
-          </rect>
-         </property>
-        </widget>
         <widget class="QWidget" name="">
          <property name="geometry">
           <rect>
            <x>10</x>
            <y>11</y>
-           <width>398</width>
-           <height>58</height>
+           <width>551</width>
+           <height>351</height>
           </rect>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
+             <layout class="QVBoxLayout" name="verticalLayout_2">
               <item>
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>电影名</string>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>电影名</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_movieName"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>影院名</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox_cinema"/>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_movieName"/>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>影院名</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_cinema"/>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>语 言</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox_language">
+                  <item>
+                   <property name="text">
+                    <string>全部</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>国语</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>英文</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>其他</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_12">
+                  <property name="text">
+                   <string>类  型</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox_type"/>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_6">
-              <item>
-               <widget class="QLabel" name="label_13">
-                <property name="text">
-                 <string>语 言</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_language">
-                <item>
-                 <property name="text">
-                  <string>全部</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>国语</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>英文</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>其他</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_12">
-                <property name="text">
-                 <string>类  型</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_type"/>
-              </item>
-             </layout>
+             <widget class="QPushButton" name="pushButton_search">
+              <property name="text">
+               <string>查询</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_search">
-            <property name="text">
-             <string>查询</string>
+           <widget class="QTableView" name="tableView_movie"/>
+          </item>
+          <item>
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -264,8 +255,8 @@
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>396</width>
-           <height>224</height>
+           <width>561</width>
+           <height>351</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
@@ -301,22 +292,22 @@
            </layout>
           </item>
           <item>
+           <widget class="QTableView" name="tableView_orders"/>
+          </item>
+          <item>
            <widget class="Line" name="line_3">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QTableWidget" name="tableWidget_order"/>
-          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="">
          <property name="geometry">
           <rect>
-           <x>240</x>
-           <y>240</y>
+           <x>400</x>
+           <y>380</y>
            <width>168</width>
            <height>22</height>
           </rect>
@@ -431,8 +422,8 @@
    <widget class="QPushButton" name="pushButton_exit">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>350</y>
+      <x>630</x>
+      <y>520</y>
       <width>80</width>
       <height>20</height>
      </rect>
@@ -447,7 +438,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>458</width>
+     <width>885</width>
      <height>21</height>
     </rect>
    </property>
