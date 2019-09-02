@@ -443,7 +443,7 @@ public:
         retranslateUi(UserMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), UserMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(UserMainWindow);

@@ -87,12 +87,14 @@ bool SqlFuns::connect(const QString &dbName)
 
 QString SqlFuns::formal(QString str)
 {
+    // 将字符串格式化为数据库中TEXT形式
     QString sym = "'";
     return (sym + str + sym);
 }
 
 void SqlFuns::registerUser(QString userId, QString password, QString name, QString sex, QString phonenumber, QString email, int isAdmin, QString cinema)
 {
+    // 注册用户
     QSqlQuery query;
     QString or1 = "INSERT INTO user VALUES (NULL,";
     userId = formal(userId) + ",";
@@ -102,6 +104,8 @@ void SqlFuns::registerUser(QString userId, QString password, QString name, QStri
     phonenumber = formal(phonenumber) + ",";
     email = formal(email) + ",";
     cinema = formal(cinema) + ")";
+
+    // 判断是否为管理员
     QString isAd;
     isAd.sprintf("%d,", isAdmin);
     if (isAdmin)
@@ -113,6 +117,7 @@ void SqlFuns::registerUser(QString userId, QString password, QString name, QStri
 
 QString SqlFuns::queryPassword(QString userName)
 {
+    // 查询用户名对应密码是否正确 若用户不存在返回空字符串
     QSqlQuery query;
     QString ord = "SELECT password FROM user WHERE userId = ";
     userName = formal(userName);
@@ -129,6 +134,7 @@ QString SqlFuns::queryPassword(QString userName)
 
 int SqlFuns::queryIsadmin(QString userName)
 {
+    // 登陆时查询用户是否拥有管理员权限，进入不同界面
     QSqlQuery query;
     QString ord = "SELECT isAdmin FROM user WHERE userId = ";
     userName = formal(userName);
@@ -141,11 +147,11 @@ int SqlFuns::queryIsadmin(QString userName)
 
 void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString hall, QString startTime, QString endTime, int length, float price, int ticketRemain, QString type, int isRecommened, QString date, QString seatMaps, QString language)
 {
+    // 添加一个新电影
     QSqlTableModel model;
     model.setTable("movie");
     model.select();
-    //  查询row 和 col
-
+    //  查询row
     int row = model.rowCount();
     model.insertRows(row, 1);
     model.setData(model.index(row, 1), movieId);
@@ -164,7 +170,6 @@ void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString 
     model.setData(model.index(row, 14), 0);
     model.setData(model.index(row, 15), 0);
     model.setData(model.index(row, 16), date);
-    // 行数和列数
     model.setData(model.index(row, 17), queryRow(hall, cinema));
     model.setData(model.index(row, 18), queryColumn(hall, cinema));
     model.setData(model.index(row, 19), seatMaps);
@@ -174,6 +179,8 @@ void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString 
 
 int SqlFuns::queryHallSeates(QString hallId)
 {
+    // 查询某个hall拥有的座位
+    // 需要更改
     QSqlTableModel model;
     model.setTable("hall");
     hallId = formal(hallId);
@@ -185,6 +192,8 @@ int SqlFuns::queryHallSeates(QString hallId)
 
 void SqlFuns::addNewHall(QString hallId, QString cinema, int totalseats, int row, int column, QString seatMap, QString type)
 {
+    // 添加一个新的hall
+    // 需要更改
     QSqlTableModel model;
     model.setTable("hall");
     model.select();
@@ -203,6 +212,7 @@ void SqlFuns::addNewHall(QString hallId, QString cinema, int totalseats, int row
 
 QString SqlFuns::queryCinema(QString userId)
 {
+    // 查询管理院对应的影院
     QSqlTableModel model;
     model.setTable("user");
     userId = formal(userId);
@@ -214,12 +224,14 @@ QString SqlFuns::queryCinema(QString userId)
 
  QStringList SqlFuns::queryHallId(QString cinema)
  {
+     // 查询电影院中所有的hall名 返回一个字符串列表
      QSqlTableModel model;
      QStringList qsl;
      model.setTable("hall");
      cinema = formal(cinema);
      model.setFilter("cinema = " + cinema);
      model.select();
+
      for(int i = 0; i < model.rowCount(); i++)
         qsl.append(model.record(i).value("hallId").toString());
      return qsl;
@@ -227,6 +239,7 @@ QString SqlFuns::queryCinema(QString userId)
 
 QString SqlFuns::queryHallSeatMap(QString hallId)
 {
+    // 查询某个hall中的座位图 返回一个字符串儿
     QSqlTableModel model;
     model.setTable("hall");
     hallId = formal(hallId);
@@ -238,6 +251,7 @@ QString SqlFuns::queryHallSeatMap(QString hallId)
 
 int SqlFuns::queryRow(QString hallId, QString cinema)
 {
+    // 查询某个hall的结构 返回行数
     QSqlTableModel model;
     model.setTable("hall");
     hallId = formal(hallId);
@@ -250,6 +264,7 @@ int SqlFuns::queryRow(QString hallId, QString cinema)
 
 int SqlFuns::queryColumn(QString hallId, QString cinema)
 {
+    // 查询某个hall的结构 返回列数
     QSqlTableModel model;
     model.setTable("hall");
     hallId = formal(hallId);
@@ -262,6 +277,7 @@ int SqlFuns::queryColumn(QString hallId, QString cinema)
 
 QString SqlFuns::queryType(QString hallId, QString cinema)
 {
+    // 查询某个hall可放映的电影类型
     QSqlTableModel model;
     model.setTable("hall");
     hallId = formal(hallId);
@@ -274,6 +290,7 @@ QString SqlFuns::queryType(QString hallId, QString cinema)
 
 QStringList SqlFuns::queryEmailPhonePsd(QString userId)
 {
+    //  查询user对应的个人信息 返回一个字符串列表
     QSqlTableModel model;
     QStringList qsl;
     model.setTable("user");
@@ -289,6 +306,7 @@ QStringList SqlFuns::queryEmailPhonePsd(QString userId)
 
 void SqlFuns::changeUserInfo(QString email, QString passwd, QString phoneNum)
 {
+    // 更改个人信息
     QSqlTableModel model;
     model.setTable("user");
     QString userId = formal(global_userName);
@@ -302,6 +320,10 @@ void SqlFuns::changeUserInfo(QString email, QString passwd, QString phoneNum)
 
 QSqlTableModel* SqlFuns::queryAdminMovie(QString movieName, QString hallId)
 {
+    // 管理员操作
+    // 返回一个表模型指针
+    // 若输入空字符串 返回所有电影院对应电影
+    // 可按条件查找
     QSqlTableModel *model = new QSqlTableModel;
     model->setTable("movie");
     model->setSort(12, Qt::DescendingOrder);
@@ -326,8 +348,14 @@ QSqlTableModel* SqlFuns::queryAdminMovie(QString movieName, QString hallId)
 
 QSqlTableModel* SqlFuns::queryUserMovie(QString movieName, QString cinema, QString type, QString language)
 {
+    // 用户操作
+    // 返回一个表模型指针
+    // 若输入空字符串 返回所有电影
+    // 可按条件查找
     QSqlTableModel *model = new QSqlTableModel;
     model->setTable("movie");
+
+    // 按照推荐与否进行排序
     model->setSort(12, Qt::DescendingOrder);
     QString ord = "isPlayed = 0";
 
@@ -361,6 +389,10 @@ QSqlTableModel* SqlFuns::queryUserMovie(QString movieName, QString cinema, QStri
 
 QSqlTableModel* SqlFuns::queryAdminHall(QString hallId)
 {
+    // 管理员操作
+    // 返回一个表模型指针
+    // 若输入空字符串 返回当前影院hall
+    // 可按条件查找
     QSqlTableModel *model = new QSqlTableModel;
     model->setTable("hall");
     QString ord;
@@ -379,6 +411,8 @@ QSqlTableModel* SqlFuns::queryAdminHall(QString hallId)
 
 float SqlFuns::queryBalance()
 {
+    // 用户操作
+    // 查询当前用户余额并返回
     QSqlTableModel model;
     model.setTable("user");
     QString userId = formal(global_userName);
@@ -389,6 +423,8 @@ float SqlFuns::queryBalance()
 
 float SqlFuns::changeUserBalance(float amount)
 {
+    // 用户操作
+    // 更改当前用户余额 可增加 可支出
     QSqlTableModel model;
     model.setTable("user");
     QString userId = formal(global_userName);
@@ -403,6 +439,8 @@ float SqlFuns::changeUserBalance(float amount)
 
 QStringList SqlFuns::queryType()
 {
+    // 初始化操作
+    // 查询电影类型 并返回于comboBox中显示
     QSqlTableModel model;
     QStringList qsl;
     qsl.append("全部");
@@ -416,6 +454,8 @@ QStringList SqlFuns::queryType()
 
 QStringList SqlFuns::queryCinema()
 {
+    // 初始化操作
+    // 查询电影院 并返回于comboBox中显示
     QSqlTableModel model;
     QStringList qsl;
     qsl.append("全部");
@@ -429,6 +469,8 @@ QStringList SqlFuns::queryCinema()
 
 QStringList SqlFuns::queryOrderInfo(QString movieId)
 {
+    // 用户操作
+    // 查询订单信息 用于订单购买
     QSqlTableModel model;
     model.setTable("movie");
     movieId = formal(movieId);
@@ -445,6 +487,9 @@ QStringList SqlFuns::queryOrderInfo(QString movieId)
 
 QString SqlFuns::queryMovieName(QString movieId)
 {
+    // 后台操作
+    // 用于查询电影名
+
     QSqlTableModel model;
     movieId = formal(movieId);
     model.setTable("movie");
@@ -455,6 +500,9 @@ QString SqlFuns::queryMovieName(QString movieId)
 
 void SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int seat3pos, QString curTimeDate)
 {
+    // 用户操作
+    // 添加一新订单
+    // 需要修改
     QSqlTableModel model;
     model.setTable("orders");
     model.select();
@@ -486,6 +534,10 @@ void SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int seat3
 
 QSqlTableModel* SqlFuns::queryUserOrder(QString movieName, QString cinema)
 {
+    // 用户操作
+    // 返回一个表模型指针
+    // 若输入空字符串 返回当前用户所有订单
+    // 可按条件查找
     QSqlTableModel *model = new QSqlTableModel;
     model->setTable("orders");
     model->setSort(9, Qt::DescendingOrder);
@@ -507,23 +559,90 @@ QSqlTableModel* SqlFuns::queryUserOrder(QString movieName, QString cinema)
     return model;
 }
 
-void SqlFuns::changePaymentStage(QString orderId)
+void SqlFuns::changePaymentStage(QString orderId, int num)
 {
+    // 用户操作 付款
+    // 更新多项 需更改
     QSqlTableModel model;
     model.setTable("orders");
-    model.setFilter("orderId = " + formal(orderId));
+    model.setFilter("orderId = " + formal(orderId));   
     model.select();
+    QString movieId = model.record(0).value("movieId").toString();
     model.setData(model.index(0, 13), 1);
     model.submitAll();
+//    model.setTable("movie");
+//    model.setFilter("movieId = " + formal(movieId));
+//    model.select();
+//    int ticket = model.record(0).value("ticketRemain").toInt();
+//    ticket -= num;
 
 }
 
 float SqlFuns::queryPrice(QString movieId)
 {
+    // 根据电影ID查询价格
     QSqlTableModel model;
     model.setTable("movie");
     model.setFilter("movieId = " + formal(movieId));
     model.select();
     float cur = model.record(0).value("price").toFloat();;
     return cur;
+}
+
+int SqlFuns::cancelOrders(QString orderId)
+{
+    // 取消订单 在数据库中删除订单
+    QSqlTableModel model;
+    model.setTable("orders");
+    orderId = formal(orderId);
+    model.setFilter("orderId = " + orderId);
+    model.select();
+    QSqlRecord record = model.record(0);
+    int is_order_paid = record.value("isPaid").toInt();
+    if(is_order_paid != 0)
+        return -1;
+    model.removeRow(0);
+    return 1;
+}
+
+QSqlTableModel* SqlFuns::queryAdminOrder(QString movieName, QString userId, QString startDate, QString endDate, int isPlayed)
+{
+    // 管理员操作
+    // 返回一个表模型指针
+    // 若输入空字符串 返回当前影院对应订单
+    // 可按条件查找
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable("orders");
+    model->setSort(9, Qt::DescendingOrder);
+    QString cinema = queryCinema(global_userName);
+    QString ord = "cinema = " + formal(cinema);
+    QTime curTime = QTime::currentTime();
+    QDate curDate = QDate::currentDate();
+
+    if(isPlayed == 1)
+        ord = ord + " and date >= " + formal(curDate.toString("yyyy-MM-dd")) + " and startTime > " + formal(curTime.toString("hh:mm:ss"));
+    if(isPlayed == 2)
+        ord = ord + " and date <= " + formal(curDate.toString("yyyy-MM-dd")) + " and startTime < " + formal(curTime.toString("hh:mm:ss"));
+
+    if(userId != "")
+    {
+        userId = formal(userId);
+        ord = ord + " and userId = " + userId;
+    }
+
+    if(movieName != "")
+    {
+        movieName = formal(movieName);
+        ord = ord + " and movieName = " + movieName;
+    }
+
+    if(startDate != "")
+    {
+        startDate = formal(startDate);
+        endDate = formal(endDate);
+        ord = ord + " and date > " + startDate + " and date < " + endDate;
+    }
+    model->setFilter(ord);
+    model->select();
+    return model;
 }

@@ -42,6 +42,8 @@ void UserMainWindow::receiveLogin()
 
     ui->lineEdit_currentBalance->setText(tem.sprintf("%.2f", sf.queryBalance()));
     updateMovieTable(sf.queryUserMovie("", "", "", ""));
+    ui->tableView_movie->setSortingEnabled(true);
+    ui->tableView_orders->setSortingEnabled(true);
     updateOrdersTable(sf.queryUserOrder("", ""));
     this->show();
 }
@@ -179,8 +181,19 @@ void UserMainWindow::on_pushButton_pay_clicked()
         QMessageBox::critical(nullptr, "余额不足", "无法购买");
     else
     {
-        sf.changePaymentStage(orderId);
+        sf.changePaymentStage(orderId, tickets);
         updateOrdersTable(sf.queryUserOrder("", ""));
         ui->lineEdit_currentBalance->setText(tmp.sprintf("%.2f",sf.changeUserBalance(-1 * total)));
     }
+}
+
+void UserMainWindow::on_pushButton_cancelOrder_clicked()
+{
+    SqlFuns sf;
+    int row = ui->tableView_orders->currentIndex().row();
+    QAbstractItemModel *model = ui->tableView_orders->model();
+    QString orderId = model->data(model->index(row, 1)).toString();
+    if(sf.cancelOrders(orderId) == -1)
+        QMessageBox::critical(nullptr, "已经支付", "无法取消");
+    updateOrdersTable(sf.queryUserOrder("", ""));
 }

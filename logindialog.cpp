@@ -21,7 +21,9 @@ void LoginDialog::on_pushButton_login_clicked()
     QString pswd = ui->lineEdit_password->text().trimmed();
     SqlFuns sf;
     QString psw = sf.queryPassword(user);
-    if(psw == pswd)
+    if(user == "")
+        QMessageBox::critical(nullptr, "请输入信息", "请重新输入");
+    else if(psw == pswd)
     {
         int flag = sf.queryIsadmin(user);
         global_userName = user;

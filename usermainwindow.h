@@ -41,6 +41,8 @@ private slots:
 
     void on_pushButton_pay_clicked();
 
+    void on_pushButton_cancelOrder_clicked();
+
 signals:
     void showLoginWindow();
     void timeout();

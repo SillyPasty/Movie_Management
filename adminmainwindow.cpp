@@ -9,6 +9,8 @@ AdminMainWindow::AdminMainWindow(QWidget *parent) :
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
     timer->start(1000);
+    ui->dateEdit_inquire01->setCalendarPopup(true);
+    ui->dateEdit_inquire02->setCalendarPopup(true);
 }
 
 AdminMainWindow::~AdminMainWindow()
@@ -60,12 +62,19 @@ void AdminMainWindow::receiveLogin()
 
     updateMovieTable(sf.queryAdminMovie("",""));
     updateHallTable(sf.queryAdminHall(""));
+
+    ui->tableView_movie->setSortingEnabled(true);
+    ui->tableView_orders->setSortingEnabled(true);
+    ui->tableView_currentHall->setSortingEnabled(true);
+
     ui->comboBox_hall_2->clear();
     ui->comboBox_hall_2->addItem("");
     ui->comboBox_hall_2->addItems(sf.queryHallId(sf.queryCinema(global_userName)));
     ui->comboBox_hall->clear();
     ui->comboBox_hall->addItem("");
     ui->comboBox_hall->addItems(sf.queryHallId(sf.queryCinema(global_userName)));
+
+    updateOrdersTable(sf.queryAdminOrder("", "", "", "", 0));
 
     this->show();
 }
@@ -133,4 +142,44 @@ void AdminMainWindow::on_comboBox_hall_currentTextChanged(const QString &arg1)
     SqlFuns sf;
     QString hallId = ui->comboBox_hall->currentText();
     updateHallTable(sf.queryAdminHall(hallId));
+}
+
+void AdminMainWindow::updateOrdersTable(QSqlTableModel *model)
+{
+
+    ui->tableView_orders->setModel(model);
+    ui->tableView_orders->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_orders->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    //  设置部分显示
+    ui->tableView_orders->setColumnHidden(0, true);
+    ui->tableView_orders->setColumnHidden(1, true);
+    ui->tableView_orders->setColumnHidden(3, true);
+
+    ui->tableView_movie->resizeColumnsToContents();
+    ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}
+
+void AdminMainWindow::on_pushButton_search_clicked()
+{
+    SqlFuns sf;
+    QString userName = ui->lineEdit_userName->text().trimmed();
+    QString movieName = ui->lineEdit_movieName->text().trimmed();
+    QString startDate = "", endDate = "";
+    int choice = 0;
+    if(ui->checkBox_dateAvi->isChecked())
+    {
+        startDate = ui->dateEdit_inquire01->date().toString("yyyy-MM-dd");
+        endDate = ui->dateEdit_inquire02->date().toString("yyyy-MM-dd");
+    }
+    if(startDate <= endDate)
+    {
+        if(ui->checkBox_isPlayed->isChecked())
+            choice += 2;
+        if(ui->checkBox_unPlayed->isChecked())
+            choice += 1;
+        updateOrdersTable(sf.queryAdminOrder(movieName, userName, startDate, endDate, choice));
+    }
+    else
+        QMessageBox::critical(nullptr, "输入有误", "请重新输入");
 }

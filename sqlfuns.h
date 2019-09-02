@@ -26,10 +26,13 @@ public:
     void addNewHall(QString hallId, QString cinema, int totalseats, int row, int column, QString seatMap, QString type);
     void addNewOrder(QString movieId, int seats1pos, int seats2pos, int seat3pos, QString curTimeDate);
 
+    //  删除订单
+    int cancelOrders(QString orderId);
+
     //  更改信息
     void changeUserInfo(QString email, QString passwd, QString phoneNum);
     float changeUserBalance(float amount);
-    void changePaymentStage(QString orderId);
+    void changePaymentStage(QString orderId, int num);
 
     //  查询函数
     QString queryPassword(QString userName); //
@@ -39,6 +42,7 @@ public:
     QString queryMovieName(QString movieId);
     QSqlTableModel *queryAdminMovie(QString movieName, QString hallId);
     QSqlTableModel *queryAdminHall(QString hallId);
+    QSqlTableModel *queryAdminOrder(QString movieName, QString userId, QString startDate, QString endDate, int isPlayed);
     QSqlTableModel *queryUserMovie(QString movieName, QString cinema, QString type, QString language);
     QSqlTableModel *queryUserOrder(QString movieName, QString cinema);
     //  查询行列

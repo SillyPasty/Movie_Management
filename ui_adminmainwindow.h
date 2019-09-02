@@ -29,7 +29,6 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
-#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -55,17 +54,18 @@ public:
     QLabel *label_3;
     QLineEdit *lineEdit_movieName;
     QLabel *label_4;
-    QLineEdit *lineEdit_cinemaName;
+    QLineEdit *lineEdit_userName;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_12;
     QDateEdit *dateEdit_inquire01;
     QDateEdit *dateEdit_inquire02;
+    QCheckBox *checkBox_dateAvi;
     QVBoxLayout *verticalLayout_2;
     QCheckBox *checkBox_isPlayed;
-    QCheckBox *checkBox;
+    QCheckBox *checkBox_unPlayed;
     QPushButton *pushButton_search;
+    QTableView *tableView_orders;
     QFrame *line_2;
-    QTableWidget *tableWidget_aviMovies;
     QLabel *label_totalIncome;
     QWidget *tab_towUp;
     QWidget *layoutWidget1;
@@ -173,10 +173,10 @@ public:
 
         horizontalLayout->addWidget(label_4);
 
-        lineEdit_cinemaName = new QLineEdit(layoutWidget);
-        lineEdit_cinemaName->setObjectName(QStringLiteral("lineEdit_cinemaName"));
+        lineEdit_userName = new QLineEdit(layoutWidget);
+        lineEdit_userName->setObjectName(QStringLiteral("lineEdit_userName"));
 
-        horizontalLayout->addWidget(lineEdit_cinemaName);
+        horizontalLayout->addWidget(lineEdit_userName);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -198,6 +198,11 @@ public:
 
         horizontalLayout_5->addWidget(dateEdit_inquire02);
 
+        checkBox_dateAvi = new QCheckBox(layoutWidget);
+        checkBox_dateAvi->setObjectName(QStringLiteral("checkBox_dateAvi"));
+
+        horizontalLayout_5->addWidget(checkBox_dateAvi);
+
 
         verticalLayout->addLayout(horizontalLayout_5);
 
@@ -211,10 +216,10 @@ public:
 
         verticalLayout_2->addWidget(checkBox_isPlayed);
 
-        checkBox = new QCheckBox(layoutWidget);
-        checkBox->setObjectName(QStringLiteral("checkBox"));
+        checkBox_unPlayed = new QCheckBox(layoutWidget);
+        checkBox_unPlayed->setObjectName(QStringLiteral("checkBox_unPlayed"));
 
-        verticalLayout_2->addWidget(checkBox);
+        verticalLayout_2->addWidget(checkBox_unPlayed);
 
         pushButton_search = new QPushButton(layoutWidget);
         pushButton_search->setObjectName(QStringLiteral("pushButton_search"));
@@ -227,17 +232,17 @@ public:
 
         verticalLayout_5->addLayout(horizontalLayout_6);
 
+        tableView_orders = new QTableView(layoutWidget);
+        tableView_orders->setObjectName(QStringLiteral("tableView_orders"));
+
+        verticalLayout_5->addWidget(tableView_orders);
+
         line_2 = new QFrame(layoutWidget);
         line_2->setObjectName(QStringLiteral("line_2"));
         line_2->setFrameShape(QFrame::HLine);
         line_2->setFrameShadow(QFrame::Sunken);
 
         verticalLayout_5->addWidget(line_2);
-
-        tableWidget_aviMovies = new QTableWidget(layoutWidget);
-        tableWidget_aviMovies->setObjectName(QStringLiteral("tableWidget_aviMovies"));
-
-        verticalLayout_5->addWidget(tableWidget_aviMovies);
 
         label_totalIncome = new QLabel(tab_search);
         label_totalIncome->setObjectName(QStringLiteral("label_totalIncome"));
@@ -444,8 +449,9 @@ public:
         label_3->setText(QApplication::translate("AdminMainWindow", "\347\224\265\345\275\261\345\220\215", Q_NULLPTR));
         label_4->setText(QApplication::translate("AdminMainWindow", "\347\224\250\346\210\267\345\220\215", Q_NULLPTR));
         label_12->setText(QApplication::translate("AdminMainWindow", "\346\237\245\350\257\242\346\227\245\346\234\237\345\214\272\346\256\265", Q_NULLPTR));
+        checkBox_dateAvi->setText(QString());
         checkBox_isPlayed->setText(QApplication::translate("AdminMainWindow", "\345\267\262\346\224\276\346\230\240", Q_NULLPTR));
-        checkBox->setText(QApplication::translate("AdminMainWindow", "\346\234\252\346\224\276\346\230\240", Q_NULLPTR));
+        checkBox_unPlayed->setText(QApplication::translate("AdminMainWindow", "\346\234\252\346\224\276\346\230\240", Q_NULLPTR));
         pushButton_search->setText(QApplication::translate("AdminMainWindow", "\346\237\245\350\257\242", Q_NULLPTR));
         label_totalIncome->setText(QApplication::translate("AdminMainWindow", "TextLabel", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_search), QApplication::translate("AdminMainWindow", "\350\256\242\345\215\225\347\256\241\347\220\206", Q_NULLPTR));

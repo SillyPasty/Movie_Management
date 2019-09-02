@@ -19,6 +19,7 @@ public:
     explicit AdminMainWindow(QWidget *parent = nullptr);
     void updateMovieTable(QSqlTableModel *model);
     void updateHallTable(QSqlTableModel *model);
+    void updateOrdersTable(QSqlTableModel *model);
     ~AdminMainWindow();
 
 private:
@@ -41,6 +42,8 @@ private slots:
     void on_pushButton_search_2_clicked();
 
     void on_comboBox_hall_currentTextChanged(const QString &arg1);
+
+    void on_pushButton_search_clicked();
 
 signals:
     void showLoginWindow();

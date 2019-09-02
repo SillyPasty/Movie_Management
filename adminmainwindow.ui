@@ -101,7 +101,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_cinemaName"/>
+                 <widget class="QLineEdit" name="lineEdit_userName"/>
                 </item>
                </layout>
               </item>
@@ -120,6 +120,13 @@
                 <item>
                  <widget class="QDateEdit" name="dateEdit_inquire02"/>
                 </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_dateAvi">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>
@@ -134,7 +141,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox">
+               <widget class="QCheckBox" name="checkBox_unPlayed">
                 <property name="text">
                  <string>未放映</string>
                 </property>
@@ -152,14 +159,14 @@
            </layout>
           </item>
           <item>
+           <widget class="QTableView" name="tableView_orders"/>
+          </item>
+          <item>
            <widget class="Line" name="line_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
-          </item>
-          <item>
-           <widget class="QTableWidget" name="tableWidget_aviMovies"/>
           </item>
          </layout>
         </widget>
