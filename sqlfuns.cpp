@@ -428,3 +428,207 @@ int SqlFuns::return_minute(QString time_to _convert, QString date_to_convert)
     return_time_interval_by_min = return_time_interval_by_min + (convert_hour.toint() * 60) + convert_minute.toint();
     return return_time_interval_by_min;
 }
+
+
+//判断选取的座位是否合法
+//输入:电影序列号movieId，以QString字符串的形式存储；第一个座位在该场电影的位置编号，以INT形式储存；第二个座位（可选）在该场的位置编号，以INT值形式储存，如果没有则置为-1；第三个座位（可选）在该场的位置编号，以INT值形式储存，如果没有则置为-1；
+//输出为INT值，如返回值为0则为合法，1则为不合法。
+int SqlFuns::judgeSeatOrder(QString movieId, int seat1pos, int seat2pos, int seat3pos)
+{
+    QSqlQuery query;
+    QString ord = QString("SELECT row and column and seatmap FROM movie WHERE movieId = '%1'").arg(movieId);
+    //先获取该场电影的当前可用座位分布
+    //预占取座位，如果该坐标所在的座位不合法返回-1
+    //占去座位后判断影院座位分布的合法性，如果不合法，撤销更改并返回-1
+    //若合法则返回0
+    query.exec(ord);
+    query.next();   
+    int now_seat_row = query.value(0).toInt();
+    int now_seat_column = query.value(1).toInt();
+    QString now_seat_map = query.value(2).toString();
+    
+    if(now_seat_map[seat1pos] == '0')
+        now_seat_map[seat1pos] = '1';
+    else
+        return  -1;
+    if(seat2pos != -1)
+    {
+        if(now_seat_map[seat2pos] == '0')
+            now_seat_map[seat2pos] = '1';
+        else return -1;   
+    }
+    if(seat3pos != -1)
+    {
+        if(now_seat_map[seat3pos] == '0')
+            now_seat_map[seat3pos] = '1';
+        else return -1;   
+    }                   
+    QString seatmapforjudge = "";
+    
+    for(int i = 0; i < row; i++)
+    {
+        seatmapforjudge = seatmapforjudge + now_seat_map.mid(i*column,column) + "2"; 
+    }
+    
+    int maplength = seatmapforjudge.length();
+    for(int i = 0; i < maplength; i++)
+    {
+        if(i == 0 && seatmapforjudge[i] == '0' && seatmapforjudge[i+1] != '0')
+        {
+            return -1; 
+        }
+        if(i > 0 && i < (maplength-1) && seatmapforjudge[i] == '0' && seatmapforjudge[i+1] != '0' && seatmapforjudge[i-1] != '0')
+        {
+            return -1; 
+        }
+        if(i == (maplength-1) && seatmapforjudge[i] == '0' && seatmapforjudge[i-1] != '0')
+        {
+            return -1; 
+        }
+    }
+    return 0;
+}
+
+QString SqlFuns::intelligent_seats_recommend(QString movieId, int seat_number)
+{
+	QSqlTableModel model;
+	model.setTable("movie");
+	movieId = formal(movieId);
+	model.setFilter("movieId = " + movieId);
+	model.select();
+	QSqlRecord record = model.record(0);
+	int row = record.value("row").toInt();
+	int column = record.value("column").toInt();
+	int midrow = row / 2, midcolumn = column / 2;
+	QString seat_map = record.value("seatmap").toString();
+	if(seat_number == 1)
+	{
+		for(int i = 0; i <= midcolumn; i++)
+		{
+			for (int j = 0; j <= midrow; j++)
+			{
+				if ((midrow - j >= 0) && (midcolumn - i >= 0))
+					if (seat_map[(midrow - j) * column + (midcolumn - i)] == '0')
+					{
+						int now_pos = (midrow - j) * column + (midcolumn - i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, -1, -1) == 0)
+							return now_pos.toString();
+					}
+				if ((midrow - j >= 0) && (midcolumn + i < column))
+					if (seat_map[(midrow - j) * column + (midcolumn + i)] == '0')
+					{
+						int now_pos = (midrow - j) * column + (midcolumn + i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, -1, -1) == 0)
+							return now_pos.toString();
+					}
+				if ((midrow + j < row) && (midcolumn - i >= 0))
+					if (seat_map[(midrow + j) * column + (midcolumn - i)] == '0')
+					{
+						int now_pos = (midrow + j) * column + (midcolumn - i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, -1, -1) == 0)
+							return now_pos.toString();
+					}
+				if ((midrow + j < row) && (midcolumn + i < column))
+					if (seat_map[(midrow + j) * column + (midcolumn + i)] == '0')
+					{
+						int now_pos = (midrow + j) * column + (midcolumn + i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, -1, -1) == 0)
+							return now_pos.toString;
+					}
+			}
+		}
+	}
+	else
+	if (seat_number == 2)
+	{
+		for (int i = 0; i <= midcolumn; i++)
+		{
+			for (int j = 0; j <= midrow; j++)
+			{
+				if ((midrow - j >= 0) && (midcolumn - i >= 0))
+					if (seat_map[(midrow - j) * column + (midcolumn - i)] == '0' && seat_map[(midrow - j) * column + (midcolumn - i + 1)] == '0')
+					{
+						int now_pos = (midrow - j) * column + (midcolumn - i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, -1) == 0)
+							return now_pos.toString() + "," + (now_pos + 1).toString();
+					}
+				if ((midrow - j >= 0) && (midcolumn + i + 1 < column))
+					if (seat_map[(midrow - j) * column + (midcolumn + i)] == '0' && seat_map[(midrow - j) * column + (midcolumn + i + 1)] == '0')
+					{
+						int now_pos = (midrow - j) * column + (midcolumn + i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, -1) == 0)
+							return now_pos.toString() + "," + (now_pos + 1).toString();
+					}
+				if ((midrow + j < row) && (midcolumn - i >= 0))
+					if (seat_map[(midrow + j) * column + (midcolumn - i)] == '0' && seat_map[(midrow + j) * column + (midcolumn - i + 1)] == '0')
+					{
+						int now_pos = (midrow + j) * column + (midcolumn - i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, -1) == 0)
+							return now_pos.toString() + "," + (now_pos + 1).toString();
+					}
+				if ((midrow + j < row) && (midcolumn + i + 1 < column))
+					if (seat_map[(midrow + j) * column + (midcolumn + i)] == '0' && seat_map[(midrow + j) * column + (midcolumn + i + 1)] == '0')
+					{
+						int now_pos = (midrow + j) * column + (midcolumn + i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, -1) == 0)
+							return now_pos.toString() + "," + (now_pos + 1).toString();
+					}
+			}
+		}
+	}
+	else
+		if (seat_number == 3)
+		{
+			for (int i = 0; i <= midcolumn; i++)
+			{
+				for (int j = 0; j <= midrow; j++)
+				{
+					if ((midrow - j >= 0) && (midcolumn - i >= 0) && (midcolumn - i + 2 < column))
+						if (seat_map[(midrow - j) * column + (midcolumn - i)] == '0' && seat_map[(midrow - j) * column + (midcolumn - i + 1)] == '0' && seat_map[(midrow - j) * column + (midcolumn - i + 2)] == '0')
+						{
+							int now_pos = (midrow - j) * column + (midcolumn - i);
+							if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, now_pos + 2) == 0)
+								return now_pos.toString() + "," + (now_pos + 1).toString() + "," + (now_pos + 2).toString();
+						}
+					if ((midrow - j >= 0) && (midcolumn + i + 2 < column))
+						if (seat_map[(midrow - j) * column + (midcolumn + i)] == '0' && seat_map[(midrow - j) * column + (midcolumn + i + 1)] == '0' && seat_map[(midrow - j) * column + (midcolumn + i + 2)] == '0')
+						{
+							int now_pos = (midrow - j) * column + (midcolumn + i);
+							if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, now_pos + 2) == 0)
+								return now_pos.toString() + "," + (now_pos + 1).toString() + "," + (now_pos + 2).toString();
+						}
+					if ((midrow + j < row) && (midcolumn - i >= 0) && (midcolumn - i + 2 < column))
+						if (seat_map[(midrow + j) * column + (midcolumn - i)] == '0' && seat_map[(midrow + j) * column + (midcolumn - i + 1)] == '0' && seat_map[(midrow + j) * column + (midcolumn - i + 2)] == '0')
+						{
+							int now_pos = (midrow + j) * column + (midcolumn - i);
+							if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, now_pos + 2) == 0)
+								return now_pos.toString() + "," + (now_pos + 1).toString() + "," + (now_pos + 2).toString();
+						}
+					if ((midrow + j < row) && (midcolumn + i + 2 < column))
+						if (seat_map[(midrow + j) * column + (midcolumn + i)] == '0' && seat_map[(midrow + j) * column + (midcolumn + i + 1)] == '0' && seat_map[(midrow + j) * column + (midcolumn + i + 2)] == '0')
+						{
+							int now_pos = (midrow + j) * column + (midcolumn + i);
+							if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, now_pos + 2) == 0)
+								return now_pos.toString() + "," + (now_pos + 1).toString() + "," + (now_pos + 2).toString();
+						}
+				}
+			}
+		}
+    return "-1";    
+}
+
+void SqlFuns::cancel_orders(QString orderId)
+{   
+    QSqlTableModel model;
+    QSqlTableModel model;
+    model.setTable("orders");
+    orderId = formal(orderId);
+    model.setFilter("oederId = " + orderId);
+    model.select();
+    QSqlRecord record = model.record(0);
+    int is_order_paid = record.value("isPaid").toInt();
+    if(is_order_paid != 0)
+        return -1;
+    model.deleteRow(1);
+    return 1;   
+}
