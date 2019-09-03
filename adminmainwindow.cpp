@@ -11,6 +11,15 @@ AdminMainWindow::AdminMainWindow(QWidget *parent) :
     timer->start(1000);
     ui->dateEdit_inquire01->setCalendarPopup(true);
     ui->dateEdit_inquire02->setCalendarPopup(true);
+    // 设置座位图选项
+    ui->tableWidget_seatMaps->horizontalHeader()->hide();
+    ui->tableWidget_seatMaps->verticalHeader()->hide();
+    ui->tableWidget_seatMaps->setShowGrid(false);
+    ui->tableWidget_seatMaps->verticalHeader()->setDefaultSectionSize(20);
+    ui->tableWidget_seatMaps->horizontalHeader()->setDefaultSectionSize(20);
+    ui->tableWidget_seatMaps->setStyleSheet("selection-background-color:white;");
+    ui->tableWidget_seatMaps->setFocusPolicy(Qt::NoFocus);
+    ui->tableWidget_seatMaps->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 AdminMainWindow::~AdminMainWindow()
@@ -104,11 +113,7 @@ void AdminMainWindow::on_pushButton_addNewMovie_clicked()
 
 void AdminMainWindow::on_pushButton_addNewHall_clicked()
 {
-    SqlFuns sf;
-    sf.addNewHall("#2LaserHall", "YouthLight", 150, 9, 21, "222000000000000022222200000000000000022222200000000000000022222200000000000000022222200000000000000022000200000000000000022000200000000000000022000200000000000000022000000000000000000000002", "3DImax");
-    sf.addNewHall("#5Hall", "WanDaJGC", 71, 6, 13, "000000000002200000000000220000000000002000000000000200000000000020000000000000", "3D");
-    sf.addNewHall("#7Hall", "WanDaJGC", 65, 7, 10, "00000000002000000000000000000020000000002000000000200000000020000000000", "3D");
-    sf.addNewHall("LD3LaserDolByHall", "LUMIERE", 116, 9, 16, "200000000000000020000000000000002000000000000000200000000000222220000000000022222000000000002222200000000000222220000000000022000000000000000022", "Dolby Atmos/X-DMAX");
+    emit showAddNewHallWindow();
 }
 
 void AdminMainWindow::receiveMovieInfoChange()
@@ -182,4 +187,49 @@ void AdminMainWindow::on_pushButton_search_clicked()
     }
     else
         QMessageBox::critical(nullptr, "输入有误", "请重新输入");
+}
+
+void AdminMainWindow::receiveHallAdded()
+{
+    SqlFuns sf;
+    updateHallTable(sf.queryAdminHall(""));
+    ui->comboBox_hall_2->clear();
+    ui->comboBox_hall_2->addItem("");
+    ui->comboBox_hall_2->addItems(sf.queryHallId(sf.queryCinema(global_userName)));
+    ui->comboBox_hall->clear();
+    ui->comboBox_hall->addItem("");
+    ui->comboBox_hall->addItems(sf.queryHallId(sf.queryCinema(global_userName)));
+}
+
+void AdminMainWindow::showSeat(QString seatMap)
+{
+    QChar choice;
+    QList<QTableWidgetItem *> ql;
+    for(int i = 0; i < 252; i++)
+    {
+        QTableWidgetItem *item = new QTableWidgetItem();
+        choice = seatMap[i];
+        if(choice == "0")
+        {
+            item->setIcon(QPixmap(":/new/prefix1/avi1.png"));
+            item->setData(Qt::UserRole, 1);
+            item->setFlags(item->flags()& ~Qt::ItemIsSelectable);
+        }
+        else
+        {
+            item->setIcon(QPixmap(":/new/prefix1/blank.png"));
+            item->setData(Qt::UserRole, 0);
+            item->setFlags(item->flags() & !Qt::ItemIsEnabled & !Qt::ItemIsSelectable);
+        }
+        ql.append(item);
+    }
+    for(int i = 0; i < 12; i++)
+        for(int j = 0; j < 21; j++)
+            ui->tableWidget_seatMaps->setItem(i, j, ql[i * 21 + j]);
+}
+
+void AdminMainWindow::on_tableView_currentHall_clicked(const QModelIndex &index)
+{
+    QAbstractItemModel *model = ui->tableView_currentHall->model();
+    showSeat(model->data(model->index(index.row(), 4)).toString());
 }

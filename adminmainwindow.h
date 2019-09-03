@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QDateTime>
 #include <QAbstractItemView>
+#include <QTableWidgetItem>
 
 namespace Ui {
 class AdminMainWindow;
@@ -20,6 +21,7 @@ public:
     void updateMovieTable(QSqlTableModel *model);
     void updateHallTable(QSqlTableModel *model);
     void updateOrdersTable(QSqlTableModel *model);
+    void showSeat(QString seatMap);
     ~AdminMainWindow();
 
 private:
@@ -30,26 +32,25 @@ private slots:
     void receiveLogin();
     void timerUpdate();
     void infoChangeDone();
-
     void on_pushButton_editPersonalInfo_clicked();
-
     void on_pushButton_addNewMovie_clicked();
-
     void on_pushButton_addNewHall_clicked();
+    void on_pushButton_search_2_clicked();
+    void on_comboBox_hall_currentTextChanged(const QString &arg1);
+    void on_pushButton_search_clicked();
 
     void receiveMovieInfoChange();
+    void receiveHallAdded();
 
-    void on_pushButton_search_2_clicked();
+    void on_tableView_currentHall_clicked(const QModelIndex &index);
 
-    void on_comboBox_hall_currentTextChanged(const QString &arg1);
-
-    void on_pushButton_search_clicked();
 
 signals:
     void showLoginWindow();
     void timeout();
     void showInfoChangeWindow();
     void showAddNewFilmWindow();
+    void showAddNewHallWindow();
 };
 
 #endif // ADMINMAINWINDOW_H

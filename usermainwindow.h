@@ -47,6 +47,7 @@ signals:
     void showLoginWindow();
     void timeout();
     void showInfoChangeWindow();
+    void showPaymentWindow(QString movieId);
 };
 
 #endif // USERMAINWINDOW_H

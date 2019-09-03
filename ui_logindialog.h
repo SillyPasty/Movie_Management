@@ -38,6 +38,7 @@ public:
     QPushButton *pushButton_login;
     QPushButton *pushButton_register;
     QPushButton *pushButton_exit;
+    QPushButton *pushButton;
 
     void setupUi(QDialog *LoginDialog)
     {
@@ -89,6 +90,9 @@ public:
         pushButton_exit = new QPushButton(LoginDialog);
         pushButton_exit->setObjectName(QStringLiteral("pushButton_exit"));
         pushButton_exit->setGeometry(QRect(230, 260, 96, 20));
+        pushButton = new QPushButton(LoginDialog);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(20, 250, 80, 20));
 
         retranslateUi(LoginDialog);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), LoginDialog, SLOT(close()));
@@ -104,6 +108,7 @@ public:
         pushButton_login->setText(QApplication::translate("LoginDialog", "\347\231\273\351\231\206", Q_NULLPTR));
         pushButton_register->setText(QApplication::translate("LoginDialog", "\346\263\250\345\206\214", Q_NULLPTR));
         pushButton_exit->setText(QApplication::translate("LoginDialog", "\351\200\200\345\207\272", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("LoginDialog", "+", Q_NULLPTR));
     } // retranslateUi
 
 };

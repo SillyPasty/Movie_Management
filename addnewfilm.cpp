@@ -31,21 +31,33 @@ void AddNewFilm::on_pushButton_confirm_clicked()
     QString type = ui->lineEdit_type->text().trimmed();
     QString hall = ui->comboBox_hall->currentText();
     QString language = ui->comboBox_language->currentText();
+    int flg;
     if(startTime < endTime)
     {
-        float price = ui->lineEdit_price->text().trimmed().toFloat();
-        int isRecommened = 0;
-        if(ui->checkBox_isRecommened->isChecked())
-            isRecommened = 1;
-        int length =  ui->timeEdit_startTime->time().secsTo(ui->timeEdit_endTime->time());
+        flg = sf.addNewFilmJudge(hall, startTime, endTime, date);
+        QMessageBox::StandardButton result = QMessageBox::No; // 返回选择的按钮
 
-        QString cinema = sf.queryCinema(global_userName);   //  数据库
-        QString movieId = name + cinema + ui->timeEdit_startTime->time().toString("hhmmss") + ui->dateEdit_date->date().toString("yyyyMMdd");  //  自定义
-        int ticketRemain = sf.queryHallSeates(hall); //  通过数据库查询
-        QString seatMaps = sf.queryHallSeatMap(hall); //  数据库
-        sf.addNewFilm(movieId, name, cinema, hall, startTime, endTime, length, price, ticketRemain, type, isRecommened, date, seatMaps, language);
-        emit movieInfoChange();
-        this->close();
+        if(flg == 1)
+            QMessageBox::critical(nullptr, "与现有时间冲突", "请重新输入");
+        else if (flg == 2)
+            result = QMessageBox::question(this, "散场人数较多", "是否要添加？", QMessageBox::Yes | QMessageBox::No, QMessageBox::NoButton);
+
+        if(result == QMessageBox::Yes || flg == 0)
+        {
+            float price = ui->lineEdit_price->text().trimmed().toFloat();
+            int isRecommened = 0;
+            if(ui->checkBox_isRecommened->isChecked())
+                isRecommened = 1;
+            int length =  ui->timeEdit_startTime->time().secsTo(ui->timeEdit_endTime->time());
+
+            QString cinema = sf.queryCinema(global_userName);   //  数据库
+            QString movieId = name + cinema + hall + ui->timeEdit_startTime->time().toString("hhmmss") + ui->dateEdit_date->date().toString("yyyyMMdd");  //  自定义
+            int ticketRemain = sf.queryHallSeates(hall); //  通过数据库查询
+            QString seatMaps = sf.queryHallSeatMap(hall); //  数据库
+            sf.addNewFilm(movieId, name, cinema, hall, startTime, endTime, length, price, ticketRemain, type, isRecommened, date, seatMaps, language);
+            emit movieInfoChange();
+            this->close();
+        }
     }
     else
         QMessageBox::critical(nullptr, "输入有误", "请重新输入");

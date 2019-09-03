@@ -24,6 +24,8 @@ private slots:
     void userExchange();
     void on_pushButton_register_clicked();
 
+    void on_pushButton_clicked();
+
 signals:
     void showUserMainWindow();
     void showAdminMainWindow();

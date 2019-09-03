@@ -61,7 +61,7 @@
      <item row="3" column="0" colspan="2">
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_search">
         <attribute name="title">
@@ -188,59 +188,243 @@
         <attribute name="title">
          <string>影厅管理</string>
         </attribute>
-        <widget class="QWidget" name="layoutWidget">
+        <widget class="QTableWidget" name="tableWidget_seatMaps">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>1001</width>
-           <height>541</height>
+           <x>580</x>
+           <y>180</y>
+           <width>431</width>
+           <height>251</height>
           </rect>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+        </widget>
+        <widget class="Line" name="line_3">
+         <property name="geometry">
+          <rect>
+           <x>11</x>
+           <y>41</y>
+           <width>1001</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QTableView" name="tableView_currentHall">
+         <property name="geometry">
+          <rect>
+           <x>11</x>
+           <y>60</y>
+           <width>551</width>
+           <height>491</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QWidget" name="">
+         <property name="geometry">
+          <rect>
+           <x>12</x>
+           <y>10</y>
+           <width>1001</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>选择影厅</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_hall"/>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_addNewHall">
-              <property name="text">
-               <string>+</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="Line" name="line_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>选择影厅</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QTableView" name="tableView_currentHall"/>
+           <widget class="QComboBox" name="comboBox_hall"/>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_addNewHall">
+            <property name="text">
+             <string>添加影厅</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -437,19 +621,6 @@
       </widget>
      </item>
     </layout>
-   </widget>
-   <widget class="QLabel" name="label_test">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>670</y>
-      <width>54</width>
-      <height>12</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

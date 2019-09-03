@@ -29,6 +29,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -68,17 +69,17 @@ public:
     QFrame *line_2;
     QLabel *label_totalIncome;
     QWidget *tab_towUp;
-    QWidget *layoutWidget1;
-    QVBoxLayout *verticalLayout_3;
+    QTableWidget *tableWidget_seatMaps;
+    QFrame *line_3;
+    QTableView *tableView_currentHall;
+    QWidget *widget;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label;
     QComboBox *comboBox_hall;
     QSpacerItem *horizontalSpacer;
     QPushButton *pushButton_addNewHall;
-    QFrame *line_3;
-    QTableView *tableView_currentHall;
     QWidget *tab_order;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_6;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_11;
@@ -105,7 +106,6 @@ public:
     QVBoxLayout *verticalLayout_4;
     QPushButton *pushButton_editPersonalInfo;
     QPushButton *pushButton_changeUser;
-    QLabel *label_test;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -250,20 +250,99 @@ public:
         tabWidget->addTab(tab_search, QString());
         tab_towUp = new QWidget();
         tab_towUp->setObjectName(QStringLiteral("tab_towUp"));
-        layoutWidget1 = new QWidget(tab_towUp);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 10, 1001, 541));
-        verticalLayout_3 = new QVBoxLayout(layoutWidget1);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout_2 = new QHBoxLayout();
+        tableWidget_seatMaps = new QTableWidget(tab_towUp);
+        if (tableWidget_seatMaps->columnCount() < 21)
+            tableWidget_seatMaps->setColumnCount(21);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(2, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(3, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(5, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(6, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(7, __qtablewidgetitem7);
+        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(8, __qtablewidgetitem8);
+        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(9, __qtablewidgetitem9);
+        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(10, __qtablewidgetitem10);
+        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(11, __qtablewidgetitem11);
+        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(12, __qtablewidgetitem12);
+        QTableWidgetItem *__qtablewidgetitem13 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(13, __qtablewidgetitem13);
+        QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(14, __qtablewidgetitem14);
+        QTableWidgetItem *__qtablewidgetitem15 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(15, __qtablewidgetitem15);
+        QTableWidgetItem *__qtablewidgetitem16 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(16, __qtablewidgetitem16);
+        QTableWidgetItem *__qtablewidgetitem17 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(17, __qtablewidgetitem17);
+        QTableWidgetItem *__qtablewidgetitem18 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(18, __qtablewidgetitem18);
+        QTableWidgetItem *__qtablewidgetitem19 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(19, __qtablewidgetitem19);
+        QTableWidgetItem *__qtablewidgetitem20 = new QTableWidgetItem();
+        tableWidget_seatMaps->setHorizontalHeaderItem(20, __qtablewidgetitem20);
+        if (tableWidget_seatMaps->rowCount() < 12)
+            tableWidget_seatMaps->setRowCount(12);
+        QTableWidgetItem *__qtablewidgetitem21 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(0, __qtablewidgetitem21);
+        QTableWidgetItem *__qtablewidgetitem22 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(1, __qtablewidgetitem22);
+        QTableWidgetItem *__qtablewidgetitem23 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(2, __qtablewidgetitem23);
+        QTableWidgetItem *__qtablewidgetitem24 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(3, __qtablewidgetitem24);
+        QTableWidgetItem *__qtablewidgetitem25 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(4, __qtablewidgetitem25);
+        QTableWidgetItem *__qtablewidgetitem26 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(5, __qtablewidgetitem26);
+        QTableWidgetItem *__qtablewidgetitem27 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(6, __qtablewidgetitem27);
+        QTableWidgetItem *__qtablewidgetitem28 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(7, __qtablewidgetitem28);
+        QTableWidgetItem *__qtablewidgetitem29 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(8, __qtablewidgetitem29);
+        QTableWidgetItem *__qtablewidgetitem30 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(9, __qtablewidgetitem30);
+        QTableWidgetItem *__qtablewidgetitem31 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(10, __qtablewidgetitem31);
+        QTableWidgetItem *__qtablewidgetitem32 = new QTableWidgetItem();
+        tableWidget_seatMaps->setVerticalHeaderItem(11, __qtablewidgetitem32);
+        tableWidget_seatMaps->setObjectName(QStringLiteral("tableWidget_seatMaps"));
+        tableWidget_seatMaps->setGeometry(QRect(580, 180, 431, 251));
+        line_3 = new QFrame(tab_towUp);
+        line_3->setObjectName(QStringLiteral("line_3"));
+        line_3->setGeometry(QRect(11, 41, 1001, 16));
+        line_3->setFrameShape(QFrame::HLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+        tableView_currentHall = new QTableView(tab_towUp);
+        tableView_currentHall->setObjectName(QStringLiteral("tableView_currentHall"));
+        tableView_currentHall->setGeometry(QRect(11, 60, 551, 491));
+        widget = new QWidget(tab_towUp);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(12, 10, 1001, 24));
+        horizontalLayout_2 = new QHBoxLayout(widget);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label = new QLabel(layoutWidget1);
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        label = new QLabel(widget);
         label->setObjectName(QStringLiteral("label"));
 
         horizontalLayout_2->addWidget(label);
 
-        comboBox_hall = new QComboBox(layoutWidget1);
+        comboBox_hall = new QComboBox(widget);
         comboBox_hall->setObjectName(QStringLiteral("comboBox_hall"));
 
         horizontalLayout_2->addWidget(comboBox_hall);
@@ -272,53 +351,38 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
-        pushButton_addNewHall = new QPushButton(layoutWidget1);
+        pushButton_addNewHall = new QPushButton(widget);
         pushButton_addNewHall->setObjectName(QStringLiteral("pushButton_addNewHall"));
 
         horizontalLayout_2->addWidget(pushButton_addNewHall);
 
-
-        verticalLayout_3->addLayout(horizontalLayout_2);
-
-        line_3 = new QFrame(layoutWidget1);
-        line_3->setObjectName(QStringLiteral("line_3"));
-        line_3->setFrameShape(QFrame::HLine);
-        line_3->setFrameShadow(QFrame::Sunken);
-
-        verticalLayout_3->addWidget(line_3);
-
-        tableView_currentHall = new QTableView(layoutWidget1);
-        tableView_currentHall->setObjectName(QStringLiteral("tableView_currentHall"));
-
-        verticalLayout_3->addWidget(tableView_currentHall);
-
         tabWidget->addTab(tab_towUp, QString());
         tab_order = new QWidget();
         tab_order->setObjectName(QStringLiteral("tab_order"));
-        layoutWidget2 = new QWidget(tab_order);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 10, 1001, 541));
-        verticalLayout_6 = new QVBoxLayout(layoutWidget2);
+        layoutWidget1 = new QWidget(tab_order);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 10, 1001, 541));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget1);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         verticalLayout_6->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_11 = new QLabel(layoutWidget2);
+        label_11 = new QLabel(layoutWidget1);
         label_11->setObjectName(QStringLiteral("label_11"));
 
         horizontalLayout_4->addWidget(label_11);
 
-        lineEdit_movieName_2 = new QLineEdit(layoutWidget2);
+        lineEdit_movieName_2 = new QLineEdit(layoutWidget1);
         lineEdit_movieName_2->setObjectName(QStringLiteral("lineEdit_movieName_2"));
 
         horizontalLayout_4->addWidget(lineEdit_movieName_2);
 
-        label_9 = new QLabel(layoutWidget2);
+        label_9 = new QLabel(layoutWidget1);
         label_9->setObjectName(QStringLiteral("label_9"));
 
         horizontalLayout_4->addWidget(label_9);
 
-        comboBox_hall_2 = new QComboBox(layoutWidget2);
+        comboBox_hall_2 = new QComboBox(layoutWidget1);
         comboBox_hall_2->setObjectName(QStringLiteral("comboBox_hall_2"));
 
         horizontalLayout_4->addWidget(comboBox_hall_2);
@@ -335,12 +399,12 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer_2);
 
-        pushButton_search_2 = new QPushButton(layoutWidget2);
+        pushButton_search_2 = new QPushButton(layoutWidget1);
         pushButton_search_2->setObjectName(QStringLiteral("pushButton_search_2"));
 
         horizontalLayout_4->addWidget(pushButton_search_2);
 
-        pushButton_addNewMovie = new QPushButton(layoutWidget2);
+        pushButton_addNewMovie = new QPushButton(layoutWidget1);
         pushButton_addNewMovie->setObjectName(QStringLiteral("pushButton_addNewMovie"));
 
         horizontalLayout_4->addWidget(pushButton_addNewMovie);
@@ -348,12 +412,12 @@ public:
 
         verticalLayout_6->addLayout(horizontalLayout_4);
 
-        tableView_movie = new QTableView(layoutWidget2);
+        tableView_movie = new QTableView(layoutWidget1);
         tableView_movie->setObjectName(QStringLiteral("tableView_movie"));
 
         verticalLayout_6->addWidget(tableView_movie);
 
-        line_4 = new QFrame(layoutWidget2);
+        line_4 = new QFrame(layoutWidget1);
         line_4->setObjectName(QStringLiteral("line_4"));
         line_4->setFrameShape(QFrame::HLine);
         line_4->setFrameShadow(QFrame::Sunken);
@@ -419,9 +483,6 @@ public:
 
         gridLayout->addWidget(tabWidget, 3, 0, 1, 2);
 
-        label_test = new QLabel(centralwidget);
-        label_test->setObjectName(QStringLiteral("label_test"));
-        label_test->setGeometry(QRect(290, 670, 54, 12));
         AdminMainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(AdminMainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -434,7 +495,7 @@ public:
         retranslateUi(AdminMainWindow);
         QObject::connect(pushButton_exit, SIGNAL(clicked()), AdminMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(AdminMainWindow);
@@ -455,8 +516,74 @@ public:
         pushButton_search->setText(QApplication::translate("AdminMainWindow", "\346\237\245\350\257\242", Q_NULLPTR));
         label_totalIncome->setText(QApplication::translate("AdminMainWindow", "TextLabel", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_search), QApplication::translate("AdminMainWindow", "\350\256\242\345\215\225\347\256\241\347\220\206", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem = tableWidget_seatMaps->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem1 = tableWidget_seatMaps->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem2 = tableWidget_seatMaps->horizontalHeaderItem(2);
+        ___qtablewidgetitem2->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem3 = tableWidget_seatMaps->horizontalHeaderItem(3);
+        ___qtablewidgetitem3->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem4 = tableWidget_seatMaps->horizontalHeaderItem(4);
+        ___qtablewidgetitem4->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem5 = tableWidget_seatMaps->horizontalHeaderItem(5);
+        ___qtablewidgetitem5->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem6 = tableWidget_seatMaps->horizontalHeaderItem(6);
+        ___qtablewidgetitem6->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem7 = tableWidget_seatMaps->horizontalHeaderItem(7);
+        ___qtablewidgetitem7->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem8 = tableWidget_seatMaps->horizontalHeaderItem(8);
+        ___qtablewidgetitem8->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem9 = tableWidget_seatMaps->horizontalHeaderItem(9);
+        ___qtablewidgetitem9->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem10 = tableWidget_seatMaps->horizontalHeaderItem(10);
+        ___qtablewidgetitem10->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem11 = tableWidget_seatMaps->horizontalHeaderItem(11);
+        ___qtablewidgetitem11->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem12 = tableWidget_seatMaps->horizontalHeaderItem(12);
+        ___qtablewidgetitem12->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem13 = tableWidget_seatMaps->horizontalHeaderItem(13);
+        ___qtablewidgetitem13->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem14 = tableWidget_seatMaps->horizontalHeaderItem(14);
+        ___qtablewidgetitem14->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem15 = tableWidget_seatMaps->horizontalHeaderItem(15);
+        ___qtablewidgetitem15->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem16 = tableWidget_seatMaps->horizontalHeaderItem(16);
+        ___qtablewidgetitem16->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem17 = tableWidget_seatMaps->horizontalHeaderItem(17);
+        ___qtablewidgetitem17->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem18 = tableWidget_seatMaps->horizontalHeaderItem(18);
+        ___qtablewidgetitem18->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem19 = tableWidget_seatMaps->horizontalHeaderItem(19);
+        ___qtablewidgetitem19->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem20 = tableWidget_seatMaps->horizontalHeaderItem(20);
+        ___qtablewidgetitem20->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\345\210\227", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem21 = tableWidget_seatMaps->verticalHeaderItem(0);
+        ___qtablewidgetitem21->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem22 = tableWidget_seatMaps->verticalHeaderItem(1);
+        ___qtablewidgetitem22->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem23 = tableWidget_seatMaps->verticalHeaderItem(2);
+        ___qtablewidgetitem23->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem24 = tableWidget_seatMaps->verticalHeaderItem(3);
+        ___qtablewidgetitem24->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem25 = tableWidget_seatMaps->verticalHeaderItem(4);
+        ___qtablewidgetitem25->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem26 = tableWidget_seatMaps->verticalHeaderItem(5);
+        ___qtablewidgetitem26->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem27 = tableWidget_seatMaps->verticalHeaderItem(6);
+        ___qtablewidgetitem27->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem28 = tableWidget_seatMaps->verticalHeaderItem(7);
+        ___qtablewidgetitem28->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem29 = tableWidget_seatMaps->verticalHeaderItem(8);
+        ___qtablewidgetitem29->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem30 = tableWidget_seatMaps->verticalHeaderItem(9);
+        ___qtablewidgetitem30->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem31 = tableWidget_seatMaps->verticalHeaderItem(10);
+        ___qtablewidgetitem31->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem32 = tableWidget_seatMaps->verticalHeaderItem(11);
+        ___qtablewidgetitem32->setText(QApplication::translate("AdminMainWindow", "\346\226\260\345\273\272\350\241\214", Q_NULLPTR));
         label->setText(QApplication::translate("AdminMainWindow", "\351\200\211\346\213\251\345\275\261\345\216\205", Q_NULLPTR));
-        pushButton_addNewHall->setText(QApplication::translate("AdminMainWindow", "+", Q_NULLPTR));
+        pushButton_addNewHall->setText(QApplication::translate("AdminMainWindow", "\346\267\273\345\212\240\345\275\261\345\216\205", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_towUp), QApplication::translate("AdminMainWindow", "\345\275\261\345\216\205\347\256\241\347\220\206", Q_NULLPTR));
         label_11->setText(QApplication::translate("AdminMainWindow", "\347\224\265\345\275\261\345\220\215", Q_NULLPTR));
         label_9->setText(QApplication::translate("AdminMainWindow", "\345\275\261\345\216\205", Q_NULLPTR));
@@ -472,7 +599,6 @@ public:
         pushButton_editPersonalInfo->setText(QApplication::translate("AdminMainWindow", "\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_changeUser->setText(QApplication::translate("AdminMainWindow", "\345\210\207\346\215\242\347\224\250\346\210\267", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_personalInfo), QApplication::translate("AdminMainWindow", "\344\270\252\344\272\272\344\277\241\346\201\257", Q_NULLPTR));
-        label_test->setText(QApplication::translate("AdminMainWindow", "TextLabel", Q_NULLPTR));
     } // retranslateUi
 
 };

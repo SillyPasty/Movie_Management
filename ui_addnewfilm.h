@@ -31,7 +31,6 @@ QT_BEGIN_NAMESPACE
 class Ui_AddNewFilm
 {
 public:
-    QLabel *label_test;
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_8;
@@ -72,9 +71,6 @@ public:
         if (AddNewFilm->objectName().isEmpty())
             AddNewFilm->setObjectName(QStringLiteral("AddNewFilm"));
         AddNewFilm->resize(313, 384);
-        label_test = new QLabel(AddNewFilm);
-        label_test->setObjectName(QStringLiteral("label_test"));
-        label_test->setGeometry(QRect(0, 170, 54, 12));
         layoutWidget = new QWidget(AddNewFilm);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(60, 20, 201, 293));
@@ -247,7 +243,6 @@ public:
     void retranslateUi(QDialog *AddNewFilm)
     {
         AddNewFilm->setWindowTitle(QApplication::translate("AddNewFilm", "Dialog", Q_NULLPTR));
-        label_test->setText(QApplication::translate("AddNewFilm", "TextLabel", Q_NULLPTR));
         label->setText(QApplication::translate("AddNewFilm", "\347\224\265\345\275\261\345\220\215\347\247\260", Q_NULLPTR));
         label_2->setText(QApplication::translate("AddNewFilm", "\345\275\261    \351\231\242", Q_NULLPTR));
         label_10->setText(QApplication::translate("AddNewFilm", "\344\273\267    \346\240\274", Q_NULLPTR));

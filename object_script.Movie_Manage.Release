@@ -7,10 +7,15 @@ INPUT(
 ./release\registerwindow.o
 ./release\sqlfuns.o
 ./release\addnewfilm.o
+./release\seatsselect.o
+./release\addnewhall.o
+./release\qrc_png.o
 ./release\moc_usermainwindow.o
 ./release\moc_adminmainwindow.o
 ./release\moc_logindialog.o
 ./release\moc_infochange.o
 ./release\moc_registerwindow.o
 ./release\moc_addnewfilm.o
+./release\moc_seatsselect.o
+./release\moc_addnewhall.o
 );

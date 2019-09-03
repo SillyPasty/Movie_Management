@@ -32,7 +32,9 @@ SOURCES += \
     infochange.cpp \
     registerwindow.cpp \
     sqlfuns.cpp \
-    addnewfilm.cpp
+    addnewfilm.cpp \
+    seatsselect.cpp \
+    addnewhall.cpp
 
 HEADERS += \
         usermainwindow.h \
@@ -41,7 +43,9 @@ HEADERS += \
     infochange.h \
     registerwindow.h \
     sqlfuns.h \
-    addnewfilm.h
+    addnewfilm.h \
+    seatsselect.h \
+    addnewhall.h
 
 FORMS += \
         usermainwindow.ui \
@@ -49,9 +53,17 @@ FORMS += \
     logindialog.ui \
     infochange.ui \
     registerwindow.ui \
-    addnewfilm.ui
+    addnewfilm.ui \
+    seatsselect.ui \
+    addnewhall.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
+
+RESOURCES += \
+    resourse/png.qrc \
+    resourse/png.qrc

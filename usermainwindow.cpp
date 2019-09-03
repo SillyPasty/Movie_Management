@@ -123,17 +123,8 @@ void UserMainWindow::on_pushButton_buy_clicked()
     int row = ui->tableView_movie->currentIndex().row();
     QAbstractItemModel *model = ui->tableView_movie->model();
     QString movieId = model->data(model->index(row, 1)).toString();
-    if(movieId == "")
-        QMessageBox::critical(nullptr, "未选择", "请选择场次");
-    else
-    {
-        QDateTime curDateTime = QDateTime::currentDateTime();
-        QString cur = curDateTime.toString("yyyyMMddhhmmss");
 
-        sf.addNewOrder(movieId, 1, 0, 0, cur);
-
-        updateOrdersTable(sf.queryUserOrder("", ""));
-    }
+    emit showPaymentWindow(movieId);
 }
 
 void UserMainWindow::updateOrdersTable(QSqlTableModel *model)
@@ -181,7 +172,7 @@ void UserMainWindow::on_pushButton_pay_clicked()
         QMessageBox::critical(nullptr, "余额不足", "无法购买");
     else
     {
-        sf.changePaymentStage(orderId, tickets);
+        sf.changePaymentStage(orderId, tickets, total);
         updateOrdersTable(sf.queryUserOrder("", ""));
         ui->lineEdit_currentBalance->setText(tmp.sprintf("%.2f",sf.changeUserBalance(-1 * total)));
     }

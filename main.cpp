@@ -6,6 +6,8 @@
 #include "registerwindow.h"
 #include "sqlfuns.h"
 #include "addnewfilm.h"
+#include "seatsselect.h"
+#include "addnewhall.h"
 #include <unistd.h>
 #include <QApplication>
 
@@ -19,6 +21,8 @@ int main(int argc, char *argv[])
     RegisterWindow rw;
     AddNewFilm anf;
     SqlFuns sf;
+    SeatsSelect ss;
+    AddNewHall anh;
     //  init database
     while(!sf.connect("dataBase.db"))
         sleep(1);
@@ -45,8 +49,11 @@ int main(int argc, char *argv[])
 
     QObject::connect(&anf, SIGNAL(movieInfoChange()), &aw, SLOT(receiveMovieInfoChange()));
 
+    QObject::connect(&uw, SIGNAL(showPaymentWindow(QString)), &ss, SLOT(receivePayment(QString)));
 
+    QObject::connect(&aw, SIGNAL(showAddNewHallWindow()), &anh, SLOT(receiveAddNewHall()));
 
+    QObject::connect(&anh, SIGNAL(hallAdded()), &aw, SLOT(receiveHallAdded()));
 
     return a.exec();
 }

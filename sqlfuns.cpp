@@ -37,7 +37,7 @@ void SqlFuns::createTables()
                "type TEXT,"
                "isRecommened INTEGER,"
                "totalSeats INTEGER,"
-               "percent REAL,"
+               "percent TEXT,"
                "totalIncome REAL,"
                "date TEXT,"
                "rowNum INT,"
@@ -70,6 +70,14 @@ void SqlFuns::createTables()
                "seat2pos INTEGER,"
                "seat3pos INTEGER,"
                "isPaid INTEGER)");
+
+    query.exec("CREATE TABLE hallTemplate ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+               "type TEXT,"
+               "row INTEGER,"
+               "column INTEGER,"
+               "seatMap TEXT,"
+               "totalSeats INTEGER)");
 }
 
 bool SqlFuns::connect(const QString &dbName)
@@ -83,6 +91,42 @@ bool SqlFuns::connect(const QString &dbName)
         return false;
     }
     return true;
+}
+
+void SqlFuns::addNewHallTemplate()
+{
+    QSqlTableModel model;
+
+    QString type = "VIP厅";
+    int rows = 6;
+    int column = 9;                        //
+    QString seatMap = "222222222222222222222"
+                      "222222222222222222222"
+                      "222222222222222222222"
+                      "222222000000000222222"
+                      "222222002200000222222"
+                      "222222222200000222222"
+                      "222222222222222222222"
+                      "222222000000000222222"
+                      "222222000000000222222"
+                      "222222222222222222222"
+                      "222222222222222222222"
+                      "222222222222222222222";
+    int totalSeats = 0;
+    model.setTable("hallTemplate");
+    model.select();
+    //  查询row
+    int row = model.rowCount();
+    for(int i = 0; i < 252; i++)
+        if(seatMap[i] == "0")
+            totalSeats++;
+    model.insertRows(row, 1);
+    model.setData(model.index(row, 1), type);
+    model.setData(model.index(row, 2), rows);
+    model.setData(model.index(row, 3), column);
+    model.setData(model.index(row, 4), seatMap);
+    model.setData(model.index(row, 5), totalSeats);
+    model.submitAll();
 }
 
 QString SqlFuns::formal(QString str)
@@ -167,7 +211,7 @@ void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString 
     model.setData(model.index(row, 11), type);
     model.setData(model.index(row, 12), isRecommened);
     model.setData(model.index(row, 13), ticketRemain);
-    model.setData(model.index(row, 14), 0);
+    model.setData(model.index(row, 14), "0%");
     model.setData(model.index(row, 15), 0);
     model.setData(model.index(row, 16), date);
     model.setData(model.index(row, 17), queryRow(hall, cinema));
@@ -184,7 +228,8 @@ int SqlFuns::queryHallSeates(QString hallId)
     QSqlTableModel model;
     model.setTable("hall");
     hallId = formal(hallId);
-    model.setFilter("hallId = " + hallId);
+    QString cinema = queryCinema(global_userName);
+    model.setFilter("hallId = " + hallId + " and cinema = " + formal(cinema));
     model.select();
     QSqlRecord record = model.record(0);
     return record.value("totalSeats").toInt();
@@ -498,7 +543,7 @@ QString SqlFuns::queryMovieName(QString movieId)
     return model.record(0).value("movieName").toString();
 }
 
-void SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int seat3pos, QString curTimeDate)
+QString SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int seat3pos, QString curTimeDate)
 {
     // 用户操作
     // 添加一新订单
@@ -530,6 +575,7 @@ void SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int seat3
     model.setData(model.index(rows, 12), seat3pos);
     model.setData(model.index(rows, 13), 0);
     model.submitAll();
+    return orderId;
 }
 
 QSqlTableModel* SqlFuns::queryUserOrder(QString movieName, QString cinema)
@@ -559,23 +605,32 @@ QSqlTableModel* SqlFuns::queryUserOrder(QString movieName, QString cinema)
     return model;
 }
 
-void SqlFuns::changePaymentStage(QString orderId, int num)
+void SqlFuns::changePaymentStage(QString orderId, int num, float price)
 {
     // 用户操作 付款
     // 更新多项 需更改
     QSqlTableModel model;
     model.setTable("orders");
-    model.setFilter("orderId = " + formal(orderId));   
+    model.setFilter("orderId = " + formal(orderId));
     model.select();
     QString movieId = model.record(0).value("movieId").toString();
+    QString percentage;
     model.setData(model.index(0, 13), 1);
     model.submitAll();
-//    model.setTable("movie");
-//    model.setFilter("movieId = " + formal(movieId));
-//    model.select();
-//    int ticket = model.record(0).value("ticketRemain").toInt();
-//    ticket -= num;
-
+    model.setTable("movie");
+    model.setFilter("movieId = " + formal(movieId));
+    model.select();
+    int ticket = model.record(0).value("ticketRemain").toInt();
+    int totalSeat = model.record(0).value("totalSeats").toInt();
+    float totalIncome = model.record(0).value("totalIncome").toFloat();
+    ticket -= num;
+    totalIncome += price;
+    float percent = (float)(totalSeat - ticket) / totalSeat;
+    percentage.sprintf("%.2f%", percent);
+    model.setData(model.index(0, 10), ticket);
+    model.setData(model.index(0, 15), totalIncome);
+    model.setData(model.index(0, 14), percentage);
+    model.submitAll();
 }
 
 float SqlFuns::queryPrice(QString movieId)
@@ -645,4 +700,147 @@ QSqlTableModel* SqlFuns::queryAdminOrder(QString movieName, QString userId, QStr
     model->setFilter(ord);
     model->select();
     return model;
+}
+
+int SqlFuns::addNewFilmJudge(QString hallId, QString start_time, QString end_time, QString film_date)
+{
+    // 0 合法 1 冲突 2 不建议
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable("movie");
+    int start_time_to_int = returnMinute(start_time, film_date);
+    int end_time_to_int = returnMinute(end_time, film_date);
+    int entry_begin_time = start_time_to_int - 10;
+    int exit_end_time = end_time_to_int + 10;
+    QString cinema = queryCinema(global_userName);
+    cinema = formal(cinema);
+    QString ord;
+    ord = "cinema = " + cinema;
+    if(hallId != "")
+    {
+        hallId = formal(hallId);
+        ord = ord + "and hall = " + hallId;
+    }
+    model->setFilter(ord);
+    model->select();
+    int item_num = model->rowCount();
+    for(int i = 0; i < item_num; i++)
+    {
+        // 同一个影厅开始结束相差10分钟
+        QSqlRecord record = model->record(i);
+        int exist_film_entry_begin = returnMinute(record.value("startTime").toString(), record.value("date").toString()) - 10;
+        int exist_film_exit_end = returnMinute(record.value("endtime").toString(), record.value("date").toString()) + 10;
+        if(entry_begin_time >= exist_film_entry_begin && entry_begin_time <= exist_film_exit_end)
+            return 1;
+        if(entry_begin_time <= exist_film_entry_begin && exit_end_time >= exist_film_entry_begin)
+            return 1;
+    }
+    ord = "cinema = " + cinema;
+    model->clear();
+    model->setTable("movie");
+    model->setFilter(ord);
+    model->select();
+    item_num = model->rowCount();
+    for(int i = 0; i < item_num; i++)
+    {
+        QSqlRecord record = model->record(i);
+        int exist_film_start_time = returnMinute(record.value("startTime").toString(), record.value("date").toString());
+        int exist_film_end_time = returnMinute(record.value("endTime").toString(), record.value("date").toString());
+        if(abs(exist_film_start_time - start_time_to_int) <= 10)
+            return 2;
+        if(abs(exist_film_end_time - end_time_to_int) <= 10)
+            return 2;
+        if(abs(exist_film_end_time - start_time_to_int) <= 20)
+            return 2;
+        if(abs(end_time_to_int - exist_film_start_time) <= 20)
+            return 2;
+    }
+    return 0;
+}
+
+
+int SqlFuns::returnMinute(QString time_to_convert, QString date_to_convert)
+{
+    int return_time_interval_by_min = 0;
+    int day_interval = 0;
+    QString convert_year = date_to_convert.section('-', 0, 0);
+    int year_to_int = convert_year.toInt();
+    QString convert_month = date_to_convert.section('-', 1, 1);
+    int month_to_int = convert_month.toInt();
+    QString convert_day = date_to_convert.section('-', 2, 2);
+    QString convert_hour = time_to_convert.section(':', 0, 0);
+    QString convert_minute = time_to_convert.section(':', 1, 1);
+    for(int i = 1970; i < year_to_int; i++)
+    {
+        if((i % 4 == 0 && i % 100 != 0)||(i % 400 == 0))
+            day_interval = day_interval + 366;
+        else day_interval = day_interval + 365;
+    }
+    for(int i = 1; i < month_to_int; i++)
+    {
+        if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10) // i < 12
+            day_interval = day_interval + 31;
+        else
+            if(i == 4 || i == 6 || i == 9 || i == 11) // i < 12
+                day_interval = day_interval + 30;
+        else
+        {
+            if((year_to_int % 4 == 0 && year_to_int % 100 != 0)||(year_to_int % 400 == 0))
+                day_interval = day_interval + 29;
+            else day_interval = day_interval +28;
+        }
+    }
+    day_interval = day_interval + (convert_day.toInt() - 1);
+    return_time_interval_by_min = return_time_interval_by_min + (day_interval * 60 * 24);
+    return_time_interval_by_min = return_time_interval_by_min + (convert_hour.toInt() * 60) + convert_minute.toInt();
+    return return_time_interval_by_min;
+}
+
+QStringList SqlFuns::queryHallTemplateInfo()
+{
+    QSqlTableModel model;
+    QStringList qsl;
+    model.setTable("hallTemplate");
+    model.select();
+    for(int i = 0; i < model.rowCount(); i++)
+        qsl.append(model.record(i).value("type").toString());
+    return qsl;
+}
+
+QStringList SqlFuns::queryHallTemplateInfo(QString type)
+{
+    QSqlTableModel model;
+    QStringList qsl;
+    QString tmp;
+    model.setTable("hallTemplate");
+    model.setFilter("type = " + formal(type));
+    model.select();
+    qsl.append(model.record(0).value("type").toString());
+    qsl.append(tmp.sprintf("%d", model.record(0).value("row").toInt()));
+    tmp = "";
+    qsl.append(tmp.sprintf("%d", model.record(0).value("column").toInt()));
+    qsl.append(model.record(0).value("seatMap").toString());
+    qsl.append(tmp.sprintf("%d", model.record(0).value("totalSeats").toInt()));
+    return qsl;
+}
+
+QString SqlFuns::getHallId()
+{
+    QString cinema = queryCinema(global_userName);
+    QSqlTableModel model;
+    model.setTable("hall");
+    model.setFilter("cinema = " + formal(cinema));
+    model.select();
+    int row = model.rowCount();
+    QString id;
+    id.sprintf("#%d", row + 1);
+    return id;
+}
+
+QString SqlFuns::querySeatMap(QString movieId)
+{
+    QSqlTableModel model;
+    model.setTable("movie");
+    model.setFilter("movieId = " + formal(movieId));
+    model.select();
+    return model.record(0).value("seatMaps").toString();
 }
