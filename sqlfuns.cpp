@@ -1,100 +1,75 @@
-/*
-	By Silly Pasty 2019.
-	本源文件包含所有涉及数据库操作的函数实现
-	其中包括对五个数据库表user, movie, orders, hall，hallTemplate的新建、查询、修改、删除操作，以及其他需要调用数据库的函数，
-	如判断用户选定的座位是否合法，判断管理员新增的影片是否合法等。
-	其中，table为sqlite数据库中的表文件，在本程序中共使用四个表：
-	user             用于存储用户和管理员的身份信息、密码等
-	movie            用于存储某时段在某影院的某影厅播放的电影的信息，包括片名、上座率、选座情况、总收入等
-	orders           用于存储用户建立的订单，其中包括订单指向的某一条电影记录，订单建立时间，订单购买的座位位置编号等
-	hall             用于存储影院影厅的原始信息，包括所属的影院名，影厅名，影厅类型，座椅分布图等
-	hallTemplate	 用于存储建立影厅时需要的影院座椅分布模板
-	某些函数仅涉及单一数据库的操作，如查询等，但某些函数，如添加和删除订单，涉及多个数据库的交互
-*/
-
 #include "sqlfuns.h"
 
 SqlFuns::SqlFuns()
 {
 }
 
-QString global_userName=""; //在登陆后进入操作界面后，用户的id就被唯一确定下来。使用全局变量global_username可简化查询操作
+QString global_userName="";
 
 void SqlFuns::createTables()
 {
     //  创建表
-	//	sql语言中，INTEGER为整数格式，相当于int型；TEXT为255位字符串格式；REAL为实型格式
-	//  sql指令中，字符串格式数据需要前后加单引号，而其它格式则不需要
-	//  CREATE TABLE为创建表指令
     QSqlQuery query;
     query.exec("CREATE TABLE user ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT,"  //	用户的数据库编号，数据库主键，用户不可操作              
-               "userId TEXT,"							//	用户的唯一ID
-               "password TEXT,"							//	用户的密码
-               "name TEXT,"								//	用户的真实姓名
-               "sex TEXT,"								//	用户的性别
-               "phoneNumber TEXT,"						//	用户的联系电话
-               "email TEXT,"							//	用户的电子邮箱
-               "balance REAL,"							//	用户的余额	
-               "isAdmin INTEGER,"						//	判断用户是否为管理员的标志
-               "cinema TEXT)");							//	如果用户为管理员，该值为用户所属影院名；否则置为NULL	
+               "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+               "userId TEXT,"
+               "password TEXT,"
+               "name TEXT,"
+               "sex TEXT,"
+               "phoneNumber TEXT,"
+               "email TEXT,"
+               "balance REAL,"
+               "isAdmin INTEGER,"
+               "cinema TEXT)");
 
     query.exec("CREATE TABLE movie ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT,"	//	本场次电影的数据库编号，数据库主键，用户不可操作
-               "movieId TEXT,"							//	本场次电影的唯一编号
-               "movieName TEXT,"						//	本场次电影名；不同场次电影的电影名可重复
-               "cinema TEXT,"							//	本场次电影上映的影院
-               "hall TEXT,"								//	本场次电影上映的影厅
-               "startTime TEXT,"						//	本场次电影的开始时间，采用"HH:MM:SS"格式存储，精确到秒
-               "endTime TEXT,"							//	本场次电影的结束时间，采用"HH:MM:SS"格式存储，精确到秒
-               "length INTEGER,"						//	本场次电影长度，单位为秒
-               "isPlayed INTEGER,"						//	本场次电影是否播放的标志
-               "price REAL,"							//	本场次电影的价格，为实型
-               "ticketRemain INTEGER,"					//	本场次剩余电影票张数
-               "type TEXT,"								//	本场次电影的类型
-               "isRecommened INTEGER,"					//	本场次电影是否被推荐的标志
-               "totalSeats INTEGER,"					//	本场次电影的全部座位数
-               "percent TEXT,"							//	本场次电影的上座率，为实型
-               "totalIncome REAL,"						//	本场次电影的总收入
-               "date TEXT,"								//	本场次电影的上映日期，采用"YYYY-MM-DD"格式存储，默认没有跨越24点的夜场电影
-               "rowNum INT,"							//	本场次电影座区的行数
-               "coloumNum INT,"							//	本场次电影座区的列数
-               "seatMaps TEXT,"							//	本场次电影的座区详细分布，包括占用情况
-               "language TEXT)");						//	本场次电影的语言
+               "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+               "movieId TEXT,"
+               "movieName TEXT,"
+               "cinema TEXT,"
+               "hall TEXT,"
+               "startTime TEXT,"
+               "endTime TEXT,"
+               "length INTEGER,"
+               "isPlayed INTEGER,"
+               "price REAL,"
+               "ticketRemain INTEGER,"
+               "type TEXT,"
+               "isRecommened INTEGER,"
+               "totalSeats INTEGER,"
+               "percent REAL,"
+               "totalIncome REAL,"
+               "date TEXT,"
+               "rowNum INT,"
+               "coloumNum INT,"
+               "seatMaps TEXT,"
+               "language TEXT)");
 
-    query.exec("CREATE TABLE hall ("					
-               "id INTEGER PRIMARY KEY AUTOINCREMENT,"	//	本影厅的数据库编号，数据库主键，用户不可操作
-               "hallId TEXT,"							//	本影厅的ID，同意影院内影厅ID不得重复，不同影院的影厅ID可以重复
-               "cinema TEXT,"							//	本影厅所属的影院
-               "totalSeats INTEGER,"					//	本影厅的总座位数
-               "seatMap TEXT,"							//	本影厅的座位分布图	
-               "row INTEGER,"							//	本影厅的行数
-               "column INTEGER,"						//	本影厅的列数
-               "type TEXT)");							//	本影厅的类型
+    query.exec("CREATE TABLE hall ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+               "hallId TEXT,"
+               "cinema TEXT,"
+               "totalSeats INTEGER,"
+               "seatMap TEXT,"
+               "row INTEGER,"
+               "column INTEGER,"
+               "type TEXT)");
 
-    query.exec("CREATE TABLE orders ("					
-               "id INTEGER PRIMARY KEY AUTOINCREMENT,"	//	本订单的数据库编号，数据库主键，用户不可操作
-               "orderId TEXT,"							//	本订单的唯一编号
-               "userId TEXT,"							//	创建本订单的用户ID
-               "movieId TEXT,"							//	本订单所属的电影场次
-               "movieName TEXT,"						//	本订单所属的电影名
-               "cinema TEXT,"							//	本订单所属的影院名
-               "startTime TEXT,"						//	本订单所属的电影场次的开始时间，采用"HH:MM:SS"格式存储，精确到秒
-               "endTime TEXT,"							//	本订单所属的电影场次的结束时间，采用"HH:MM:SS"格式存储，精确到秒	
-               "date TEXT,"								//	本订单创建日期，采用"YYYY-MM-DD"的格式存储
-               "hallId TEXT,"							//	本订单的所属的影厅ID
-               "seat1pos INTEGER,"						//	本订单购买的第一个座位在所属影厅的座椅分布图中唯一位置编号，必须存在
-               "seat2pos INTEGER,"						//	本订单购买的第二个座位在所属影厅的座椅分布图中唯一位置编号，可选，若不存在置为-1
-               "seat3pos INTEGER,"						//	本订单购买的第三个座位在所属影厅的座椅分布图中唯一位置编号，可选，若不存在置为-1
-               "isPaid INTEGER)");						//	本订单是否付款的标志
-
-    query.exec("CREATE TABLE hallTemplate ("			
-               "id INTEGER PRIMARY KEY AUTOINCREMENT,"	//	影厅模板的数据库编号，数据库主键，用户不可操作
-               "type TEXT,"								//	影厅模板的类型
-               "row INTEGER,"							//	影厅模板的行数
-               "column INTEGER,"						//	影厅模板的列数
-               "seatMap TEXT,"							//	影厅模板的详细座位分布
-               "totalSeats INTEGER)");					//	影厅模板的总座椅数
+    query.exec("CREATE TABLE orders ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+               "orderId TEXT,"
+               "userId TEXT,"
+               "movieId TEXT,"
+               "movieName TEXT,"
+               "cinema TEXT,"
+               "startTime TEXT,"
+               "endTime TEXT,"
+               "date TEXT,"
+               "hallId TEXT,"
+               "seat1pos INTEGER,"
+               "seat2pos INTEGER,"
+               "seat3pos INTEGER,"
+               "isPaid INTEGER)");
 }
 
 bool SqlFuns::connect(const QString &dbName)
@@ -108,42 +83,6 @@ bool SqlFuns::connect(const QString &dbName)
         return false;
     }
     return true;
-}
-
-void SqlFuns::addNewHallTemplate()
-{
-    QSqlTableModel model;
-
-    QString type = "VIP厅";
-    int rows = 6;										//	rows为影厅的行数 
-    int column = 9;										//	column为影厅的列数	
-    QString seatMap = "222222222222222222222"
-                      "222222222222222222222"
-                      "222222222222222222222"
-                      "222222000000000222222"
-                      "222222002200000222222"
-                      "222222222200000222222"
-                      "222222222222222222222"
-                      "222222000000000222222"
-                      "222222000000000222222"
-                      "222222222222222222222"
-                      "222222222222222222222"
-                      "222222222222222222222";
-    int totalSeats = 0;									
-    model.setTable("hallTemplate");
-    model.select();
-    //  查询row
-    int row = model.rowCount();							//	row为返回的查询结果数量
-    for(int i = 0; i < 252; i++)
-        if(seatMap[i] == "0")
-            totalSeats++;
-    model.insertRows(row, 1);							//	以下操作为在已有的结果下再新建一行记录并加入新数据
-    model.setData(model.index(row, 1), type);
-    model.setData(model.index(row, 2), rows);
-    model.setData(model.index(row, 3), column);
-    model.setData(model.index(row, 4), seatMap);
-    model.setData(model.index(row, 5), totalSeats);
-    model.submitAll();
 }
 
 QString SqlFuns::formal(QString str)
@@ -228,7 +167,7 @@ void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString 
     model.setData(model.index(row, 11), type);
     model.setData(model.index(row, 12), isRecommened);
     model.setData(model.index(row, 13), ticketRemain);
-    model.setData(model.index(row, 14), "0%");
+    model.setData(model.index(row, 14), 0);
     model.setData(model.index(row, 15), 0);
     model.setData(model.index(row, 16), date);
     model.setData(model.index(row, 17), queryRow(hall, cinema));
@@ -245,8 +184,7 @@ int SqlFuns::queryHallSeates(QString hallId)
     QSqlTableModel model;
     model.setTable("hall");
     hallId = formal(hallId);
-    QString cinema = queryCinema(global_userName);
-    model.setFilter("hallId = " + hallId + " and cinema = " + formal(cinema));
+    model.setFilter("hallId = " + hallId);
     model.select();
     QSqlRecord record = model.record(0);
     return record.value("totalSeats").toInt();
@@ -274,7 +212,7 @@ void SqlFuns::addNewHall(QString hallId, QString cinema, int totalseats, int row
 
 QString SqlFuns::queryCinema(QString userId)
 {
-    // 查询管理员对应的影院
+    // 查询管理院对应的影院
     QSqlTableModel model;
     model.setTable("user");
     userId = formal(userId);
@@ -560,7 +498,7 @@ QString SqlFuns::queryMovieName(QString movieId)
     return model.record(0).value("movieName").toString();
 }
 
-QString SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int seat3pos, QString curTimeDate)
+void SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int seat3pos, QString curTimeDate)
 {
     // 用户操作
     // 添加一新订单
@@ -592,7 +530,6 @@ QString SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int se
     model.setData(model.index(rows, 12), seat3pos);
     model.setData(model.index(rows, 13), 0);
     model.submitAll();
-    return orderId;
 }
 
 QSqlTableModel* SqlFuns::queryUserOrder(QString movieName, QString cinema)
@@ -622,32 +559,23 @@ QSqlTableModel* SqlFuns::queryUserOrder(QString movieName, QString cinema)
     return model;
 }
 
-void SqlFuns::changePaymentStage(QString orderId, int num, float price)
+void SqlFuns::changePaymentStage(QString orderId, int num)
 {
     // 用户操作 付款
     // 更新多项 需更改
     QSqlTableModel model;
     model.setTable("orders");
-    model.setFilter("orderId = " + formal(orderId));
+    model.setFilter("orderId = " + formal(orderId));   
     model.select();
     QString movieId = model.record(0).value("movieId").toString();
-    QString percentage;
     model.setData(model.index(0, 13), 1);
     model.submitAll();
-    model.setTable("movie");
-    model.setFilter("movieId = " + formal(movieId));
-    model.select();
-    int ticket = model.record(0).value("ticketRemain").toInt();
-    int totalSeat = model.record(0).value("totalSeats").toInt();
-    float totalIncome = model.record(0).value("totalIncome").toFloat();
-    ticket -= num;
-    totalIncome += price;
-    float percent = (float)(totalSeat - ticket) / totalSeat;
-    percentage.sprintf("%.2f%", percent);
-    model.setData(model.index(0, 10), ticket);
-    model.setData(model.index(0, 15), totalIncome);
-    model.setData(model.index(0, 14), percentage);
-    model.submitAll();
+//    model.setTable("movie");
+//    model.setFilter("movieId = " + formal(movieId));
+//    model.select();
+//    int ticket = model.record(0).value("ticketRemain").toInt();
+//    ticket -= num;
+
 }
 
 float SqlFuns::queryPrice(QString movieId)
@@ -659,22 +587,6 @@ float SqlFuns::queryPrice(QString movieId)
     model.select();
     float cur = model.record(0).value("price").toFloat();;
     return cur;
-}
-
-int SqlFuns::cancelOrders(QString orderId)
-{
-    // 取消订单 在数据库中删除订单
-    QSqlTableModel model;
-    model.setTable("orders");
-    orderId = formal(orderId);
-    model.setFilter("orderId = " + orderId);
-    model.select();
-    QSqlRecord record = model.record(0);
-    int is_order_paid = record.value("isPaid").toInt();
-    if(is_order_paid != 0)
-        return -1;
-    model.removeRow(0);
-    return 1;
 }
 
 QSqlTableModel* SqlFuns::queryAdminOrder(QString movieName, QString userId, QString startDate, QString endDate, int isPlayed)
@@ -719,13 +631,12 @@ QSqlTableModel* SqlFuns::queryAdminOrder(QString movieName, QString userId, QStr
     return model;
 }
 
-int SqlFuns::addNewFilmJudge(QString hallId, QString start_time, QString end_time, QString film_date)
+int SqlFuns::add_new_film_judge(QString hallId, QString start_time, QString end_time, Qstring film_date)
 {
-    // 0 合法 1 冲突 2 不建议
     QSqlTableModel *model = new QSqlTableModel;
     model->setTable("movie");
-    int start_time_to_int = returnMinute(start_time, film_date);
-    int end_time_to_int = returnMinute(end_time, film_date);
+    int start_time_to_int = return_minute(start_time, film_date);
+    int end_time_to_int = return_minute(end_time, film_date);
     int entry_begin_time = start_time_to_int - 10;
     int exit_end_time = end_time_to_int + 10;
     QString cinema = queryCinema(global_userName);
@@ -738,61 +649,63 @@ int SqlFuns::addNewFilmJudge(QString hallId, QString start_time, QString end_tim
         ord = ord + "and hall = " + hallId;
     }
     model->setFilter(ord);
-    model->select();
-    int item_num = model->rowCount();
+    model->select();     
+    int item_num = model.rowCount();
     for(int i = 0; i < item_num; i++)
     {
-        // 同一个影厅开始结束相差10分钟
-        QSqlRecord record = model->record(i);
-        int exist_film_entry_begin = returnMinute(record.value("startTime").toString(), record.value("date").toString()) - 10;
-        int exist_film_exit_end = returnMinute(record.value("endtime").toString(), record.value("date").toString()) + 10;
-        if(entry_begin_time >= exist_film_entry_begin && entry_begin_time <= exist_film_exit_end)
-            return 1;
-        if(entry_begin_time <= exist_film_entry_begin && exit_end_time >= exist_film_entry_begin)
-            return 1;
+        QSqlRecord record = model.record(i);
+        int exist_film_entry_begin = SqlFuns::return_minute(record.value("starttime").toString(), record.value("date").toString()) - 10;
+        int exist_film_exit_end = SqlFuns::return_minute(record.value("endtime").toString(), record.value("date").toString()) + 10;
+        if(entry_begin_time > exist_film_entry_begin && entry_begin_time < exist_film_exit_end)
+            return 1;    
+        if(entry_begin_time < exist_film_entry_begin && exit_end_time > exist_film_entry_begin)
+            return 1;    
     }
     ord = "cinema = " + cinema;
-    model->clear();
-    model->setTable("movie");
+    if(hallId != "")
+    {
+        hallId = formal(hallId);
+        ord = ord + "and hall != " + hallId;
+    }
     model->setFilter(ord);
-    model->select();
-    item_num = model->rowCount();
+    model->select();     
+    int item_num = model.rowCount();    
     for(int i = 0; i < item_num; i++)
     {
-        QSqlRecord record = model->record(i);
-        int exist_film_start_time = returnMinute(record.value("startTime").toString(), record.value("date").toString());
-        int exist_film_end_time = returnMinute(record.value("endTime").toString(), record.value("date").toString());
-        if(abs(exist_film_start_time - start_time_to_int) <= 10)
+        QSqlRecord record = model.record(i);
+        int exist_film_start_time = SqlFuns::return_minute(record.value("starttime").toString(), record.value("date").toString());
+        int exist_film_end_time = SqlFuns::return_minute(record.value("endtime").toString(), record.value("date").toString());
+        if(abs(exist_film_start_time - start_time_to_int) < 10)
             return 2;
-        if(abs(exist_film_end_time - end_time_to_int) <= 10)
+        if(abs(exist_film_end_time - end_time_to_int) < 10)
             return 2;
-        if(abs(exist_film_end_time - start_time_to_int) <= 20)
+        if(abs(exist_film_end_time - start_time_to_int) < 20)
             return 2;
-        if(abs(end_time_to_int - exist_film_start_time) <= 20)
+        if(abs(end_time_to_int - exist_film_start_time) < 20)                
             return 2;
-    }
+    }    
     return 0;
 }
 
 
-int SqlFuns::returnMinute(QString time_to_convert, QString date_to_convert)
+int SqlFuns::return_minute(QString time_to _convert, QString date_to_convert)
 {
     int return_time_interval_by_min = 0;
     int day_interval = 0;
     QString convert_year = date_to_convert.section('-', 0, 0);
-    int year_to_int = convert_year.toInt();
-    QString convert_month = date_to_convert.section('-', 1, 1);
-    int month_to_int = convert_month.toInt();
-    QString convert_day = date_to_convert.section('-', 2, 2);
-    QString convert_hour = time_to_convert.section(':', 0, 0);
-    QString convert_minute = time_to_convert.section(':', 1, 1);
+    int year_to_int = convert_year.toint();
+    Qstring convert_month = date_to_convert.section('-', 1, 1);
+    int month_to_int = convert_month.toint();
+    Qstring convert_day = date_to_convert.section('-', 2, 2);
+    Qstring convert_hour = time_to_convert.section(':', 3, 3);
+    Qstring convert_minute = time_to_convert.section(':', 4, 4);
     for(int i = 1970; i < year_to_int; i++)
     {
         if((i % 4 == 0 && i % 100 != 0)||(i % 400 == 0))
             day_interval = day_interval + 366;
-        else day_interval = day_interval + 365;
+        else day_interval = day_interval + 365;    
     }
-    for(int i = 1; i < month_to_int; i++)
+    for(int i = 1; i < month_to_int.toint(); i++)
     {
         if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10) // i < 12
             day_interval = day_interval + 31;
@@ -806,58 +719,323 @@ int SqlFuns::returnMinute(QString time_to_convert, QString date_to_convert)
             else day_interval = day_interval +28;
         }
     }
-    day_interval = day_interval + (convert_day.toInt() - 1);
+    day_interval = day_interval + (convert_day.toint() - 1);
     return_time_interval_by_min = return_time_interval_by_min + (day_interval * 60 * 24);
-    return_time_interval_by_min = return_time_interval_by_min + (convert_hour.toInt() * 60) + convert_minute.toInt();
+    return_time_interval_by_min = return_time_interval_by_min + (convert_hour.toint() * 60) + convert_minute.toint();
     return return_time_interval_by_min;
 }
 
-QStringList SqlFuns::queryHallTemplateInfo()
+
+//判断选取的座位是否合法
+//输入:电影序列号movieId，以QString字符串的形式存储；第一个座位在该场电影的位置编号，以INT形式储存；第二个座位（可选）在该场的位置编号，以INT值形式储存，如果没有则置为-1；第三个座位（可选）在该场的位置编号，以INT值形式储存，如果没有则置为-1；
+//输出为INT值，如返回值为0则为合法，1则为不合法。
+int SqlFuns::judgeSeatOrder(QString movieId, int seat1pos, int seat2pos, int seat3pos)
 {
-    QSqlTableModel model;
-    QStringList qsl;
-    model.setTable("hallTemplate");
-    model.select();
-    for(int i = 0; i < model.rowCount(); i++)
-        qsl.append(model.record(i).value("type").toString());
-    return qsl;
+    QSqlQuery query;
+    QString ord = QString("SELECT row and column and seatmap FROM movie WHERE movieId = '%1'").arg(movieId);
+    //先获取该场电影的当前可用座位分布
+    //预占取座位，如果该坐标所在的座位不合法返回-1
+    //占去座位后判断影院座位分布的合法性，如果不合法，撤销更改并返回-1
+    //若合法则返回0
+    query.exec(ord);
+    query.next();   
+    int now_seat_row = query.value(0).toInt();
+    int now_seat_column = query.value(1).toInt();
+    QString now_seat_map = query.value(2).toString();
+    
+    if(now_seat_map[seat1pos] == '0')
+        now_seat_map[seat1pos] = '1';
+    else
+        return  -1;
+    if(seat2pos != -1)
+    {
+        if(now_seat_map[seat2pos] == '0')
+            now_seat_map[seat2pos] = '1';
+        else return -1;   
+    }
+    if(seat3pos != -1)
+    {
+        if(now_seat_map[seat3pos] == '0')
+            now_seat_map[seat3pos] = '1';
+        else return -1;   
+    }                   
+    QString seatmapforjudge = "";
+    
+    for(int i = 0; i < row; i++)
+    {
+        seatmapforjudge = seatmapforjudge + now_seat_map.mid(i*column,column) + "2"; 
+    }
+    
+    int maplength = seatmapforjudge.length();
+    for(int i = 0; i < maplength; i++)
+    {
+        if(i == 0 && seatmapforjudge[i] == '0' && seatmapforjudge[i+1] != '0')
+        {
+            return -1; 
+        }
+        if(i > 0 && i < (maplength-1) && seatmapforjudge[i] == '0' && seatmapforjudge[i+1] != '0' && seatmapforjudge[i-1] != '0')
+        {
+            return -1; 
+        }
+        if(i == (maplength-1) && seatmapforjudge[i] == '0' && seatmapforjudge[i-1] != '0')
+        {
+            return -1; 
+        }
+    }
+    return 0;
 }
 
-QStringList SqlFuns::queryHallTemplateInfo(QString type)
+QString SqlFuns::intelligent_seats_recommend(QString movieId, int seat_number)
 {
-    QSqlTableModel model;
-    QStringList qsl;
-    QString tmp;
-    model.setTable("hallTemplate");
-    model.setFilter("type = " + formal(type));
-    model.select();
-    qsl.append(model.record(0).value("type").toString());
-    qsl.append(tmp.sprintf("%d", model.record(0).value("row").toInt()));
-    tmp = "";
-    qsl.append(tmp.sprintf("%d", model.record(0).value("column").toInt()));
-    qsl.append(model.record(0).value("seatMap").toString());
-    qsl.append(tmp.sprintf("%d", model.record(0).value("totalSeats").toInt()));
-    return qsl;
+	QSqlTableModel model;
+	model.setTable("movie");
+	movieId = formal(movieId);
+	model.setFilter("movieId = " + movieId);
+	model.select();
+	QSqlRecord record = model.record(0);
+	int row = record.value("row").toInt();
+	int column = record.value("column").toInt();
+	int midrow = row / 2, midcolumn = column / 2;
+	QString seat_map = record.value("seatmap").toString();
+	if(seat_number == 1)
+	{
+		for(int i = 0; i <= midcolumn; i++)
+		{
+			for (int j = 0; j <= midrow; j++)
+			{
+				if ((midrow - j >= 0) && (midcolumn - i >= 0))
+					if (seat_map[(midrow - j) * column + (midcolumn - i)] == '0')
+					{
+						int now_pos = (midrow - j) * column + (midcolumn - i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, -1, -1) == 0)
+							return now_pos.toString();
+					}
+				if ((midrow - j >= 0) && (midcolumn + i < column))
+					if (seat_map[(midrow - j) * column + (midcolumn + i)] == '0')
+					{
+						int now_pos = (midrow - j) * column + (midcolumn + i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, -1, -1) == 0)
+							return now_pos.toString();
+					}
+				if ((midrow + j < row) && (midcolumn - i >= 0))
+					if (seat_map[(midrow + j) * column + (midcolumn - i)] == '0')
+					{
+						int now_pos = (midrow + j) * column + (midcolumn - i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, -1, -1) == 0)
+							return now_pos.toString();
+					}
+				if ((midrow + j < row) && (midcolumn + i < column))
+					if (seat_map[(midrow + j) * column + (midcolumn + i)] == '0')
+					{
+						int now_pos = (midrow + j) * column + (midcolumn + i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, -1, -1) == 0)
+							return now_pos.toString;
+					}
+			}
+		}
+	}
+	else
+	if (seat_number == 2)
+	{
+		for (int i = 0; i <= midcolumn; i++)
+		{
+			for (int j = 0; j <= midrow; j++)
+			{
+				if ((midrow - j >= 0) && (midcolumn - i >= 0))
+					if (seat_map[(midrow - j) * column + (midcolumn - i)] == '0' && seat_map[(midrow - j) * column + (midcolumn - i + 1)] == '0')
+					{
+						int now_pos = (midrow - j) * column + (midcolumn - i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, -1) == 0)
+							return now_pos.toString() + "," + (now_pos + 1).toString();
+					}
+				if ((midrow - j >= 0) && (midcolumn + i + 1 < column))
+					if (seat_map[(midrow - j) * column + (midcolumn + i)] == '0' && seat_map[(midrow - j) * column + (midcolumn + i + 1)] == '0')
+					{
+						int now_pos = (midrow - j) * column + (midcolumn + i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, -1) == 0)
+							return now_pos.toString() + "," + (now_pos + 1).toString();
+					}
+				if ((midrow + j < row) && (midcolumn - i >= 0))
+					if (seat_map[(midrow + j) * column + (midcolumn - i)] == '0' && seat_map[(midrow + j) * column + (midcolumn - i + 1)] == '0')
+					{
+						int now_pos = (midrow + j) * column + (midcolumn - i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, -1) == 0)
+							return now_pos.toString() + "," + (now_pos + 1).toString();
+					}
+				if ((midrow + j < row) && (midcolumn + i + 1 < column))
+					if (seat_map[(midrow + j) * column + (midcolumn + i)] == '0' && seat_map[(midrow + j) * column + (midcolumn + i + 1)] == '0')
+					{
+						int now_pos = (midrow + j) * column + (midcolumn + i);
+						if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, -1) == 0)
+							return now_pos.toString() + "," + (now_pos + 1).toString();
+					}
+			}
+		}
+	}
+	else
+		if (seat_number == 3)
+		{
+			for (int i = 0; i <= midcolumn; i++)
+			{
+				for (int j = 0; j <= midrow; j++)
+				{
+					if ((midrow - j >= 0) && (midcolumn - i >= 0) && (midcolumn - i + 2 < column))
+						if (seat_map[(midrow - j) * column + (midcolumn - i)] == '0' && seat_map[(midrow - j) * column + (midcolumn - i + 1)] == '0' && seat_map[(midrow - j) * column + (midcolumn - i + 2)] == '0')
+						{
+							int now_pos = (midrow - j) * column + (midcolumn - i);
+							if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, now_pos + 2) == 0)
+								return now_pos.toString() + "," + (now_pos + 1).toString() + "," + (now_pos + 2).toString();
+						}
+					if ((midrow - j >= 0) && (midcolumn + i + 2 < column))
+						if (seat_map[(midrow - j) * column + (midcolumn + i)] == '0' && seat_map[(midrow - j) * column + (midcolumn + i + 1)] == '0' && seat_map[(midrow - j) * column + (midcolumn + i + 2)] == '0')
+						{
+							int now_pos = (midrow - j) * column + (midcolumn + i);
+							if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, now_pos + 2) == 0)
+								return now_pos.toString() + "," + (now_pos + 1).toString() + "," + (now_pos + 2).toString();
+						}
+					if ((midrow + j < row) && (midcolumn - i >= 0) && (midcolumn - i + 2 < column))
+						if (seat_map[(midrow + j) * column + (midcolumn - i)] == '0' && seat_map[(midrow + j) * column + (midcolumn - i + 1)] == '0' && seat_map[(midrow + j) * column + (midcolumn - i + 2)] == '0')
+						{
+							int now_pos = (midrow + j) * column + (midcolumn - i);
+							if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, now_pos + 2) == 0)
+								return now_pos.toString() + "," + (now_pos + 1).toString() + "," + (now_pos + 2).toString();
+						}
+					if ((midrow + j < row) && (midcolumn + i + 2 < column))
+						if (seat_map[(midrow + j) * column + (midcolumn + i)] == '0' && seat_map[(midrow + j) * column + (midcolumn + i + 1)] == '0' && seat_map[(midrow + j) * column + (midcolumn + i + 2)] == '0')
+						{
+							int now_pos = (midrow + j) * column + (midcolumn + i);
+							if (SqlFuns::judgeSeatOrder(movieId, now_pos, now_pos + 1, now_pos + 2) == 0)
+								return now_pos.toString() + "," + (now_pos + 1).toString() + "," + (now_pos + 2).toString();
+						}
+				}
+			}
+		}
+    return "-1";    
 }
 
-QString SqlFuns::getHallId()
+void Sqlfuns::delete_outdated_orders(QString now_time, QString date)
 {
-    QString cinema = queryCinema(global_userName);
+    int earlist_time = Sqlfuns::return_minute(now_time, date) - 30;
     QSqlTableModel model;
-    model.setTable("hall");
-    model.setFilter("cinema = " + formal(cinema));
-    model.select();
-    int row = model.rowCount();
-    QString id;
-    id.sprintf("#%d", row + 1);
-    return id;
+    model.setTable("orders");
+    model.setFilter("isPaid = 0");
+    model.select();    
+    QSqlRecord record = model.record();
+    for(int i = 0; i < record.rowCount(); i++)
+    {
+        int order_created_time = Sqlfuns::return_minute(record(i).value("createdtime").toString(), record(i).value("date").toString());
+        if(order_created_time < earlist_time)
+        {
+            Qstring orderId = record(i).value("orderId").toString();
+            SqlFuns::cancel_orders(orderId);
+        }
+    }
 }
 
-QString SqlFuns::querySeatMap(QString movieId)
+
+
+void SqlFuns::delete_occupied_seats(QString orderId)
 {
     QSqlTableModel model;
+    model.setTable("orders");
+    orderId = formal(orderId);
+    model->setFilter("oederId = " + orderId);
+    model->select();
+    QSqlRecord record = model.record(0);
+    Qstring order_movie = record.value("movieId").toString();
+    int seat1_pos = record.value("seat1pos").toInt();
+    int seat2_pos = record.value("seat2pos").toInt();
+    int seat3_pos = record.value("seat3pos").toInt();
+    int ordered_ticket_number = 0;
+    if(seat1_pos != -1)
+        ordered_ticket_number = ordered_ticket_number + 1;
+    if(seat2_pos != -1)
+        ordered_ticket_number = ordered_ticket_number + 1;    
+    if(seat3_pos != -1)
+        ordered_ticket_number = ordered_ticket_number + 1;        
     model.setTable("movie");
-    model.setFilter("movieId = " + formal(movieId));
+    order_movie = formal(order_movie);
+    model->setFilter("movieId = " + orderId);
+    model->select();
+    record = model.record(0);    
+    QString seats_map = record.value("seatmap").toString();
+    double total_income = record.value("totalInncome").toReal();
+    double ticket_price = record.value("price").toReal();
+    int tickets_remain = record.value("ticketRemain").toInt();
+    int total_seats = record.value("totalSeats").toInt();
+    total_income = total_income - ordered_ticket_number * ticket_price;
+    tickets_remain = tickets_remain + ordered_ticket_number;
+    double purchased_percents = (total_seats - tickets_remain) * 1.00 / total_seats;
+    seats_map[seat1pos] = '0';
+    if(seat2pos != -1)
+        seats_map[seat2pos] = '0';
+    if(seat3pos != -1)
+        seats_map[seat3pos] = '0';
+    seats_map = formal(seats_map);
+    model.setData(model.index(0, 10), tickets_remain);
+    model.setData(model.index(0, 14), purchased_percents);
+    model.setData(model.index(0, 15), total_income);
+    model.setData(model.index(0, 19), seats_map);
+    model.submitAll();
+}
+
+
+void SqlFuns::cancel_orders(QString orderId)
+{   
+    QSqlTableModel model;
+    model.setTable("orders");
+    orderId = formal(orderId);
+    model.setFilter("orderId = " + orderId);
     model.select();
-    return model.record(0).value("seatMaps").toString();
+    QSqlRecord record = model.record(0);
+    int is_order_paid = record.value("isPaid").toInt();
+    if(is_order_paid != 0)
+        return -1;
+    SqlFuns::delete_occupied_seats(orderId);    
+    model.deleteRow(1);
+    return 1;   
+}
+
+int warning_confilcted_orders(QString movieId)
+{
+	QSqlTableModel model;
+	model.setTable("movie");
+	movieId = formal(movieId);
+	model.setFilter("movieId = " + movieId);
+	model.select();
+	QSqlRecord record = model.record(0);	
+	QString this_film_start_time = record.value("startTime").toString();
+	QString this_film_end_time = record.value("endTime").toString();
+	QString this_film_date = record.value("date").toString();
+	model.clear();
+	QString userId = formal(global_userName);
+	model.setTable("orders");
+	model.setFilter("userId = " + userId);
+	model->select();
+	int item_num = model.rowCount();
+	for (int i = 0; i < item_num; i++)
+	{
+		QSqlRecord record = model.record(i);
+		QString iter_order_date = record.value("date").toString();
+		QString iter_order_start_time = record.value("startTime").toString();
+		QString iter_order_end_time = record.value("endTime").toString();
+		QString iter_movieId = record.value("movieId").toString();
+		if (iter_movieId == movieId)
+			return 1;
+		if(iter_order_date == this_film_date)
+		{
+			if (iter_order_start_time >= this_film_start_time && iter_order_start_time <= this_film_end_time)
+				return 1;
+			if (iter_order_start_time <= this_film_start_time && iter_order_end_time >= this_film_start_time)
+				return 1;
+		}
+		return 0;
+	}
+
+
+	if (is_order_paid != 0)
+		return -1;
+	SqlFuns::delete_occupied_seats(orderId);
+	model.deleteRow(1);
+	return 1;
 }
