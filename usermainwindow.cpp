@@ -47,7 +47,10 @@ void UserMainWindow::receiveLogin()
     updateMovieTable(sf.queryUserMovie("", "", "", ""));
     ui->tableView_movie->setSortingEnabled(true);
     ui->tableView_orders->setSortingEnabled(true);
+    ui->tableView_movie->setAlternatingRowColors(true);
+    ui->tableView_orders->setAlternatingRowColors(true);
     updateOrdersTable(sf.queryUserOrder("", ""));
+
     this->show();
 }
 
@@ -84,7 +87,10 @@ void UserMainWindow::on_pushButton_confirmTopUp_clicked()
 
 void UserMainWindow::updateMovieTable(QSqlTableModel *model)
 {
-
+    QStringList head;
+//    head<<""<<""<<"电影名"<<"影院"<<"影厅"<<"开始时间"<<"结束时间"<<""<<""<<"价格"<<"余票"<<"类型"<<""<<""<<""<<""<<"日期"<<""<<""<<""<<"语言"<<"是否打折";
+//    QHead
+//    ui->tableView_movie->setHorizontalHeader();
     ui->tableView_movie->setModel(model);
     ui->tableView_movie->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_movie->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -145,6 +151,9 @@ void UserMainWindow::updateOrdersTable(QSqlTableModel *model)
     ui->tableView_orders->setColumnHidden(1, true);
     ui->tableView_orders->setColumnHidden(2, true);
     ui->tableView_orders->setColumnHidden(3, true);
+    ui->tableView_orders->setColumnHidden(11, true);
+    ui->tableView_orders->setColumnHidden(12, true);
+    ui->tableView_orders->setColumnHidden(13, true);
 
     ui->tableView_movie->resizeColumnsToContents();
     ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);

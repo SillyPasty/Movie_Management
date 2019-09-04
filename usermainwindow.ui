@@ -350,7 +350,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_currentBalance_2"/>
+             <widget class="QLineEdit" name="lineEdit_currentBalance"/>
             </item>
             <item>
              <widget class="QLabel" name="label_15">
@@ -371,7 +371,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_topUp_2"/>
+             <widget class="QLineEdit" name="lineEdit_topUp"/>
             </item>
             <item>
              <widget class="QLabel" name="label_17">
@@ -384,7 +384,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>210</x>
@@ -410,7 +410,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_confirmTopUp_2">
+             <widget class="QPushButton" name="pushButton_confirmTopUp">
               <property name="text">
                <string>充值</string>
               </property>
@@ -476,6 +476,45 @@
            </layout>
           </item>
          </layout>
+        </widget>
+        <widget class="Line" name="line_6">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>90</y>
+           <width>20</width>
+           <height>161</height>
+          </rect>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+        <widget class="Line" name="line_7">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>80</y>
+           <width>211</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="Line" name="line_8">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>80</y>
+           <width>231</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
         </widget>
        </widget>
       </widget>

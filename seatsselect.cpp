@@ -26,6 +26,9 @@ void SeatsSelect::receivePayment(QString movieId)
     QString seatMap = sf.querySeatMap(movieIdStore);
     ui->label_startTime->setText(qsl[3] + " " + qsl[1]);
     ui->label_cinema->setText(qsl[0]);
+    ui->label_disInfo->show();
+    if(!sf.queryIsDiscount(movieId))
+        ui->label_disInfo->hide();
     calAxis();
     showSeat(seatMap);
     this->show();
@@ -85,7 +88,8 @@ void SeatsSelect::on_tableWidget_clicked(const QModelIndex &index)
 
 void SeatsSelect::on_pushButton_puchase_clicked()
 {
-    QMessageBox::StandardButton result = QMessageBox::No; // 返回选择的按钮
+    QMessageBox::StandardButton result1 = QMessageBox::No; // 返回选择的按钮
+    QMessageBox::StandardButton result2 = QMessageBox::No; // 返回选择的按钮
     int seatsInfo[3] = {0}, tickets = 0;
     SqlFuns sf;
     QString seatMap;
@@ -119,25 +123,36 @@ void SeatsSelect::on_pushButton_puchase_clicked()
         if(tickets > 3)
             QMessageBox::critical(this, "选择座位过多", "最多选择三个座位");
         else if(sf.judgeUserOrderNumber(movieIdStore) == -1)
-            QMessageBox::critical(this, "今日订单已达上限", "每天最多五个订单");
+            QMessageBox::critical(this, "今日订单已达上限", "每天最多五个订单");            
         else if(sf.judgeSeatOrder(movieIdStore, seatsInfo[0], seatsInfo[1], seatsInfo[2]) == -1)
             QMessageBox::critical(this, "座位不合法", "不能与其他座位仅相隔一个座位");
         else
         {
             QString info;
+            float total;
             float price = sf.queryPrice(movieIdStore);
-            info.sprintf("%.2f", price * tickets);
+            if(sf.queryIsDiscount(movieIdStore))
+                total = calTotal(price, tickets);
+            else
+                total = price * tickets;
+
+            info.sprintf("%.2f", total);
             //  获得现在时间
             QDateTime curDateTime = QDateTime::currentDateTime();
             QString cur = curDateTime.toString("yyyyMMddhhmmss"), orderId;
 
-            result = QMessageBox::question(this, "支付", "一共要付款" + info + "元\n是否要支付？", QMessageBox::Yes | QMessageBox::No, QMessageBox::NoButton);
+            if(sf.warning_confilcted_orders(movieIdStore) == 1)
+                if (QMessageBox::question(this, "与现有订单冲突", "是否继续购买?", QMessageBox::Yes | QMessageBox::No, QMessageBox::NoButton) == QMessageBox::No)
+                {
+                    this->close();
+                    return;
+                }
+            result1 = QMessageBox::question(this, "支付", "一共要付款" + info + "元\n是否要支付？", QMessageBox::Yes | QMessageBox::No, QMessageBox::NoButton);
             orderId = sf.addNewOrder(movieIdStore, seatsInfo[0], seatsInfo[1], seatsInfo[2], cur, price * tickets);
             sf.updateSeatMap(movieIdStore, seatMap);
-            if(result == QMessageBox::Yes)
+            if(result1 == QMessageBox::Yes)
             {
                 float bal = sf.queryBalance();
-                float total = sf.queryPrice(movieIdStore) * tickets;
                 if(bal < total)
                     QMessageBox::critical(nullptr, "余额不足", "无法购买");
                 else
@@ -241,7 +256,7 @@ void SeatsSelect::on_radioButton_two_clicked()
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         choice = seatMap[i];
-        if(i == pos)
+        if(i == pos || i == (pos + 1))
         {
             item->setIcon(QPixmap(":/new/prefix1/chosen1.png"));
             item->setData(Qt::UserRole, 2);
@@ -295,7 +310,7 @@ void SeatsSelect::on_radioButton_three_clicked()
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         choice = seatMap[i];
-        if(i == pos)
+        if(i == pos || i == (pos + 1) || i == (pos - 1))
         {
             item->setIcon(QPixmap(":/new/prefix1/chosen1.png"));
             item->setData(Qt::UserRole, 2);
@@ -322,4 +337,14 @@ void SeatsSelect::on_radioButton_three_clicked()
     for(int i = 0; i < 12; i++)
         for(int j = 0; j < 21; j++)
             ui->tableWidget->setItem(i, j, ql[i * 21 + j]);
+}
+
+float SeatsSelect::calTotal(float price, int tickets)
+{
+    if(tickets == 1)
+        return price;
+    else if(tickets == 2)
+        return price * 1.9;
+    else
+        return price * 2.7;
 }

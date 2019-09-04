@@ -23,6 +23,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
@@ -62,20 +63,8 @@ public:
     QFrame *line_5;
     QTableView *tableView_movie;
     QFrame *line_2;
-    QWidget *tab_towUp;
-    QPushButton *pushButton_confirmTopUp;
-    QWidget *layoutWidget1;
-    QVBoxLayout *verticalLayout_3;
-    QHBoxLayout *horizontalLayout_2;
-    QLabel *label;
-    QLineEdit *lineEdit_currentBalance;
-    QLabel *label_5;
-    QHBoxLayout *horizontalLayout_3;
-    QLabel *label_6;
-    QLineEdit *lineEdit_topUp;
-    QLabel *label_7;
     QWidget *tab_order;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_11;
@@ -86,12 +75,12 @@ public:
     QFrame *line_4;
     QTableView *tableView_orders;
     QFrame *line_3;
-    QWidget *layoutWidget3;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *pushButton_pay;
     QPushButton *pushButton_cancelOrder;
     QWidget *tab_personalInfo;
-    QWidget *layoutWidget4;
+    QWidget *layoutWidget3;
     QGridLayout *gridLayout_3;
     QLabel *label_2;
     QLabel *label_phone;
@@ -99,11 +88,30 @@ public:
     QLabel *label_email;
     QLabel *label_10;
     QLabel *label_password;
-    QWidget *layoutWidget5;
-    QVBoxLayout *verticalLayout_4;
+    QWidget *layoutWidget_2;
+    QVBoxLayout *verticalLayout_6;
+    QHBoxLayout *horizontalLayout_8;
+    QLabel *label_14;
+    QLineEdit *lineEdit_currentBalance;
+    QLabel *label_15;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *label_16;
+    QLineEdit *lineEdit_topUp;
+    QLabel *label_17;
+    QWidget *layoutWidget4;
+    QHBoxLayout *horizontalLayout_12;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *pushButton_confirmTopUp;
+    QSpacerItem *horizontalSpacer_2;
+    QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer_3;
     QPushButton *pushButton_editPersonalInfo;
     QPushButton *pushButton_changeUser;
-    QPushButton *pushButton;
+    QSpacerItem *horizontalSpacer_4;
+    QFrame *line_6;
+    QFrame *line_7;
+    QFrame *line_8;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -112,7 +120,7 @@ public:
     {
         if (UserMainWindow->objectName().isEmpty())
             UserMainWindow->setObjectName(QStringLiteral("UserMainWindow"));
-        UserMainWindow->resize(873, 836);
+        UserMainWindow->resize(873, 595);
         centralWidget = new QWidget(UserMainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayoutWidget = new QWidget(centralWidget);
@@ -244,68 +252,12 @@ public:
         verticalLayout_5->addWidget(line_2);
 
         tabWidget->addTab(tab_search, QString());
-        tab_towUp = new QWidget();
-        tab_towUp->setObjectName(QStringLiteral("tab_towUp"));
-        pushButton_confirmTopUp = new QPushButton(tab_towUp);
-        pushButton_confirmTopUp->setObjectName(QStringLiteral("pushButton_confirmTopUp"));
-        pushButton_confirmTopUp->setGeometry(QRect(560, 330, 80, 20));
-        layoutWidget1 = new QWidget(tab_towUp);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(320, 110, 191, 131));
-        verticalLayout_3 = new QVBoxLayout(layoutWidget1);
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label = new QLabel(layoutWidget1);
-        label->setObjectName(QStringLiteral("label"));
-
-        horizontalLayout_2->addWidget(label);
-
-        lineEdit_currentBalance = new QLineEdit(layoutWidget1);
-        lineEdit_currentBalance->setObjectName(QStringLiteral("lineEdit_currentBalance"));
-
-        horizontalLayout_2->addWidget(lineEdit_currentBalance);
-
-        label_5 = new QLabel(layoutWidget1);
-        label_5->setObjectName(QStringLiteral("label_5"));
-
-        horizontalLayout_2->addWidget(label_5);
-
-
-        verticalLayout_3->addLayout(horizontalLayout_2);
-
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        label_6 = new QLabel(layoutWidget1);
-        label_6->setObjectName(QStringLiteral("label_6"));
-
-        horizontalLayout_3->addWidget(label_6);
-
-        lineEdit_topUp = new QLineEdit(layoutWidget1);
-        lineEdit_topUp->setObjectName(QStringLiteral("lineEdit_topUp"));
-
-        horizontalLayout_3->addWidget(lineEdit_topUp);
-
-        label_7 = new QLabel(layoutWidget1);
-        label_7->setObjectName(QStringLiteral("label_7"));
-
-        horizontalLayout_3->addWidget(label_7);
-
-
-        verticalLayout_3->addLayout(horizontalLayout_3);
-
-        tabWidget->addTab(tab_towUp, QString());
         tab_order = new QWidget();
         tab_order->setObjectName(QStringLiteral("tab_order"));
-        layoutWidget2 = new QWidget(tab_order);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 10, 821, 411));
-        verticalLayout = new QVBoxLayout(layoutWidget2);
+        layoutWidget1 = new QWidget(tab_order);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 10, 821, 411));
+        verticalLayout = new QVBoxLayout(layoutWidget1);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -313,27 +265,27 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_11 = new QLabel(layoutWidget2);
+        label_11 = new QLabel(layoutWidget1);
         label_11->setObjectName(QStringLiteral("label_11"));
 
         horizontalLayout_4->addWidget(label_11);
 
-        lineEdit_movieName_2 = new QLineEdit(layoutWidget2);
+        lineEdit_movieName_2 = new QLineEdit(layoutWidget1);
         lineEdit_movieName_2->setObjectName(QStringLiteral("lineEdit_movieName_2"));
 
         horizontalLayout_4->addWidget(lineEdit_movieName_2);
 
-        label_9 = new QLabel(layoutWidget2);
+        label_9 = new QLabel(layoutWidget1);
         label_9->setObjectName(QStringLiteral("label_9"));
 
         horizontalLayout_4->addWidget(label_9);
 
-        lineEdit_cinemaName_2 = new QLineEdit(layoutWidget2);
+        lineEdit_cinemaName_2 = new QLineEdit(layoutWidget1);
         lineEdit_cinemaName_2->setObjectName(QStringLiteral("lineEdit_cinemaName_2"));
 
         horizontalLayout_4->addWidget(lineEdit_cinemaName_2);
 
-        pushButton_search_2 = new QPushButton(layoutWidget2);
+        pushButton_search_2 = new QPushButton(layoutWidget1);
         pushButton_search_2->setObjectName(QStringLiteral("pushButton_search_2"));
 
         horizontalLayout_4->addWidget(pushButton_search_2);
@@ -341,39 +293,39 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_4);
 
-        line_4 = new QFrame(layoutWidget2);
+        line_4 = new QFrame(layoutWidget1);
         line_4->setObjectName(QStringLiteral("line_4"));
         line_4->setFrameShape(QFrame::HLine);
         line_4->setFrameShadow(QFrame::Sunken);
 
         verticalLayout->addWidget(line_4);
 
-        tableView_orders = new QTableView(layoutWidget2);
+        tableView_orders = new QTableView(layoutWidget1);
         tableView_orders->setObjectName(QStringLiteral("tableView_orders"));
 
         verticalLayout->addWidget(tableView_orders);
 
-        line_3 = new QFrame(layoutWidget2);
+        line_3 = new QFrame(layoutWidget1);
         line_3->setObjectName(QStringLiteral("line_3"));
         line_3->setFrameShape(QFrame::HLine);
         line_3->setFrameShadow(QFrame::Sunken);
 
         verticalLayout->addWidget(line_3);
 
-        layoutWidget3 = new QWidget(tab_order);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(660, 430, 168, 22));
-        horizontalLayout_5 = new QHBoxLayout(layoutWidget3);
+        layoutWidget2 = new QWidget(tab_order);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(660, 430, 168, 22));
+        horizontalLayout_5 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
-        pushButton_pay = new QPushButton(layoutWidget3);
+        pushButton_pay = new QPushButton(layoutWidget2);
         pushButton_pay->setObjectName(QStringLiteral("pushButton_pay"));
 
         horizontalLayout_5->addWidget(pushButton_pay);
 
-        pushButton_cancelOrder = new QPushButton(layoutWidget3);
+        pushButton_cancelOrder = new QPushButton(layoutWidget2);
         pushButton_cancelOrder->setObjectName(QStringLiteral("pushButton_cancelOrder"));
 
         horizontalLayout_5->addWidget(pushButton_cancelOrder);
@@ -381,69 +333,164 @@ public:
         tabWidget->addTab(tab_order, QString());
         tab_personalInfo = new QWidget();
         tab_personalInfo->setObjectName(QStringLiteral("tab_personalInfo"));
-        layoutWidget4 = new QWidget(tab_personalInfo);
-        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(290, 120, 211, 141));
-        gridLayout_3 = new QGridLayout(layoutWidget4);
+        layoutWidget3 = new QWidget(tab_personalInfo);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(430, 110, 211, 141));
+        gridLayout_3 = new QGridLayout(layoutWidget3);
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         gridLayout_3->setContentsMargins(0, 0, 0, 0);
-        label_2 = new QLabel(layoutWidget4);
+        label_2 = new QLabel(layoutWidget3);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout_3->addWidget(label_2, 0, 0, 1, 1);
 
-        label_phone = new QLabel(layoutWidget4);
+        label_phone = new QLabel(layoutWidget3);
         label_phone->setObjectName(QStringLiteral("label_phone"));
 
         gridLayout_3->addWidget(label_phone, 0, 1, 1, 1);
 
-        label_8 = new QLabel(layoutWidget4);
+        label_8 = new QLabel(layoutWidget3);
         label_8->setObjectName(QStringLiteral("label_8"));
 
         gridLayout_3->addWidget(label_8, 1, 0, 1, 1);
 
-        label_email = new QLabel(layoutWidget4);
+        label_email = new QLabel(layoutWidget3);
         label_email->setObjectName(QStringLiteral("label_email"));
 
         gridLayout_3->addWidget(label_email, 1, 1, 1, 1);
 
-        label_10 = new QLabel(layoutWidget4);
+        label_10 = new QLabel(layoutWidget3);
         label_10->setObjectName(QStringLiteral("label_10"));
 
         gridLayout_3->addWidget(label_10, 2, 0, 1, 1);
 
-        label_password = new QLabel(layoutWidget4);
+        label_password = new QLabel(layoutWidget3);
         label_password->setObjectName(QStringLiteral("label_password"));
 
         gridLayout_3->addWidget(label_password, 2, 1, 1, 1);
 
-        layoutWidget5 = new QWidget(tab_personalInfo);
-        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(500, 170, 124, 91));
-        verticalLayout_4 = new QVBoxLayout(layoutWidget5);
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        pushButton_editPersonalInfo = new QPushButton(layoutWidget5);
+        layoutWidget_2 = new QWidget(tab_personalInfo);
+        layoutWidget_2->setObjectName(QStringLiteral("layoutWidget_2"));
+        layoutWidget_2->setGeometry(QRect(200, 110, 191, 131));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget_2);
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        verticalLayout_6->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        label_14 = new QLabel(layoutWidget_2);
+        label_14->setObjectName(QStringLiteral("label_14"));
+
+        horizontalLayout_8->addWidget(label_14);
+
+        lineEdit_currentBalance = new QLineEdit(layoutWidget_2);
+        lineEdit_currentBalance->setObjectName(QStringLiteral("lineEdit_currentBalance"));
+
+        horizontalLayout_8->addWidget(lineEdit_currentBalance);
+
+        label_15 = new QLabel(layoutWidget_2);
+        label_15->setObjectName(QStringLiteral("label_15"));
+
+        horizontalLayout_8->addWidget(label_15);
+
+
+        verticalLayout_6->addLayout(horizontalLayout_8);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        label_16 = new QLabel(layoutWidget_2);
+        label_16->setObjectName(QStringLiteral("label_16"));
+
+        horizontalLayout_9->addWidget(label_16);
+
+        lineEdit_topUp = new QLineEdit(layoutWidget_2);
+        lineEdit_topUp->setObjectName(QStringLiteral("lineEdit_topUp"));
+
+        horizontalLayout_9->addWidget(lineEdit_topUp);
+
+        label_17 = new QLabel(layoutWidget_2);
+        label_17->setObjectName(QStringLiteral("label_17"));
+
+        horizontalLayout_9->addWidget(label_17);
+
+
+        verticalLayout_6->addLayout(horizontalLayout_9);
+
+        layoutWidget4 = new QWidget(tab_personalInfo);
+        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(210, 260, 442, 24));
+        horizontalLayout_12 = new QHBoxLayout(layoutWidget4);
+        horizontalLayout_12->setSpacing(6);
+        horizontalLayout_12->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
+        horizontalLayout_12->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        pushButton_confirmTopUp = new QPushButton(layoutWidget4);
+        pushButton_confirmTopUp->setObjectName(QStringLiteral("pushButton_confirmTopUp"));
+
+        horizontalLayout_2->addWidget(pushButton_confirmTopUp);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_2);
+
+
+        horizontalLayout_12->addLayout(horizontalLayout_2);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_3);
+
+        pushButton_editPersonalInfo = new QPushButton(layoutWidget4);
         pushButton_editPersonalInfo->setObjectName(QStringLiteral("pushButton_editPersonalInfo"));
 
-        verticalLayout_4->addWidget(pushButton_editPersonalInfo);
+        horizontalLayout_3->addWidget(pushButton_editPersonalInfo);
 
-        pushButton_changeUser = new QPushButton(layoutWidget5);
+        pushButton_changeUser = new QPushButton(layoutWidget4);
         pushButton_changeUser->setObjectName(QStringLiteral("pushButton_changeUser"));
 
-        verticalLayout_4->addWidget(pushButton_changeUser);
+        horizontalLayout_3->addWidget(pushButton_changeUser);
 
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_4);
+
+
+        horizontalLayout_12->addLayout(horizontalLayout_3);
+
+        line_6 = new QFrame(tab_personalInfo);
+        line_6->setObjectName(QStringLiteral("line_6"));
+        line_6->setGeometry(QRect(400, 90, 20, 161));
+        line_6->setFrameShape(QFrame::VLine);
+        line_6->setFrameShadow(QFrame::Sunken);
+        line_7 = new QFrame(tab_personalInfo);
+        line_7->setObjectName(QStringLiteral("line_7"));
+        line_7->setGeometry(QRect(430, 80, 211, 20));
+        line_7->setFrameShape(QFrame::HLine);
+        line_7->setFrameShadow(QFrame::Sunken);
+        line_8 = new QFrame(tab_personalInfo);
+        line_8->setObjectName(QStringLiteral("line_8"));
+        line_8->setGeometry(QRect(200, 80, 231, 20));
+        line_8->setFrameShape(QFrame::HLine);
+        line_8->setFrameShadow(QFrame::Sunken);
         tabWidget->addTab(tab_personalInfo, QString());
 
         gridLayout->addWidget(tabWidget, 2, 0, 1, 2);
 
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(280, 590, 80, 20));
         UserMainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(UserMainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -458,7 +505,7 @@ public:
 
         retranslateUi(UserMainWindow);
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(UserMainWindow);
@@ -483,12 +530,6 @@ public:
         label_12->setText(QApplication::translate("UserMainWindow", "\347\261\273  \345\236\213", Q_NULLPTR));
         pushButton_search->setText(QApplication::translate("UserMainWindow", "\346\237\245\350\257\242", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_search), QApplication::translate("UserMainWindow", "\346\237\245\350\257\242\350\264\255\344\271\260", Q_NULLPTR));
-        pushButton_confirmTopUp->setText(QApplication::translate("UserMainWindow", "\347\241\256\345\256\232", Q_NULLPTR));
-        label->setText(QApplication::translate("UserMainWindow", "\345\275\223\345\211\215\344\275\231\351\242\235", Q_NULLPTR));
-        label_5->setText(QApplication::translate("UserMainWindow", "\345\205\203", Q_NULLPTR));
-        label_6->setText(QApplication::translate("UserMainWindow", "   \345\205\205\345\200\274 ", Q_NULLPTR));
-        label_7->setText(QApplication::translate("UserMainWindow", "\345\205\203", Q_NULLPTR));
-        tabWidget->setTabText(tabWidget->indexOf(tab_towUp), QApplication::translate("UserMainWindow", "\350\264\246\346\210\267\345\205\205\345\200\274", Q_NULLPTR));
         label_11->setText(QApplication::translate("UserMainWindow", "\347\224\265\345\275\261\345\220\215", Q_NULLPTR));
         label_9->setText(QApplication::translate("UserMainWindow", "\345\275\261\351\231\242\345\220\215", Q_NULLPTR));
         pushButton_search_2->setText(QApplication::translate("UserMainWindow", "\346\237\245\350\257\242", Q_NULLPTR));
@@ -501,10 +542,14 @@ public:
         label_email->setText(QApplication::translate("UserMainWindow", "TextLabel", Q_NULLPTR));
         label_10->setText(QApplication::translate("UserMainWindow", "\345\257\206\347\240\201", Q_NULLPTR));
         label_password->setText(QApplication::translate("UserMainWindow", "TextLabel", Q_NULLPTR));
+        label_14->setText(QApplication::translate("UserMainWindow", "\345\275\223\345\211\215\344\275\231\351\242\235", Q_NULLPTR));
+        label_15->setText(QApplication::translate("UserMainWindow", "\345\205\203", Q_NULLPTR));
+        label_16->setText(QApplication::translate("UserMainWindow", "   \345\205\205\345\200\274 ", Q_NULLPTR));
+        label_17->setText(QApplication::translate("UserMainWindow", "\345\205\203", Q_NULLPTR));
+        pushButton_confirmTopUp->setText(QApplication::translate("UserMainWindow", "\345\205\205\345\200\274", Q_NULLPTR));
         pushButton_editPersonalInfo->setText(QApplication::translate("UserMainWindow", "\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_changeUser->setText(QApplication::translate("UserMainWindow", "\345\210\207\346\215\242\347\224\250\346\210\267", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_personalInfo), QApplication::translate("UserMainWindow", "\344\270\252\344\272\272\344\277\241\346\201\257", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("UserMainWindow", "FUCK", Q_NULLPTR));
     } // retranslateUi
 
 };

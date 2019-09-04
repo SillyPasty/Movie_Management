@@ -60,7 +60,9 @@ public:
     QHBoxLayout *horizontalLayout_10;
     QLabel *label_8;
     QComboBox *comboBox_language;
+    QHBoxLayout *horizontalLayout_11;
     QCheckBox *checkBox_isRecommened;
+    QCheckBox *checkBox_isDiscount;
     QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_9;
     QPushButton *pushButton_confirm;
@@ -73,7 +75,7 @@ public:
         AddNewFilm->resize(313, 384);
         layoutWidget = new QWidget(AddNewFilm);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(60, 20, 201, 293));
+        layoutWidget->setGeometry(QRect(60, 20, 201, 295));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -212,10 +214,20 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_10);
 
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
         checkBox_isRecommened = new QCheckBox(layoutWidget);
         checkBox_isRecommened->setObjectName(QStringLiteral("checkBox_isRecommened"));
 
-        verticalLayout->addWidget(checkBox_isRecommened);
+        horizontalLayout_11->addWidget(checkBox_isRecommened);
+
+        checkBox_isDiscount = new QCheckBox(layoutWidget);
+        checkBox_isDiscount->setObjectName(QStringLiteral("checkBox_isDiscount"));
+
+        horizontalLayout_11->addWidget(checkBox_isDiscount);
+
+
+        verticalLayout->addLayout(horizontalLayout_11);
 
         layoutWidget1 = new QWidget(AddNewFilm);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
@@ -259,6 +271,7 @@ public:
          << QApplication::translate("AddNewFilm", "\345\205\266\344\273\226", Q_NULLPTR)
         );
         checkBox_isRecommened->setText(QApplication::translate("AddNewFilm", "\346\230\257\345\220\246\346\216\250\350\215\220", Q_NULLPTR));
+        checkBox_isDiscount->setText(QApplication::translate("AddNewFilm", "\346\230\257\345\220\246\344\272\253\345\217\227\344\274\230\346\203\240", Q_NULLPTR));
         pushButton_confirm->setText(QApplication::translate("AddNewFilm", "\347\241\256\345\256\232", Q_NULLPTR));
         pushButton_cancel->setText(QApplication::translate("AddNewFilm", "\345\217\226\346\266\210", Q_NULLPTR));
     } // retranslateUi

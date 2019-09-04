@@ -39,7 +39,6 @@ class Ui_AdminMainWindow
 {
 public:
     QWidget *centralwidget;
-    QPushButton *pushButton_exit;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
     QFrame *line;
@@ -67,6 +66,9 @@ public:
     QPushButton *pushButton_search;
     QTableView *tableView_orders;
     QFrame *line_2;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_totalIncome_2;
     QLabel *label_totalIncome;
     QWidget *tab_towUp;
     QTableWidget *tableWidget_seatMaps;
@@ -115,12 +117,9 @@ public:
     {
         if (AdminMainWindow->objectName().isEmpty())
             AdminMainWindow->setObjectName(QStringLiteral("AdminMainWindow"));
-        AdminMainWindow->resize(1073, 744);
+        AdminMainWindow->resize(1058, 705);
         centralwidget = new QWidget(AdminMainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        pushButton_exit = new QPushButton(centralwidget);
-        pushButton_exit->setObjectName(QStringLiteral("pushButton_exit"));
-        pushButton_exit->setGeometry(QRect(960, 660, 80, 20));
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(10, 20, 1031, 621));
@@ -246,9 +245,22 @@ public:
 
         verticalLayout_5->addWidget(line_2);
 
-        label_totalIncome = new QLabel(tab_search);
+        widget = new QWidget(tab_search);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(750, 540, 261, 20));
+        horizontalLayout_3 = new QHBoxLayout(widget);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        label_totalIncome_2 = new QLabel(widget);
+        label_totalIncome_2->setObjectName(QStringLiteral("label_totalIncome_2"));
+
+        horizontalLayout_3->addWidget(label_totalIncome_2);
+
+        label_totalIncome = new QLabel(widget);
         label_totalIncome->setObjectName(QStringLiteral("label_totalIncome"));
-        label_totalIncome->setGeometry(QRect(960, 550, 54, 12));
+
+        horizontalLayout_3->addWidget(label_totalIncome);
+
         tabWidget->addTab(tab_search, QString());
         tab_towUp = new QWidget();
         tab_towUp->setObjectName(QStringLiteral("tab_towUp"));
@@ -498,16 +510,15 @@ public:
         AdminMainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(AdminMainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1073, 21));
+        menubar->setGeometry(QRect(0, 0, 1058, 21));
         AdminMainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(AdminMainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
         AdminMainWindow->setStatusBar(statusbar);
 
         retranslateUi(AdminMainWindow);
-        QObject::connect(pushButton_exit, SIGNAL(clicked()), AdminMainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(AdminMainWindow);
@@ -516,7 +527,6 @@ public:
     void retranslateUi(QMainWindow *AdminMainWindow)
     {
         AdminMainWindow->setWindowTitle(QApplication::translate("AdminMainWindow", "MainWindow", Q_NULLPTR));
-        pushButton_exit->setText(QApplication::translate("AdminMainWindow", "\351\200\200\345\207\272", Q_NULLPTR));
         label_userInfo->setText(QApplication::translate("AdminMainWindow", "TextLabel", Q_NULLPTR));
         label_currentTime->setText(QApplication::translate("AdminMainWindow", "TextLabel", Q_NULLPTR));
         label_3->setText(QApplication::translate("AdminMainWindow", "\347\224\265\345\275\261\345\220\215", Q_NULLPTR));
@@ -526,6 +536,7 @@ public:
         checkBox_isPlayed->setText(QApplication::translate("AdminMainWindow", "\345\267\262\346\224\276\346\230\240", Q_NULLPTR));
         checkBox_unPlayed->setText(QApplication::translate("AdminMainWindow", "\346\234\252\346\224\276\346\230\240", Q_NULLPTR));
         pushButton_search->setText(QApplication::translate("AdminMainWindow", "\346\237\245\350\257\242", Q_NULLPTR));
+        label_totalIncome_2->setText(QApplication::translate("AdminMainWindow", "\346\200\273\346\224\266\345\205\245\357\274\232", Q_NULLPTR));
         label_totalIncome->setText(QApplication::translate("AdminMainWindow", "TextLabel", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_search), QApplication::translate("AdminMainWindow", "\350\256\242\345\215\225\347\256\241\347\220\206", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_seatMaps->horizontalHeaderItem(0);

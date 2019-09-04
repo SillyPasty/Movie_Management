@@ -19,7 +19,7 @@
      <x>60</x>
      <y>20</y>
      <width>201</width>
-     <height>293</height>
+     <height>295</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -166,11 +166,22 @@
      </layout>
     </item>
     <item>
-     <widget class="QCheckBox" name="checkBox_isRecommened">
-      <property name="text">
-       <string>是否推荐</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_11">
+      <item>
+       <widget class="QCheckBox" name="checkBox_isRecommened">
+        <property name="text">
+         <string>是否推荐</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_isDiscount">
+        <property name="text">
+         <string>是否享受优惠</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

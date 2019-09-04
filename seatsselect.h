@@ -15,6 +15,7 @@ class SeatsSelect : public QWidget
 public:
     explicit SeatsSelect(QWidget *parent = nullptr);
     QString movieIdStore;
+    float calTotal(float price, int tickets);
     int xAxis, yAxis;
     ~SeatsSelect();
     void showSeat(QString seatMap);

@@ -151,7 +151,11 @@ void AdminMainWindow::on_comboBox_hall_currentTextChanged(const QString &arg1)
 
 void AdminMainWindow::updateOrdersTable(QSqlTableModel *model)
 {
-
+    float totalIncome = 0;
+    for(int i = 0; i < model->rowCount(); i++)
+        totalIncome += model->record(i).value("price").toFloat();
+    QString tem;
+    ui->label_totalIncome->setText(tem.sprintf("%.2f", totalIncome));
     ui->tableView_orders->setModel(model);
     ui->tableView_orders->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_orders->setSelectionBehavior(QAbstractItemView::SelectRows);

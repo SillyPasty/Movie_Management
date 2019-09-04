@@ -43,7 +43,8 @@ void SqlFuns::createTables()
                "rowNum INT,"
                "coloumNum INT,"
                "seatMaps TEXT,"
-               "language TEXT)");
+               "language TEXT,"
+               "isDiscount INT)");
 
     query.exec("CREATE TABLE hall ("
                "id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -66,7 +67,7 @@ void SqlFuns::createTables()
                "endTime TEXT,"
                "date TEXT,"
                "hallId TEXT,"
-               //"seatsInfo TEXT,"
+               "seatsInfo TEXT,"
                "seat1pos INTEGER,"
                "seat2pos INTEGER,"
                "seat3pos INTEGER,"
@@ -191,7 +192,7 @@ int SqlFuns::queryIsadmin(QString userName)
     return flag;
 }
 
-void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString hall, QString startTime, QString endTime, int length, float price, int ticketRemain, QString type, int isRecommened, QString date, QString seatMaps, QString language)
+void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString hall, QString startTime, QString endTime, int length, float price, int ticketRemain, QString type, int isRecommened, QString date, QString seatMaps, QString language, int isDiscount)
 {
     // 添加一个新电影
     QSqlTableModel model;
@@ -220,6 +221,7 @@ void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString 
     model.setData(model.index(row, 18), queryColumn(hall, cinema));
     model.setData(model.index(row, 19), seatMaps);
     model.setData(model.index(row, 20), language);
+    model.setData(model.index(row, 21), isDiscount);
     model.submitAll();
 }
 
@@ -560,10 +562,13 @@ QString SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int se
     //QString seatsInfo;
     QStringList info = queryOrderInfo(movieId);
 
-    QString orderId;
+    QString orderId, seatsInfo;
     orderId = info[0] + info[4] + curTimeDate;
-
-    //if
+    seatsInfo.sprintf("%d排%d列", seat1pos % 100, seat1pos / 100);
+    if(seat2pos != 0)
+        seatsInfo.sprintf("%d排%d列   %d排%d列", seat1pos % 100, seat1pos / 100, seat2pos % 100, seat2pos / 100);
+    if(seat3pos != 0)
+        seatsInfo.sprintf("%d排%d列   %d排%d列   %d排%d列", seat1pos % 100, seat1pos / 100, seat2pos % 100, seat2pos / 100, seat3pos % 100, seat3pos / 100);
     model.setData(model.index(rows, 1), orderId);
     model.setData(model.index(rows, 2), global_userName);
     model.setData(model.index(rows, 3), movieId);
@@ -573,12 +578,12 @@ QString SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, int se
     model.setData(model.index(rows, 7), info[2]);
     model.setData(model.index(rows, 8), info[3]);
     model.setData(model.index(rows, 9), info[4]);
-    //model.setData(model.index(rows, 10), seatsInfo);
-    model.setData(model.index(rows, 10), seat1pos);
-    model.setData(model.index(rows, 11), seat2pos);
-    model.setData(model.index(rows, 12), seat3pos);
-    model.setData(model.index(rows, 13), 0);
-    model.setData(model.index(rows, 14), price);
+    model.setData(model.index(rows, 10), seatsInfo);
+    model.setData(model.index(rows, 11), seat1pos);
+    model.setData(model.index(rows, 12), seat2pos);
+    model.setData(model.index(rows, 13), seat3pos);
+    model.setData(model.index(rows, 14), 0);
+    model.setData(model.index(rows, 15), price);
     model.submitAll();
     return orderId;
 }
@@ -1101,3 +1106,53 @@ int SqlFuns::seatTrans(int row, int column, int curRow, int curColumn)
     pos = (curRow - rowBias + 1) + (curColumn - columnBias + 1) * 100;
     return pos;
 }
+
+int SqlFuns::warning_confilcted_orders(QString movieId)
+{
+    QSqlTableModel model;
+    model.setTable("movie");
+    movieId = formal(movieId);
+    model.setFilter("movieId = " + movieId);
+    model.select();
+    QSqlRecord record = model.record(0);
+    QString this_film_start_time = record.value("startTime").toString();
+    QString this_film_end_time = record.value("endTime").toString();
+    QString this_film_date = record.value("date").toString();
+    model.clear();
+    QString userId = formal(global_userName);
+    model.setTable("orders");
+    model.setFilter("userId = " + userId);
+    model.select();
+    int item_num = model.rowCount();
+    for (int i = 0; i < item_num; i++)
+    {
+        QSqlRecord record = model.record(i);
+        QString iter_order_date = record.value("date").toString();
+        QString iter_order_start_time = record.value("startTime").toString();
+        QString iter_order_end_time = record.value("endTime").toString();
+        QString iter_movieId = record.value("movieId").toString();
+        if (iter_movieId == movieId)
+            return 1;
+        if(iter_order_date == this_film_date)
+        {
+            if (iter_order_start_time >= this_film_start_time && iter_order_start_time <= this_film_end_time)
+                return 1;
+            if (iter_order_start_time <= this_film_start_time && iter_order_end_time >= this_film_start_time)
+                return 1;
+        }
+    }
+    return 0;
+}
+
+int SqlFuns::queryIsDiscount(QString movieId)
+{
+    // 用户操作
+    // 查询订单是否优惠 用于订单购买
+    QSqlTableModel model;
+    model.setTable("movie");
+    movieId = formal(movieId);
+    model.setFilter("movieId = " + movieId);
+    model.select();
+    return model.record(0).value("isDiscount").toInt();
+}
+

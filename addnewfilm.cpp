@@ -45,7 +45,7 @@ void AddNewFilm::on_pushButton_confirm_clicked()
         if(result == QMessageBox::Yes || flg == 0)
         {
             float price = ui->lineEdit_price->text().trimmed().toFloat();
-            int isRecommened = 0;
+            int isRecommened = 0, isDiscount = 0;
             if(ui->checkBox_isRecommened->isChecked())
                 isRecommened = 1;
             int length =  ui->timeEdit_startTime->time().secsTo(ui->timeEdit_endTime->time());
@@ -54,7 +54,9 @@ void AddNewFilm::on_pushButton_confirm_clicked()
             QString movieId = name + cinema + hall + ui->timeEdit_startTime->time().toString("hhmmss") + ui->dateEdit_date->date().toString("yyyyMMdd");  //  自定义
             int ticketRemain = sf.queryHallSeates(hall); //  通过数据库查询
             QString seatMaps = sf.queryHallSeatMap(hall); //  数据库
-            sf.addNewFilm(movieId, name, cinema, hall, startTime, endTime, length, price, ticketRemain, type, isRecommened, date, seatMaps, language);
+            if(ui->checkBox_isDiscount->isChecked())
+                isDiscount = 1;
+            sf.addNewFilm(movieId, name, cinema, hall, startTime, endTime, length, price, ticketRemain, type, isRecommened, date, seatMaps, language, isDiscount);
             emit movieInfoChange();
             this->close();
         }
