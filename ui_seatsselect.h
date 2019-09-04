@@ -17,6 +17,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -28,7 +29,7 @@ class Ui_SeatsSelect
 {
 public:
     QTableWidget *tableWidget;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_2;
     QSpacerItem *horizontalSpacer;
@@ -41,11 +42,11 @@ public:
     QLabel *label_3;
     QSpacerItem *horizontalSpacer_3;
     QSpacerItem *horizontalSpacer_4;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *pushButton_puchase;
     QPushButton *pushButton_cancel;
-    QWidget *widget2;
+    QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_7;
@@ -56,12 +57,18 @@ public:
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_11;
     QLabel *label_startTime;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_7;
+    QLabel *label_8;
+    QRadioButton *radioButton_one;
+    QRadioButton *radioButton_two;
+    QRadioButton *radioButton_three;
 
     void setupUi(QWidget *SeatsSelect)
     {
         if (SeatsSelect->objectName().isEmpty())
             SeatsSelect->setObjectName(QStringLiteral("SeatsSelect"));
-        SeatsSelect->resize(514, 456);
+        SeatsSelect->resize(479, 538);
         tableWidget = new QTableWidget(SeatsSelect);
         if (tableWidget->columnCount() < 21)
             tableWidget->setColumnCount(21);
@@ -134,11 +141,11 @@ public:
         QTableWidgetItem *__qtablewidgetitem32 = new QTableWidgetItem();
         tableWidget->setVerticalHeaderItem(11, __qtablewidgetitem32);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setGeometry(QRect(40, 90, 431, 251));
-        widget = new QWidget(SeatsSelect);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(40, 350, 431, 22));
-        horizontalLayout_2 = new QHBoxLayout(widget);
+        tableWidget->setGeometry(QRect(20, 130, 431, 251));
+        layoutWidget = new QWidget(SeatsSelect);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(20, 400, 431, 22));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -151,35 +158,35 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label_6 = new QLabel(widget);
+        label_6 = new QLabel(layoutWidget);
         label_6->setObjectName(QStringLiteral("label_6"));
         label_6->setPixmap(QPixmap(QString::fromUtf8(":/new/prefix1/avi1.png")));
 
         horizontalLayout->addWidget(label_6);
 
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QStringLiteral("label"));
 
         horizontalLayout->addWidget(label);
 
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setPixmap(QPixmap(QString::fromUtf8(":/new/prefix1/chosen1.png")));
 
         horizontalLayout->addWidget(label_4);
 
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         horizontalLayout->addWidget(label_2);
 
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget);
         label_5->setObjectName(QStringLiteral("label_5"));
         label_5->setPixmap(QPixmap(QString::fromUtf8(":/new/prefix1/unuse1.png")));
 
         horizontalLayout->addWidget(label_5);
 
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         horizontalLayout->addWidget(label_3);
@@ -195,36 +202,36 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer_4);
 
-        widget1 = new QWidget(SeatsSelect);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(300, 390, 168, 22));
-        horizontalLayout_3 = new QHBoxLayout(widget1);
+        layoutWidget1 = new QWidget(SeatsSelect);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(280, 460, 168, 22));
+        horizontalLayout_3 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        pushButton_puchase = new QPushButton(widget1);
+        pushButton_puchase = new QPushButton(layoutWidget1);
         pushButton_puchase->setObjectName(QStringLiteral("pushButton_puchase"));
 
         horizontalLayout_3->addWidget(pushButton_puchase);
 
-        pushButton_cancel = new QPushButton(widget1);
+        pushButton_cancel = new QPushButton(layoutWidget1);
         pushButton_cancel->setObjectName(QStringLiteral("pushButton_cancel"));
 
         horizontalLayout_3->addWidget(pushButton_cancel);
 
-        widget2 = new QWidget(SeatsSelect);
-        widget2->setObjectName(QStringLiteral("widget2"));
-        widget2->setGeometry(QRect(50, 10, 331, 56));
-        verticalLayout = new QVBoxLayout(widget2);
+        layoutWidget2 = new QWidget(SeatsSelect);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(50, 10, 331, 56));
+        verticalLayout = new QVBoxLayout(layoutWidget2);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_7 = new QLabel(widget2);
+        label_7 = new QLabel(layoutWidget2);
         label_7->setObjectName(QStringLiteral("label_7"));
 
         horizontalLayout_4->addWidget(label_7);
 
-        label_movieName = new QLabel(widget2);
+        label_movieName = new QLabel(layoutWidget2);
         label_movieName->setObjectName(QStringLiteral("label_movieName"));
 
         horizontalLayout_4->addWidget(label_movieName);
@@ -234,12 +241,12 @@ public:
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        label_9 = new QLabel(widget2);
+        label_9 = new QLabel(layoutWidget2);
         label_9->setObjectName(QStringLiteral("label_9"));
 
         horizontalLayout_5->addWidget(label_9);
 
-        label_cinema = new QLabel(widget2);
+        label_cinema = new QLabel(layoutWidget2);
         label_cinema->setObjectName(QStringLiteral("label_cinema"));
 
         horizontalLayout_5->addWidget(label_cinema);
@@ -249,18 +256,44 @@ public:
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        label_11 = new QLabel(widget2);
+        label_11 = new QLabel(layoutWidget2);
         label_11->setObjectName(QStringLiteral("label_11"));
 
         horizontalLayout_6->addWidget(label_11);
 
-        label_startTime = new QLabel(widget2);
+        label_startTime = new QLabel(layoutWidget2);
         label_startTime->setObjectName(QStringLiteral("label_startTime"));
 
         horizontalLayout_6->addWidget(label_startTime);
 
 
         verticalLayout->addLayout(horizontalLayout_6);
+
+        widget = new QWidget(SeatsSelect);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(50, 90, 353, 20));
+        horizontalLayout_7 = new QHBoxLayout(widget);
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        horizontalLayout_7->setContentsMargins(0, 0, 0, 0);
+        label_8 = new QLabel(widget);
+        label_8->setObjectName(QStringLiteral("label_8"));
+
+        horizontalLayout_7->addWidget(label_8);
+
+        radioButton_one = new QRadioButton(widget);
+        radioButton_one->setObjectName(QStringLiteral("radioButton_one"));
+
+        horizontalLayout_7->addWidget(radioButton_one);
+
+        radioButton_two = new QRadioButton(widget);
+        radioButton_two->setObjectName(QStringLiteral("radioButton_two"));
+
+        horizontalLayout_7->addWidget(radioButton_two);
+
+        radioButton_three = new QRadioButton(widget);
+        radioButton_three->setObjectName(QStringLiteral("radioButton_three"));
+
+        horizontalLayout_7->addWidget(radioButton_three);
 
 
         retranslateUi(SeatsSelect);
@@ -352,6 +385,10 @@ public:
         label_cinema->setText(QApplication::translate("SeatsSelect", "TextLabel", Q_NULLPTR));
         label_11->setText(QApplication::translate("SeatsSelect", "\345\274\200\345\247\213\346\227\266\351\227\264:", Q_NULLPTR));
         label_startTime->setText(QApplication::translate("SeatsSelect", "TextLabel", Q_NULLPTR));
+        label_8->setText(QApplication::translate("SeatsSelect", "\345\272\247\344\275\215\346\216\250\350\215\220\357\274\232", Q_NULLPTR));
+        radioButton_one->setText(QApplication::translate("SeatsSelect", "\344\270\200\344\272\272", Q_NULLPTR));
+        radioButton_two->setText(QApplication::translate("SeatsSelect", "\344\270\244\344\272\272", Q_NULLPTR));
+        radioButton_three->setText(QApplication::translate("SeatsSelect", "\344\270\211\344\272\272", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -34,7 +34,8 @@ SOURCES += \
     sqlfuns.cpp \
     addnewfilm.cpp \
     seatsselect.cpp \
-    addnewhall.cpp
+    addnewhall.cpp \
+    movieseatmap.cpp
 
 HEADERS += \
         usermainwindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
     sqlfuns.h \
     addnewfilm.h \
     seatsselect.h \
-    addnewhall.h
+    addnewhall.h \
+    movieseatmap.h
 
 FORMS += \
         usermainwindow.ui \
@@ -55,7 +57,8 @@ FORMS += \
     registerwindow.ui \
     addnewfilm.ui \
     seatsselect.ui \
-    addnewhall.ui
+    addnewhall.ui \
+    movieseatmap.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -38,12 +38,10 @@ private slots:
     void on_pushButton_search_2_clicked();
     void on_comboBox_hall_currentTextChanged(const QString &arg1);
     void on_pushButton_search_clicked();
-
     void receiveMovieInfoChange();
     void receiveHallAdded();
-
     void on_tableView_currentHall_clicked(const QModelIndex &index);
-
+    void on_pushButton_viewDetail_clicked();
 
 signals:
     void showLoginWindow();
@@ -51,6 +49,7 @@ signals:
     void showInfoChangeWindow();
     void showAddNewFilmWindow();
     void showAddNewHallWindow();
+    void showMovieDetail(QString movieId);
 };
 
 #endif // ADMINMAINWINDOW_H

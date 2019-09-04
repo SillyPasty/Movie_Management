@@ -9,8 +9,11 @@ UserMainWindow::UserMainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     QTimer *timer = new QTimer(this);
+    QTimer *minute = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
+    connect(minute, SIGNAL(timeout()), this, SLOT(orderCheck()));
     timer->start(1000);
+    minute->start(1800000);
 
     ui->lineEdit_currentBalance->setReadOnly(true);
 }
@@ -76,6 +79,7 @@ void UserMainWindow::on_pushButton_confirmTopUp_clicked()
     QString tmp, addB = ui->lineEdit_topUp->text().trimmed();
     float amount = addB.toFloat();
     ui->lineEdit_currentBalance->setText(tmp.sprintf("%.2f",sf.changeUserBalance(amount)));
+    ui->lineEdit_topUp->clear();
 }
 
 void UserMainWindow::updateMovieTable(QSqlTableModel *model)
@@ -186,5 +190,24 @@ void UserMainWindow::on_pushButton_cancelOrder_clicked()
     QString orderId = model->data(model->index(row, 1)).toString();
     if(sf.cancelOrders(orderId) == -1)
         QMessageBox::critical(nullptr, "已经支付", "无法取消");
+    updateOrdersTable(sf.queryUserOrder("", ""));
+}
+
+void UserMainWindow::receiveBalanceChange()
+{
+    SqlFuns sf;
+    QString tmp;
+    updateOrdersTable(sf.queryUserOrder("", ""));
+    ui->lineEdit_currentBalance->setText(tmp.sprintf("%.2f",sf.queryBalance()));
+}
+
+void UserMainWindow::orderCheck()
+{
+    SqlFuns sf;
+    QDate curDate = QDate::currentDate();
+    QTime curTime = QTime::currentTime();
+    QString date = curDate.toString("yyyy-MM-dd");
+    QString now_time = curTime.toString("hh:mm:ss");
+    sf.delete_outdated_orders(now_time, date);
     updateOrdersTable(sf.queryUserOrder("", ""));
 }

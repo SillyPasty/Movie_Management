@@ -3,6 +3,7 @@
 #include <QString>
 #include <QtSql>
 #include <QMessageBox>
+#include <algorithm>
 
 extern QString global_userName;
 
@@ -26,16 +27,30 @@ public:
     void addNewFilm(QString movieId, QString name, QString cinema, QString hall, QString startTime, QString endTime, int length, float price, int ticketRemain, QString type, int isRecommened, QString date, QString seatMaps, QString language);
     void addNewHall(QString hallId, QString cinema, int totalseats, int row, int column, QString seatMap, QString type);
     void addNewHallTemplate();
-    QString addNewOrder(QString movieId, int seats1pos, int seats2pos, int seat3pos, QString curTimeDate);
+    QString addNewOrder(QString movieId, int seats1pos, int seats2pos, int seat3pos, QString curTimeDate, float price);
 
+    int seatTrans(int row, int column, int curRow, int curColumn);
 
     //  删除订单
     int cancelOrders(QString orderId);
+    void delete_occupied_seats(QString orderId);
+    void delete_outdated_orders(QString now_time, QString date);
 
     //  更改信息
     void changeUserInfo(QString email, QString passwd, QString phoneNum);
     float changeUserBalance(float amount);
     void changePaymentStage(QString orderId, int num, float price);
+    void updateSeatMap(QString movieId, QString seatMap);
+
+    //  判断合法
+    int judgeSeatOrder(QString movieId, int seat1pos, int seat2pos, int seat3pos);
+    int judgeUserOrderNumber(QString date);
+
+    //
+    int intelligentSeatsRecommend(QString movieId, int num);
+    int intelligent_seats_recommend_1(QString movieId);
+    int intelligent_seats_recommend_2(QString movieId);
+    int intelligent_seats_recommend_3(QString movieId);
 
     QString getHallId();
     //  查询函数
@@ -60,6 +75,7 @@ public:
     QStringList queryOrderInfo(QString movieId);
     QStringList queryHallTemplateInfo();              //  返回所有可用type列表
     QStringList queryHallTemplateInfo(QString type);  //  返回某个type的所有参数
+    QStringList queryMovieInfo(QString movieId);
     int *querySeates(QString orderId);
     QString queryType(QString hallId, QString cinema);
     QString queryHallSeatMap(QString hallId);

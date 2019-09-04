@@ -9,6 +9,7 @@ INPUT(
 ./release\addnewfilm.o
 ./release\seatsselect.o
 ./release\addnewhall.o
+./release\movieseatmap.o
 ./release\qrc_png.o
 ./release\moc_usermainwindow.o
 ./release\moc_adminmainwindow.o
@@ -18,4 +19,5 @@ INPUT(
 ./release\moc_addnewfilm.o
 ./release\moc_seatsselect.o
 ./release\moc_addnewhall.o
+./release\moc_movieseatmap.o
 );

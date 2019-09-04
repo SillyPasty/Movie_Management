@@ -233,3 +233,12 @@ void AdminMainWindow::on_tableView_currentHall_clicked(const QModelIndex &index)
     QAbstractItemModel *model = ui->tableView_currentHall->model();
     showSeat(model->data(model->index(index.row(), 4)).toString());
 }
+
+void AdminMainWindow::on_pushButton_viewDetail_clicked()
+{
+    SqlFuns sf;
+    int row = ui->tableView_movie->currentIndex().row();
+    QAbstractItemModel *model = ui->tableView_movie->model();
+    QString movieId = model->data(model->index(row, 1)).toString();
+    emit showMovieDetail(movieId);
+}

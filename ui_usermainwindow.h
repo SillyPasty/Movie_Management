@@ -38,9 +38,9 @@ public:
     QWidget *centralWidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QFrame *line;
     QLabel *label_userInfo;
     QLabel *label_currentTime;
+    QFrame *line;
     QTabWidget *tabWidget;
     QWidget *tab_search;
     QPushButton *pushButton_buy;
@@ -59,6 +59,7 @@ public:
     QLabel *label_12;
     QComboBox *comboBox_type;
     QPushButton *pushButton_search;
+    QFrame *line_5;
     QTableView *tableView_movie;
     QFrame *line_2;
     QWidget *tab_towUp;
@@ -82,6 +83,7 @@ public:
     QLabel *label_9;
     QLineEdit *lineEdit_cinemaName_2;
     QPushButton *pushButton_search_2;
+    QFrame *line_4;
     QTableView *tableView_orders;
     QFrame *line_3;
     QWidget *layoutWidget3;
@@ -101,7 +103,7 @@ public:
     QVBoxLayout *verticalLayout_4;
     QPushButton *pushButton_editPersonalInfo;
     QPushButton *pushButton_changeUser;
-    QPushButton *pushButton_exit;
+    QPushButton *pushButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -110,24 +112,17 @@ public:
     {
         if (UserMainWindow->objectName().isEmpty())
             UserMainWindow->setObjectName(QStringLiteral("UserMainWindow"));
-        UserMainWindow->resize(885, 645);
+        UserMainWindow->resize(873, 836);
         centralWidget = new QWidget(UserMainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 0, 591, 471));
+        gridLayoutWidget->setGeometry(QRect(10, 0, 851, 531));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        line = new QFrame(gridLayoutWidget);
-        line->setObjectName(QStringLiteral("line"));
-        line->setFrameShape(QFrame::HLine);
-        line->setFrameShadow(QFrame::Sunken);
-
-        gridLayout->addWidget(line, 1, 0, 1, 2);
-
         label_userInfo = new QLabel(gridLayoutWidget);
         label_userInfo->setObjectName(QStringLiteral("label_userInfo"));
 
@@ -138,16 +133,23 @@ public:
 
         gridLayout->addWidget(label_currentTime, 0, 1, 1, 1);
 
+        line = new QFrame(gridLayoutWidget);
+        line->setObjectName(QStringLiteral("line"));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        gridLayout->addWidget(line, 1, 0, 1, 2);
+
         tabWidget = new QTabWidget(gridLayoutWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tab_search = new QWidget();
         tab_search->setObjectName(QStringLiteral("tab_search"));
         pushButton_buy = new QPushButton(tab_search);
         pushButton_buy->setObjectName(QStringLiteral("pushButton_buy"));
-        pushButton_buy->setGeometry(QRect(480, 370, 80, 20));
+        pushButton_buy->setGeometry(QRect(730, 450, 101, 20));
         layoutWidget = new QWidget(tab_search);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 11, 551, 351));
+        layoutWidget->setGeometry(QRect(10, 11, 821, 431));
         verticalLayout_5 = new QVBoxLayout(layoutWidget);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -222,6 +224,13 @@ public:
 
         verticalLayout_5->addLayout(horizontalLayout_7);
 
+        line_5 = new QFrame(layoutWidget);
+        line_5->setObjectName(QStringLiteral("line_5"));
+        line_5->setFrameShape(QFrame::HLine);
+        line_5->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout_5->addWidget(line_5);
+
         tableView_movie = new QTableView(layoutWidget);
         tableView_movie->setObjectName(QStringLiteral("tableView_movie"));
 
@@ -239,10 +248,10 @@ public:
         tab_towUp->setObjectName(QStringLiteral("tab_towUp"));
         pushButton_confirmTopUp = new QPushButton(tab_towUp);
         pushButton_confirmTopUp->setObjectName(QStringLiteral("pushButton_confirmTopUp"));
-        pushButton_confirmTopUp->setGeometry(QRect(330, 240, 80, 20));
+        pushButton_confirmTopUp->setGeometry(QRect(560, 330, 80, 20));
         layoutWidget1 = new QWidget(tab_towUp);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(120, 60, 191, 131));
+        layoutWidget1->setGeometry(QRect(320, 110, 191, 131));
         verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -295,7 +304,7 @@ public:
         tab_order->setObjectName(QStringLiteral("tab_order"));
         layoutWidget2 = new QWidget(tab_order);
         layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 10, 561, 351));
+        layoutWidget2->setGeometry(QRect(10, 10, 821, 411));
         verticalLayout = new QVBoxLayout(layoutWidget2);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -332,6 +341,13 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_4);
 
+        line_4 = new QFrame(layoutWidget2);
+        line_4->setObjectName(QStringLiteral("line_4"));
+        line_4->setFrameShape(QFrame::HLine);
+        line_4->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout->addWidget(line_4);
+
         tableView_orders = new QTableView(layoutWidget2);
         tableView_orders->setObjectName(QStringLiteral("tableView_orders"));
 
@@ -346,7 +362,7 @@ public:
 
         layoutWidget3 = new QWidget(tab_order);
         layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(400, 380, 168, 22));
+        layoutWidget3->setGeometry(QRect(660, 430, 168, 22));
         horizontalLayout_5 = new QHBoxLayout(layoutWidget3);
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -367,7 +383,7 @@ public:
         tab_personalInfo->setObjectName(QStringLiteral("tab_personalInfo"));
         layoutWidget4 = new QWidget(tab_personalInfo);
         layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(51, 51, 211, 141));
+        layoutWidget4->setGeometry(QRect(290, 120, 211, 141));
         gridLayout_3 = new QGridLayout(layoutWidget4);
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -405,7 +421,7 @@ public:
 
         layoutWidget5 = new QWidget(tab_personalInfo);
         layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(260, 100, 124, 91));
+        layoutWidget5->setGeometry(QRect(500, 170, 124, 91));
         verticalLayout_4 = new QVBoxLayout(layoutWidget5);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -425,13 +441,13 @@ public:
 
         gridLayout->addWidget(tabWidget, 2, 0, 1, 2);
 
-        pushButton_exit = new QPushButton(centralWidget);
-        pushButton_exit->setObjectName(QStringLiteral("pushButton_exit"));
-        pushButton_exit->setGeometry(QRect(630, 520, 80, 20));
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(280, 590, 80, 20));
         UserMainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(UserMainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 885, 21));
+        menuBar->setGeometry(QRect(0, 0, 873, 21));
         UserMainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(UserMainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -441,7 +457,6 @@ public:
         UserMainWindow->setStatusBar(statusBar);
 
         retranslateUi(UserMainWindow);
-        QObject::connect(pushButton_exit, SIGNAL(clicked()), UserMainWindow, SLOT(close()));
 
         tabWidget->setCurrentIndex(3);
 
@@ -454,7 +469,7 @@ public:
         UserMainWindow->setWindowTitle(QApplication::translate("UserMainWindow", "UserMainWindow", Q_NULLPTR));
         label_userInfo->setText(QApplication::translate("UserMainWindow", "TextLabel", Q_NULLPTR));
         label_currentTime->setText(QApplication::translate("UserMainWindow", "TextLabel", Q_NULLPTR));
-        pushButton_buy->setText(QApplication::translate("UserMainWindow", "\350\264\255\344\271\260", Q_NULLPTR));
+        pushButton_buy->setText(QApplication::translate("UserMainWindow", "\350\264\255 \344\271\260", Q_NULLPTR));
         label_3->setText(QApplication::translate("UserMainWindow", "\347\224\265\345\275\261\345\220\215", Q_NULLPTR));
         label_4->setText(QApplication::translate("UserMainWindow", "\345\275\261\351\231\242\345\220\215", Q_NULLPTR));
         label_13->setText(QApplication::translate("UserMainWindow", "\350\257\255 \350\250\200", Q_NULLPTR));
@@ -489,7 +504,7 @@ public:
         pushButton_editPersonalInfo->setText(QApplication::translate("UserMainWindow", "\344\277\256\346\224\271", Q_NULLPTR));
         pushButton_changeUser->setText(QApplication::translate("UserMainWindow", "\345\210\207\346\215\242\347\224\250\346\210\267", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_personalInfo), QApplication::translate("UserMainWindow", "\344\270\252\344\272\272\344\277\241\346\201\257", Q_NULLPTR));
-        pushButton_exit->setText(QApplication::translate("UserMainWindow", "\351\200\200\345\207\272", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("UserMainWindow", "FUCK", Q_NULLPTR));
     } // retranslateUi
 
 };
