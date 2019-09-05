@@ -1,3 +1,8 @@
+/*
+ * 本文件内实现了更改个人信息功能
+ * 利用正则表达式判断邮箱是否合法
+ * 同时对其他信息合法性进行了判断
+ */
 #include "infochange.h"
 #include "ui_infochange.h"
 
@@ -25,7 +30,7 @@ void InfoChange::on_pushButton_confirm_clicked()
     QString psd = ui->lineEdit_newPasd->text().trimmed();
     QString eml = ui->lineEdit_newEmail->text().trimmed();
     QString phn = ui->lineEdit_phoneNum->text().trimmed();
-    QString pattern("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$");
+    QString pattern("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"); //正则表达式判断邮箱是否合法
     QRegExp rx(pattern);
     if(phn.length() == 11 && 6 <= psd.length() && psd.length() <= 10 && rx.exactMatch(eml))
     {

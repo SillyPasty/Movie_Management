@@ -1,3 +1,6 @@
+/*
+ * 管理员查看订单信息
+ */
 #include "movieseatmap.h"
 #include "ui_movieseatmap.h"
 
@@ -21,7 +24,7 @@ MovieSeatMap::MovieSeatMap(QWidget *parent) :
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
-void MovieSeatMap::showSeat(QString seatMap)
+void MovieSeatMap::showSeat(QString seatMap)  // 对字符串逐位判断 在表格上显示图片
 {
     QChar choice;
     QList<QTableWidgetItem *> ql;
@@ -54,7 +57,7 @@ void MovieSeatMap::showSeat(QString seatMap)
 }
 
 
-void MovieSeatMap::receiveMovieDetail(QString movieId)
+void MovieSeatMap::receiveMovieDetail(QString movieId) // 查询电影信息并展示与label
 {
     SqlFuns sf;
     QStringList info = sf.queryMovieInfo(movieId);

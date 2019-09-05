@@ -1,3 +1,9 @@
+/*
+ * 用户注册界面
+ * 利用密钥判断注册人是否拥有管理员身份
+ * 使用正则表达式判断邮箱是否合法
+ * 对可能出现的异常情况做出了判断
+ */
 #include "registerwindow.h"
 #include "ui_registerwindow.h"
 
@@ -67,16 +73,16 @@ void RegisterWindow::on_pushButton_confirm_clicked()
         if(flag == "")
         {
             int isAdmin;
-            if(key == "admin")
+            if(key == "admin")  //判断密钥是否正确
                 isAdmin = 1;
             else
             {
                 isAdmin = 0;
                 cinema = "";
             }
-            QString pattern("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$");
+            QString pattern("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$");  // 正则表达式判断邮箱是否合法
             QRegExp rx(pattern);
-            if(phone.length() == 11  && 6 <= psd.length() && psd.length() <= 10 && rx.exactMatch(email) && 0 < name.length())
+            if(phone.length() == 11  && 6 <= psd.length() && psd.length() <= 20 && rx.exactMatch(email) && 0 < name.length() && 6 <= userName.length() && userName.length() <= 10)
             {
                 sf.registerUser(userName, psd, name, sex, phone, email, isAdmin, cinema);
 
