@@ -6,6 +6,9 @@ MovieSeatMap::MovieSeatMap(QWidget *parent) :
     ui(new Ui::MovieSeatMap)
 {
     ui->setupUi(this);
+    this->setWindowTitle("信息查看");
+    this->setMaximumSize(484, 569);
+    this->setMinimumSize(484, 569);
     ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->setShowGrid(false);

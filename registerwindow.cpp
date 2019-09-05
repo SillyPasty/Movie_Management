@@ -6,6 +6,9 @@ RegisterWindow::RegisterWindow(QWidget *parent) :
     ui(new Ui::RegisterWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("注册");
+    this->setMaximumSize(310, 370);
+    this->setMinimumSize(310, 370);
     ui->lineEdit_psd->setEchoMode(QLineEdit::Password);
     //  使管理员注册项不可用
     ui->lineEdit_cinemaId->setEnabled(false);

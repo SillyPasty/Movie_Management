@@ -42,6 +42,7 @@ private slots:
     void receiveHallAdded();
     void on_tableView_currentHall_clicked(const QModelIndex &index);
     void on_pushButton_viewDetail_clicked();
+    void checkIsPlayed();
 
 signals:
     void showLoginWindow();

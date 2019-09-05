@@ -6,9 +6,15 @@ AdminMainWindow::AdminMainWindow(QWidget *parent) :
     ui(new Ui::AdminMainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("管理员窗口");
+    this->setMaximumSize(1058, 705);
+    this->setMinimumSize(1058, 705);
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
     timer->start(1000);
+    QTimer *timer1 = new QTimer(this);
+    connect(timer1, SIGNAL(timeout()), this, SLOT(checkIsPlayed()));
+    timer1->start(300000);
     ui->dateEdit_inquire01->setCalendarPopup(true);
     ui->dateEdit_inquire02->setCalendarPopup(true);
     // 设置座位图选项
@@ -53,8 +59,8 @@ void AdminMainWindow::updateHallTable(QSqlTableModel *model)
     ui->tableView_currentHall->setColumnHidden(2, true);
     ui->tableView_currentHall->setColumnHidden(4, true);
     //  设置大小宽度
-    ui->tableView_movie->resizeColumnsToContents();
-    ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView_currentHall->resizeColumnsToContents();
+    ui->tableView_currentHall->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void AdminMainWindow::receiveLogin()
@@ -67,10 +73,21 @@ void AdminMainWindow::receiveLogin()
     ui->label_phone->setText(infoList[1]);
     ui->label_password->setText(infoList[2]);
 
+    QSqlTableModel * model = sf.queryAdminMovie("", "");
+    QStringList head;
+    head<<""<<""<<"电影名"<<"影院"<<"影厅"<<"开始时间"<<"结束时间"<<"长度(分钟)"<<"是否放映"<<"价格"<<"余票"<<"类型"<<"是否推荐"<<"总座位"<<"售率占比"<<"总收入"<<"日期"<<"行数"<<"列数"<<""<<"语言"<<"是否打折";
+    for(int i = 0; i < 22; i++)
+        model->setHeaderData(i, Qt::Horizontal, head[i]);
 
+    updateMovieTable(model);
 
-    updateMovieTable(sf.queryAdminMovie("",""));
-    updateHallTable(sf.queryAdminHall(""));
+    QSqlTableModel * model1 = sf.queryAdminHall("");
+    QStringList head1;
+    head1<<""<<"影厅名"<<"电影名"<<"总作为"<<""<<"行数"<<"列数"<<"种类";
+    for(int i = 0; i < 8; i++)
+        model1->setHeaderData(i, Qt::Horizontal, head1[i]);
+
+    updateHallTable(model1);
 
     ui->tableView_movie->setSortingEnabled(true);
     ui->tableView_orders->setSortingEnabled(true);
@@ -82,8 +99,12 @@ void AdminMainWindow::receiveLogin()
     ui->comboBox_hall->clear();
     ui->comboBox_hall->addItem("");
     ui->comboBox_hall->addItems(sf.queryHallId(sf.queryCinema(global_userName)));
-
-    updateOrdersTable(sf.queryAdminOrder("", "", "", "", 0));
+    QStringList head2;
+    head2<<""<<""<<"用户"<<""<<"电影名"<<"电影院"<<"开始时间"<<"结束时间"<<"日期"<<"影厅"<<"座位信息"<<"座位1"<<"座位2"<<"座位3"<<"是否支付"<<"价格";
+    QSqlTableModel * model2 = sf.queryAdminOrder("", "", "", "", 0);
+    for(int i = 0; i < 16; i++)
+        model2->setHeaderData(i, Qt::Horizontal, head2[i]);
+    updateOrdersTable(model2);
 
     this->show();
 }
@@ -119,7 +140,13 @@ void AdminMainWindow::on_pushButton_addNewHall_clicked()
 void AdminMainWindow::receiveMovieInfoChange()
 {
     SqlFuns sf;
-    updateMovieTable(sf.queryAdminMovie("",""));
+    QSqlTableModel * model = sf.queryAdminMovie("", "");
+    QStringList head;
+    head<<""<<""<<"电影名"<<"影院"<<"影厅"<<"开始时间"<<"结束时间"<<"长度(分钟)"<<"是否放映"<<"价格"<<"余票"<<"类型"<<"是否推荐"<<"总座位"<<"售率占比"<<"总收入"<<"日期"<<"行数"<<"列数"<<""<<"语言"<<"是否打折";
+    for(int i = 0; i < 22; i++)
+        model->setHeaderData(i, Qt::Horizontal, head[i]);
+
+    updateMovieTable(model);
 }
 
 
@@ -138,7 +165,13 @@ void AdminMainWindow::on_pushButton_search_2_clicked()
     SqlFuns sf;
     QString movieName = ui->lineEdit_movieName_2->text().trimmed();
     QString hallId = ui->comboBox_hall_2->currentText();
-    updateMovieTable(sf.queryAdminMovie(movieName, hallId));
+    QSqlTableModel * model = sf.queryAdminMovie(movieName, hallId);
+    QStringList head;
+    head<<""<<""<<"电影名"<<"影院"<<"影厅"<<"开始时间"<<"结束时间"<<"长度(分钟)"<<"是否放映"<<"价格"<<"余票"<<"类型"<<"是否推荐"<<"总座位"<<"售率占比"<<"总收入"<<"日期"<<"行数"<<"列数"<<""<<"语言"<<"是否打折";
+    for(int i = 0; i < 22; i++)
+        model->setHeaderData(i, Qt::Horizontal, head[i]);
+
+    updateMovieTable(model);
 }
 
 
@@ -146,7 +179,13 @@ void AdminMainWindow::on_comboBox_hall_currentTextChanged(const QString &arg1)
 {
     SqlFuns sf;
     QString hallId = ui->comboBox_hall->currentText();
-    updateHallTable(sf.queryAdminHall(hallId));
+    QSqlTableModel * model1 = sf.queryAdminHall(hallId);
+    QStringList head1;
+    head1<<""<<"影厅名"<<"电影名"<<"总作为"<<""<<"行数"<<"列数"<<"种类";
+    for(int i = 0; i < 8; i++)
+        model1->setHeaderData(i, Qt::Horizontal, head1[i]);
+
+    updateHallTable(model1);
 }
 
 void AdminMainWindow::updateOrdersTable(QSqlTableModel *model)
@@ -165,8 +204,8 @@ void AdminMainWindow::updateOrdersTable(QSqlTableModel *model)
     ui->tableView_orders->setColumnHidden(1, true);
     ui->tableView_orders->setColumnHidden(3, true);
 
-    ui->tableView_movie->resizeColumnsToContents();
-    ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView_orders->resizeColumnsToContents();
+    ui->tableView_orders->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void AdminMainWindow::on_pushButton_search_clicked()
@@ -187,7 +226,12 @@ void AdminMainWindow::on_pushButton_search_clicked()
             choice += 2;
         if(ui->checkBox_unPlayed->isChecked())
             choice += 1;
-        updateOrdersTable(sf.queryAdminOrder(movieName, userName, startDate, endDate, choice));
+        QStringList head;
+        head<<""<<""<<"用户"<<""<<"电影名"<<"电影院"<<"开始时间"<<"结束时间"<<"日期"<<"影厅"<<"座位信息"<<"座位1"<<"座位2"<<"座位3"<<"是否支付"<<"价格";
+        QSqlTableModel * model = sf.queryAdminOrder(movieName, userName, startDate, endDate, choice);
+        for(int i = 0; i < 16; i++)
+            model->setHeaderData(i, Qt::Horizontal, head[i]);
+        updateOrdersTable(model);
     }
     else
         QMessageBox::critical(nullptr, "输入有误", "请重新输入");
@@ -196,7 +240,13 @@ void AdminMainWindow::on_pushButton_search_clicked()
 void AdminMainWindow::receiveHallAdded()
 {
     SqlFuns sf;
-    updateHallTable(sf.queryAdminHall(""));
+    QSqlTableModel * model1 = sf.queryAdminHall("");
+    QStringList head1;
+    head1<<""<<"影厅名"<<"电影名"<<"总作为"<<""<<"行数"<<"列数"<<"种类";
+    for(int i = 0; i < 8; i++)
+        model1->setHeaderData(i, Qt::Horizontal, head1[i]);
+
+    updateHallTable(model1);
     ui->comboBox_hall_2->clear();
     ui->comboBox_hall_2->addItem("");
     ui->comboBox_hall_2->addItems(sf.queryHallId(sf.queryCinema(global_userName)));
@@ -245,4 +295,10 @@ void AdminMainWindow::on_pushButton_viewDetail_clicked()
     QAbstractItemModel *model = ui->tableView_movie->model();
     QString movieId = model->data(model->index(row, 1)).toString();
     emit showMovieDetail(movieId);
+}
+
+void AdminMainWindow::checkIsPlayed()
+{
+    SqlFuns sf;
+    sf.checkIsPlayed();
 }

@@ -6,6 +6,9 @@ SeatsSelect::SeatsSelect(QWidget *parent) :
     ui(new Ui::SeatsSelect)
 {
     ui->setupUi(this);
+    this->setWindowTitle("购票界面");
+    this->setMaximumSize(479, 538);
+    this->setMinimumSize(479, 538);
     ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->setShowGrid(false);

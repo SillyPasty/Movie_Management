@@ -6,6 +6,9 @@ InfoChange::InfoChange(QWidget *parent) :
     ui(new Ui::InfoChange)
 {
     ui->setupUi(this);
+    this->setWindowTitle("修改信息");
+    this->setMaximumSize(284, 252);
+    this->setMinimumSize(284, 252);
     ui->lineEdit_newPasd->setEchoMode(QLineEdit::Password);
 }
 

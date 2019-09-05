@@ -6,6 +6,9 @@ AddNewFilm::AddNewFilm(QWidget *parent) :
     ui(new Ui::AddNewFilm)
 {
     ui->setupUi(this);
+    this->setWindowTitle("新增电影");
+    this->setMaximumSize(313, 384);
+    this->setMinimumSize(313, 384);
     // 设定日期选择最小值
     QTime curTime = QTime::currentTime();
     ui->timeEdit_startTime->setMinimumTime(curTime);

@@ -374,7 +374,7 @@ QSqlTableModel* SqlFuns::queryAdminMovie(QString movieName, QString hallId)
     // 可按条件查找
     QSqlTableModel *model = new QSqlTableModel;
     model->setTable("movie");
-    model->setSort(12, Qt::DescendingOrder);
+    model->setSort(8, Qt::DescendingOrder);
     QString ord;
     QString cinema = queryCinema(global_userName);
     cinema = formal(cinema);
@@ -596,7 +596,7 @@ QSqlTableModel* SqlFuns::queryUserOrder(QString movieName, QString cinema)
     // 可按条件查找
     QSqlTableModel *model = new QSqlTableModel;
     model->setTable("orders");
-    model->setSort(9, Qt::DescendingOrder);
+    model->setSort(14, Qt::DescendingOrder);
     QString ord = "userId = " + formal(global_userName);
 
     if(cinema != "")
@@ -625,7 +625,7 @@ void SqlFuns::changePaymentStage(QString orderId, int num, float price)
     model.select();
     QString movieId = model.record(0).value("movieId").toString();
     QString percentage;
-    model.setData(model.index(0, 13), 1);
+    model.setData(model.index(0, 14), 1);
     model.submitAll();
     model.setTable("movie");
     model.setFilter("movieId = " + formal(movieId));
@@ -678,7 +678,7 @@ QSqlTableModel* SqlFuns::queryAdminOrder(QString movieName, QString userId, QStr
     // 可按条件查找
     QSqlTableModel *model = new QSqlTableModel;
     model->setTable("orders");
-    model->setSort(9, Qt::DescendingOrder);
+    model->setSort(15, Qt::DescendingOrder);
     QString cinema = queryCinema(global_userName);
     QString ord = "cinema = " + formal(cinema);
     QTime curTime = QTime::currentTime();
@@ -1156,3 +1156,17 @@ int SqlFuns::queryIsDiscount(QString movieId)
     return model.record(0).value("isDiscount").toInt();
 }
 
+void SqlFuns::checkIsPlayed()
+{
+    QSqlTableModel model;
+    QDate curDate = QDate::currentDate();
+    QTime curTime = QTime::currentTime();
+
+    model.setTable("movie");
+    model.select();
+    for(int i = 0; i < model.rowCount(); i++)
+    {
+        if(model.record(i).value("date").toString() <= curDate.toString("yyyy-MM-dd") && model.record(i).value("startTime").toString() <= curDate.toString("hh:mm:ss"))
+            model.setData(model.index(i, 8), 1);
+    }
+}

@@ -6,6 +6,9 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("登陆");
+    this->setMaximumSize(379, 311);
+    this->setMinimumSize(379, 311);
     ui->lineEdit_password->setEchoMode(QLineEdit::Password);
 }
 
@@ -21,7 +24,7 @@ void LoginDialog::on_pushButton_login_clicked()
     QString pswd = ui->lineEdit_password->text().trimmed();
     SqlFuns sf;
     QString psw = sf.queryPassword(user);
-    if(user == "")
+    if(user == "" || pswd == "")
         QMessageBox::critical(nullptr, "请输入信息", "请重新输入");
     else if(psw == pswd)
     {

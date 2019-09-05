@@ -66,7 +66,7 @@ public:
     QPushButton *pushButton_search;
     QTableView *tableView_orders;
     QFrame *line_2;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_totalIncome_2;
     QLabel *label_totalIncome;
@@ -74,14 +74,14 @@ public:
     QTableWidget *tableWidget_seatMaps;
     QFrame *line_3;
     QTableView *tableView_currentHall;
-    QWidget *layoutWidget1;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label;
     QComboBox *comboBox_hall;
     QSpacerItem *horizontalSpacer;
     QPushButton *pushButton_addNewHall;
     QWidget *tab_order;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout_6;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_11;
@@ -245,18 +245,18 @@ public:
 
         verticalLayout_5->addWidget(line_2);
 
-        widget = new QWidget(tab_search);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(750, 540, 261, 20));
-        horizontalLayout_3 = new QHBoxLayout(widget);
+        layoutWidget1 = new QWidget(tab_search);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(750, 540, 261, 20));
+        horizontalLayout_3 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        label_totalIncome_2 = new QLabel(widget);
+        label_totalIncome_2 = new QLabel(layoutWidget1);
         label_totalIncome_2->setObjectName(QStringLiteral("label_totalIncome_2"));
 
         horizontalLayout_3->addWidget(label_totalIncome_2);
 
-        label_totalIncome = new QLabel(widget);
+        label_totalIncome = new QLabel(layoutWidget1);
         label_totalIncome->setObjectName(QStringLiteral("label_totalIncome"));
 
         horizontalLayout_3->addWidget(label_totalIncome);
@@ -345,18 +345,18 @@ public:
         tableView_currentHall = new QTableView(tab_towUp);
         tableView_currentHall->setObjectName(QStringLiteral("tableView_currentHall"));
         tableView_currentHall->setGeometry(QRect(11, 60, 551, 491));
-        layoutWidget1 = new QWidget(tab_towUp);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(12, 10, 1001, 24));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
+        layoutWidget2 = new QWidget(tab_towUp);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(12, 10, 1001, 24));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(layoutWidget1);
+        label = new QLabel(layoutWidget2);
         label->setObjectName(QStringLiteral("label"));
 
         horizontalLayout_2->addWidget(label);
 
-        comboBox_hall = new QComboBox(layoutWidget1);
+        comboBox_hall = new QComboBox(layoutWidget2);
         comboBox_hall->setObjectName(QStringLiteral("comboBox_hall"));
 
         horizontalLayout_2->addWidget(comboBox_hall);
@@ -365,7 +365,7 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
-        pushButton_addNewHall = new QPushButton(layoutWidget1);
+        pushButton_addNewHall = new QPushButton(layoutWidget2);
         pushButton_addNewHall->setObjectName(QStringLiteral("pushButton_addNewHall"));
 
         horizontalLayout_2->addWidget(pushButton_addNewHall);
@@ -373,30 +373,30 @@ public:
         tabWidget->addTab(tab_towUp, QString());
         tab_order = new QWidget();
         tab_order->setObjectName(QStringLiteral("tab_order"));
-        layoutWidget2 = new QWidget(tab_order);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 10, 1001, 521));
-        verticalLayout_6 = new QVBoxLayout(layoutWidget2);
+        layoutWidget3 = new QWidget(tab_order);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(10, 10, 1001, 521));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget3);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         verticalLayout_6->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_11 = new QLabel(layoutWidget2);
+        label_11 = new QLabel(layoutWidget3);
         label_11->setObjectName(QStringLiteral("label_11"));
 
         horizontalLayout_4->addWidget(label_11);
 
-        lineEdit_movieName_2 = new QLineEdit(layoutWidget2);
+        lineEdit_movieName_2 = new QLineEdit(layoutWidget3);
         lineEdit_movieName_2->setObjectName(QStringLiteral("lineEdit_movieName_2"));
 
         horizontalLayout_4->addWidget(lineEdit_movieName_2);
 
-        label_9 = new QLabel(layoutWidget2);
+        label_9 = new QLabel(layoutWidget3);
         label_9->setObjectName(QStringLiteral("label_9"));
 
         horizontalLayout_4->addWidget(label_9);
 
-        comboBox_hall_2 = new QComboBox(layoutWidget2);
+        comboBox_hall_2 = new QComboBox(layoutWidget3);
         comboBox_hall_2->setObjectName(QStringLiteral("comboBox_hall_2"));
 
         horizontalLayout_4->addWidget(comboBox_hall_2);
@@ -413,12 +413,12 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer_2);
 
-        pushButton_search_2 = new QPushButton(layoutWidget2);
+        pushButton_search_2 = new QPushButton(layoutWidget3);
         pushButton_search_2->setObjectName(QStringLiteral("pushButton_search_2"));
 
         horizontalLayout_4->addWidget(pushButton_search_2);
 
-        pushButton_addNewMovie = new QPushButton(layoutWidget2);
+        pushButton_addNewMovie = new QPushButton(layoutWidget3);
         pushButton_addNewMovie->setObjectName(QStringLiteral("pushButton_addNewMovie"));
 
         horizontalLayout_4->addWidget(pushButton_addNewMovie);
@@ -426,19 +426,19 @@ public:
 
         verticalLayout_6->addLayout(horizontalLayout_4);
 
-        line_5 = new QFrame(layoutWidget2);
+        line_5 = new QFrame(layoutWidget3);
         line_5->setObjectName(QStringLiteral("line_5"));
         line_5->setFrameShape(QFrame::HLine);
         line_5->setFrameShadow(QFrame::Sunken);
 
         verticalLayout_6->addWidget(line_5);
 
-        tableView_movie = new QTableView(layoutWidget2);
+        tableView_movie = new QTableView(layoutWidget3);
         tableView_movie->setObjectName(QStringLiteral("tableView_movie"));
 
         verticalLayout_6->addWidget(tableView_movie);
 
-        line_4 = new QFrame(layoutWidget2);
+        line_4 = new QFrame(layoutWidget3);
         line_4->setObjectName(QStringLiteral("line_4"));
         line_4->setFrameShape(QFrame::HLine);
         line_4->setFrameShadow(QFrame::Sunken);

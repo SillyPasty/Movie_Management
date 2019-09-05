@@ -84,6 +84,7 @@ public:
     float queryBalance();
     int addNewFilmJudge(QString hallId, QString start_time, QString end_time, QString film_date);
     int queryIsDiscount(QString movieId);
+    void checkIsPlayed();
 
     SqlFuns();
 };

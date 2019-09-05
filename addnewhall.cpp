@@ -6,6 +6,9 @@ AddNewHall::AddNewHall(QWidget *parent) :
     ui(new Ui::AddNewHall)
 {
     ui->setupUi(this);
+    this->setWindowTitle("新增影厅");
+    this->setMaximumSize(557, 542);
+    this->setMinimumSize(557, 542);
     ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->setShowGrid(false);
