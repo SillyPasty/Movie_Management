@@ -9,6 +9,7 @@ RegisterWindow::RegisterWindow(QWidget *parent) :
     this->setWindowTitle("注册");
     this->setMaximumSize(310, 370);
     this->setMinimumSize(310, 370);
+    this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     ui->lineEdit_psd->setEchoMode(QLineEdit::Password);
     //  使管理员注册项不可用
     ui->lineEdit_cinemaId->setEnabled(false);

@@ -9,6 +9,7 @@ InfoChange::InfoChange(QWidget *parent) :
     this->setWindowTitle("修改信息");
     this->setMaximumSize(284, 252);
     this->setMinimumSize(284, 252);
+    this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     ui->lineEdit_newPasd->setEchoMode(QLineEdit::Password);
 }
 

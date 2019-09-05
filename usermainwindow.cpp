@@ -11,6 +11,7 @@ UserMainWindow::UserMainWindow(QWidget *parent) :
     this->setWindowTitle("用户窗口");
     this->setMaximumSize(1058, 705);
     this->setMinimumSize(1058, 705);
+    this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     QTimer *timer = new QTimer(this);
     QTimer *minute = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));

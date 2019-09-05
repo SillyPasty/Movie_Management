@@ -9,6 +9,7 @@ AddNewHall::AddNewHall(QWidget *parent) :
     this->setWindowTitle("新增影厅");
     this->setMaximumSize(557, 542);
     this->setMinimumSize(557, 542);
+    this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->setShowGrid(false);

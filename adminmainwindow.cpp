@@ -9,6 +9,7 @@ AdminMainWindow::AdminMainWindow(QWidget *parent) :
     this->setWindowTitle("管理员窗口");
     this->setMaximumSize(1058, 705);
     this->setMinimumSize(1058, 705);
+    this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
     timer->start(1000);
@@ -83,7 +84,7 @@ void AdminMainWindow::receiveLogin()
 
     QSqlTableModel * model1 = sf.queryAdminHall("");
     QStringList head1;
-    head1<<""<<"影厅名"<<"电影名"<<"总作为"<<""<<"行数"<<"列数"<<"种类";
+    head1<<""<<"影厅名"<<"电影名"<<"总座位"<<""<<"行数"<<"列数"<<"种类";
     for(int i = 0; i < 8; i++)
         model1->setHeaderData(i, Qt::Horizontal, head1[i]);
 
@@ -181,7 +182,7 @@ void AdminMainWindow::on_comboBox_hall_currentTextChanged(const QString &arg1)
     QString hallId = ui->comboBox_hall->currentText();
     QSqlTableModel * model1 = sf.queryAdminHall(hallId);
     QStringList head1;
-    head1<<""<<"影厅名"<<"电影名"<<"总作为"<<""<<"行数"<<"列数"<<"种类";
+    head1<<""<<"影厅名"<<"电影名"<<"总座位"<<""<<"行数"<<"列数"<<"种类";
     for(int i = 0; i < 8; i++)
         model1->setHeaderData(i, Qt::Horizontal, head1[i]);
 
@@ -242,7 +243,7 @@ void AdminMainWindow::receiveHallAdded()
     SqlFuns sf;
     QSqlTableModel * model1 = sf.queryAdminHall("");
     QStringList head1;
-    head1<<""<<"影厅名"<<"电影名"<<"总作为"<<""<<"行数"<<"列数"<<"种类";
+    head1<<""<<"影厅名"<<"电影名"<<"总座位"<<""<<"行数"<<"列数"<<"种类";
     for(int i = 0; i < 8; i++)
         model1->setHeaderData(i, Qt::Horizontal, head1[i]);
 

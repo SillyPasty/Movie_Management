@@ -636,7 +636,7 @@ void SqlFuns::changePaymentStage(QString orderId, int num, float price)
     ticket -= num;
     totalIncome += price;
     float percent = (float)(totalSeat - ticket) / totalSeat;
-    percentage.sprintf("%.2f%", percent);
+    percentage.sprintf("%.2f%", percent * 100);
     model.setData(model.index(0, 10), ticket);
     model.setData(model.index(0, 15), totalIncome);
     model.setData(model.index(0, 14), percentage);

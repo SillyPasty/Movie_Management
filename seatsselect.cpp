@@ -9,6 +9,7 @@ SeatsSelect::SeatsSelect(QWidget *parent) :
     this->setWindowTitle("购票界面");
     this->setMaximumSize(479, 538);
     this->setMinimumSize(479, 538);
+    this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->setShowGrid(false);

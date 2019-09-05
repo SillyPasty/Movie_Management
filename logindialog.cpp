@@ -9,6 +9,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     this->setWindowTitle("登陆");
     this->setMaximumSize(379, 311);
     this->setMinimumSize(379, 311);
+    this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     ui->lineEdit_password->setEchoMode(QLineEdit::Password);
 }
 

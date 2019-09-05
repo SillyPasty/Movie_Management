@@ -31,7 +31,6 @@ int main(int argc, char *argv[])
     sf.createTables();
 
     ldg.show();
-
     QObject::connect(&ldg, SIGNAL(showRegisterWindow()), &rw, SLOT(receiveRegister()));
     //  login skip
     QObject::connect(&ldg, SIGNAL(showUserMainWindow()), &uw, SLOT(receiveLogin()));

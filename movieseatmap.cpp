@@ -9,6 +9,7 @@ MovieSeatMap::MovieSeatMap(QWidget *parent) :
     this->setWindowTitle("信息查看");
     this->setMaximumSize(484, 569);
     this->setMinimumSize(484, 569);
+    this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->setShowGrid(false);
