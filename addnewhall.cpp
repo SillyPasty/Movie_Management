@@ -32,6 +32,7 @@ void AddNewHall::receiveAddNewHall()
     SqlFuns sf;
     ui->label_cinema->setText(sf.queryCinema(global_userName));
     QStringList typeList = sf.queryHallTemplateInfo();
+    ui->comboBox_type->clear();
     ui->comboBox_type->addItems(typeList);
 }
 

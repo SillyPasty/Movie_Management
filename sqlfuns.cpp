@@ -96,41 +96,41 @@ bool SqlFuns::connect(const QString &dbName)
     return true;
 }
 
-void SqlFuns::addNewHallTemplate()
-{
-    QSqlTableModel model;
+//void SqlFuns::addNewHallTemplate()
+//{
+//    QSqlTableModel model;
 
-    QString type = "VIP厅";
-    int rows = 6;
-    int column = 9;                         //
-    QString seatMap = "222222222222222222222"
-                      "222222222222222222222"
-                      "222222222222222222222"
-                      "222222000000000222222"
-                      "222222002200000222222"
-                      "222222222200000222222"
-                      "222222222222222222222"
-                      "222222000000000222222"
-                      "222222000000000222222"
-                      "222222222222222222222"
-                      "222222222222222222222"
-                      "222222222222222222222";
-    int totalSeats = 0;
-    model.setTable("hallTemplate");
-    model.select();
-    //  查询row
-    int row = model.rowCount();
-    for(int i = 0; i < 252; i++)
-        if(seatMap[i] == "0")
-            totalSeats++;
-    model.insertRows(row, 1);
-    model.setData(model.index(row, 1), type);
-    model.setData(model.index(row, 2), rows);
-    model.setData(model.index(row, 3), column);
-    model.setData(model.index(row, 4), seatMap);
-    model.setData(model.index(row, 5), totalSeats);
-    model.submitAll();
-}
+//    QString type = "VIP厅";
+//    int rows = 6;
+//    int column = 9;                         //
+//    QString seatMap = "222222222222222222222"
+//                      "222222222222222222222"
+//                      "222222222222222222222"
+//                      "222222000000000222222"
+//                      "222222002200000222222"
+//                      "222222222200000222222"
+//                      "222222222222222222222"
+//                      "222222000000000222222"
+//                      "222222000000000222222"
+//                      "222222222222222222222"
+//                      "222222222222222222222"
+//                      "222222222222222222222";
+//    int totalSeats = 0;
+//    model.setTable("hallTemplate");
+//    model.select();
+//    //  查询row
+//    int row = model.rowCount();
+//    for(int i = 0; i < 252; i++)
+//        if(seatMap[i] == "0")
+//            totalSeats++;
+//    model.insertRows(row, 1);
+//    model.setData(model.index(row, 1), type);
+//    model.setData(model.index(row, 2), rows);
+//    model.setData(model.index(row, 3), column);
+//    model.setData(model.index(row, 4), seatMap);
+//    model.setData(model.index(row, 5), totalSeats);
+//    model.submitAll();
+//}
 
 QString SqlFuns::formal(QString str)
 {
