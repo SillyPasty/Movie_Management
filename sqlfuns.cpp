@@ -96,8 +96,8 @@ bool SqlFuns::connect(const QString &dbName)
     return true;
 }
 
-//void SqlFuns::addNewHallTemplate()
-//{
+void SqlFuns::addNewHallTemplate()
+{
 //    QSqlTableModel model;
 
 //    QString type = "VIP厅";
@@ -130,7 +130,7 @@ bool SqlFuns::connect(const QString &dbName)
 //    model.setData(model.index(row, 4), seatMap);
 //    model.setData(model.index(row, 5), totalSeats);
 //    model.submitAll();
-//}
+}
 
 QString SqlFuns::formal(QString str)
 {
@@ -225,7 +225,7 @@ void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString 
     model.submitAll();
 }
 
-int SqlFuns::queryHallSeates(QString hallId, QString )
+int SqlFuns::queryHallSeates(QString hallId)
 {
     // 查询某个hall拥有的座位
 

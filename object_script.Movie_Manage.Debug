@@ -1,4 +1,5 @@
 INPUT(
+./debug\qrc_png.o
 ./debug\main.o
 ./debug\usermainwindow.o
 ./debug\adminmainwindow.o
@@ -10,7 +11,6 @@ INPUT(
 ./debug\seatsselect.o
 ./debug\addnewhall.o
 ./debug\movieseatmap.o
-./debug\qrc_png.o
 ./debug\moc_usermainwindow.o
 ./debug\moc_adminmainwindow.o
 ./debug\moc_logindialog.o
