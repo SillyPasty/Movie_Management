@@ -1,3 +1,8 @@
+/*
+ * 程序的主函数
+ * 将各个类实例化，并连接槽函数与信号
+ * 连接数据库
+*/
 #include "usermainwindow.h"
 #include "adminmainwindow.h"
 #include "usermainwindow.h"

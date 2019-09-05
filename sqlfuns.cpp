@@ -225,7 +225,7 @@ void SqlFuns::addNewFilm(QString movieId, QString name, QString cinema, QString 
     model.submitAll();
 }
 
-int SqlFuns::queryHallSeates(QString hallId)
+int SqlFuns::queryHallSeates(QString hallId, QString )
 {
     // 查询某个hall拥有的座位
 
@@ -291,7 +291,8 @@ QString SqlFuns::queryHallSeatMap(QString hallId)
     QSqlTableModel model;
     model.setTable("hall");
     hallId = formal(hallId);
-    model.setFilter("hallId = " + hallId);
+    QString cinema = queryCinema(global_userName);
+    model.setFilter("hallId = " + hallId + " and cinema = " + formal(cinema));
     model.select();
     QSqlRecord record = model.record(0);
     return record.value("seatMap").toString();

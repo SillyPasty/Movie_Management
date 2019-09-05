@@ -1,8 +1,8 @@
-
-/*本函数主要实现了
- *
- *
- *
+/*
+ * 本函数主要实现了管理员窗口的主要功能：
+ * 添加新影厅、查看现有订单、添加新场次、查看电影
+ * 利用mvc（movel-view controller）模型，对数据库中的信息进行了可视化显示
+ * 方便用户操作的同时提高了鲁棒性，限制了选择，并对异常输入进行了判断
  */
 #include "adminmainwindow.h"
 #include "ui_adminmainwindow.h"
@@ -15,9 +15,11 @@ AdminMainWindow::AdminMainWindow(QWidget *parent) :
     this->setMaximumSize(1058, 705);
     this->setMinimumSize(1058, 705);
     this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
+    // 每秒更新时间
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
     timer->start(1000);
+    // 每分钟更新电影是否播放情况
     QTimer *timer1 = new QTimer(this);
     connect(timer1, SIGNAL(timeout()), this, SLOT(checkIsPlayed()));
     timer1->start(60000);

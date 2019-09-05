@@ -1,3 +1,9 @@
+/*
+ * 购票功能的实现
+ * 利用tableview可视化显示可用座位
+ * 调用算法判断座位是否合法，同时判断用户当前订单是否达到上限（5），或与现有订单冲突
+ * 智能推荐算法为用户推荐尽量居中的座位
+ */
 #include "seatsselect.h"
 #include "ui_seatsselect.h"
 
@@ -10,6 +16,7 @@ SeatsSelect::SeatsSelect(QWidget *parent) :
     this->setMaximumSize(479, 538);
     this->setMinimumSize(479, 538);
     this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
+    // 初始化界面
     ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->setShowGrid(false);
@@ -21,7 +28,7 @@ SeatsSelect::SeatsSelect(QWidget *parent) :
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
-void SeatsSelect::receivePayment(QString movieId)
+void SeatsSelect::receivePayment(QString movieId) //槽函数：接受信号 初始化界面
 {
     movieIdStore = movieId;
     SqlFuns sf;
@@ -37,7 +44,7 @@ void SeatsSelect::receivePayment(QString movieId)
     showSeat(seatMap);
     this->show();
 }
-void SeatsSelect::showSeat(QString seatMap)
+void SeatsSelect::showSeat(QString seatMap) // 根据seatMap储存字符可视化显示座位
 {
     QChar choice;
     QList<QTableWidgetItem *> ql;
@@ -73,16 +80,18 @@ SeatsSelect::~SeatsSelect()
     delete ui;
 }
 
-void SeatsSelect::on_tableWidget_clicked(const QModelIndex &index)
+void SeatsSelect::on_tableWidget_clicked(const QModelIndex &index) // 根据座位当前状态对单击事件进行相应
 {
     QTableWidgetItem *selected = ui->tableWidget->item(index.row(), index.column());
     QVariant flg;
     flg = selected->data(Qt::UserRole);
+    // 如果现在为可选状态 更改图标
     if(flg == 1)
     {
         selected->setIcon(QPixmap(":/new/prefix1/chosen1.png"));
         selected->setData(Qt::UserRole, 2);
     }
+    // 如果为选中状态 更改图标
     else if(flg == 2)
     {
         selected->setIcon(QPixmap(":/new/prefix1/avi1.png"));
@@ -124,6 +133,7 @@ void SeatsSelect::on_pushButton_puchase_clicked()
                 tickets++;
             }
         }
+        // 对购票数量 合法性进行判断
         if(tickets > 3)
             QMessageBox::critical(this, "选择座位过多", "最多选择三个座位");
         else if(sf.judgeUserOrderNumber(movieIdStore) == -1)
@@ -144,13 +154,14 @@ void SeatsSelect::on_pushButton_puchase_clicked()
             //  获得现在时间
             QDateTime curDateTime = QDateTime::currentDateTime();
             QString cur = curDateTime.toString("yyyyMMddhhmmss"), orderId;
-
+            // 对订单时间进行判断
             if(sf.warning_confilcted_orders(movieIdStore) == 1)
                 if (QMessageBox::question(this, "与现有订单冲突", "是否继续购买?", QMessageBox::Yes | QMessageBox::No, QMessageBox::NoButton) == QMessageBox::No)
                 {
                     this->close();
                     return;
                 }
+            // 可选 付款与否
             result1 = QMessageBox::question(this, "支付", "一共要付款" + info + "元\n是否要支付？", QMessageBox::Yes | QMessageBox::No, QMessageBox::NoButton);
             orderId = sf.addNewOrder(movieIdStore, seatsInfo[0], seatsInfo[1], seatsInfo[2], cur, price * tickets);
             sf.updateSeatMap(movieIdStore, seatMap);
@@ -169,7 +180,7 @@ void SeatsSelect::on_pushButton_puchase_clicked()
             this->close();
         }
 }
-
+//计算偏移量
 void SeatsSelect::calAxis()
 {
     SqlFuns sf;
@@ -181,7 +192,7 @@ void SeatsSelect::calAxis()
     yAxis = (12 - row) / 2;
 }
 
-void SeatsSelect::on_radioButton_one_clicked()
+void SeatsSelect::on_radioButton_one_clicked() // 推荐座位 返回座位值
 {
     SqlFuns sf;
     int pos = sf.intelligentSeatsRecommend(movieIdStore, 1);
@@ -343,7 +354,7 @@ void SeatsSelect::on_radioButton_three_clicked()
             ui->tableWidget->setItem(i, j, ql[i * 21 + j]);
 }
 
-float SeatsSelect::calTotal(float price, int tickets)
+float SeatsSelect::calTotal(float price, int tickets) // 根据优惠政策计算总价
 {
     if(tickets == 1)
         return price;

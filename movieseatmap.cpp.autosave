@@ -1,15 +1,17 @@
-#include "addnewhall.h"
-#include "ui_addnewhall.h"
+/*
+ * 管理员查看订单信息
+ */
+#include "movieseatmap.h"
+#include "ui_movieseatmap.h"
 
-AddNewHall::AddNewHall(QWidget *parent) :
+MovieSeatMap::MovieSeatMap(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::AddNewHall)
+    ui(new Ui::MovieSeatMap)
 {
     ui->setupUi(this);
-    //
-    this->setWindowTitle("新增影厅");
-    this->setMaximumSize(557, 542);
-    this->setMinimumSize(557, 542);
+    this->setWindowTitle("信息查看");
+    this->setMaximumSize(484, 569);
+    this->setMinimumSize(484, 569);
     this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
@@ -22,23 +24,7 @@ AddNewHall::AddNewHall(QWidget *parent) :
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
-AddNewHall::~AddNewHall()
-{
-    delete ui;
-}
-
-void AddNewHall::receiveAddNewHall()
-{
-    this->show();
-    SqlFuns sf;
-    // 在combobox中加载hall模板
-    ui->label_cinema->setText(sf.queryCinema(global_userName));
-    QStringList typeList = sf.queryHallTemplateInfo();
-    ui->comboBox_type->clear();
-    ui->comboBox_type->addItems(typeList);
-}
-
-void AddNewHall::showSeat(QString seatMap)
+void MovieSeatMap::showSeat(QString seatMap)  // 对字符串逐位判断 在表格上显示图片
 {
     QChar choice;
     QList<QTableWidgetItem *> ql;
@@ -50,12 +36,17 @@ void AddNewHall::showSeat(QString seatMap)
         {
             item->setIcon(QPixmap(":/new/prefix1/avi1.png"));
             item->setData(Qt::UserRole, 1);
-            item->setFlags(item->flags()& ~Qt::ItemIsSelectable);
+        }
+        else if(choice == "1")
+        {
+            item->setIcon(QPixmap(":/new/prefix1/unuse1.png"));
+            item->setData(Qt::UserRole, 0);
+            item->setFlags(item->flags() & ~Qt::ItemIsEnabled & ~Qt::ItemIsSelectable);
         }
         else
         {
             item->setIcon(QPixmap(":/new/prefix1/blank.png"));
-            item->setData(Qt::UserRole, 0);
+            item->setData(Qt::UserRole, 3);
             item->setFlags(item->flags() & !Qt::ItemIsEnabled & !Qt::ItemIsSelectable);
         }
         ql.append(item);
@@ -65,25 +56,21 @@ void AddNewHall::showSeat(QString seatMap)
             ui->tableWidget->setItem(i, j, ql[i * 21 + j]);
 }
 
-void AddNewHall::on_comboBox_type_currentTextChanged(const QString &arg1)
+
+void MovieSeatMap::receiveMovieDetail(QString movieId) // 查询电影信息并展示与label
 {
     SqlFuns sf;
-    QStringList info = sf.queryHallTemplateInfo(arg1);
-
-    ui->label_row->setText(info[1]);
-    ui->label_column->setText(info[2]);
-    ui->label_totalSeats->setText(info[4]);
-    showSeat(info[3]);
+    QStringList info = sf.queryMovieInfo(movieId);
+    ui->label_movieName->setText(sf.queryMovieName(movieId));
+    ui->label_hall->setText(info[0]);
+    ui->label_startTime->setText(info[2] + " " + info[1]);
+    ui->label_percent->setText(info[3]);
+    ui->label_totalIncome->setText(info[4] + "元");
+    showSeat(sf.querySeatMap(movieId));
+    this->show();
 }
 
-void AddNewHall::on_pushButton_confirm_clicked()
+MovieSeatMap::~MovieSeatMap()
 {
-    SqlFuns sf;
-
-    QStringList info;
-    QString type = ui->comboBox_type->currentText();
-    info = sf.queryHallTemplateInfo(type);
-    sf.addNewHall(sf.getHallId(), sf.queryCinema(global_userName), info[4].toInt(), info[1].toInt(), info[2].toInt(), info[3], info[0]);
-    emit hallAdded();
-    this->close();
+    delete ui;
 }
