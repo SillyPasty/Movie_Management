@@ -19,8 +19,8 @@ AddNewFilm::AddNewFilm(QWidget *parent) :
     this->setWindowIcon(QIcon(QStringLiteral(":/new/prefix1/iconfinder_movie_118631.png")));
     // 设定日期选择最小值
     QTime curTime = QTime::currentTime();
-    ui->timeEdit_startTime->setMinimumTime(curTime);
-    ui->timeEdit_endTime->setMinimumTime(curTime);
+    ui->timeEdit_startTime->setTime(curTime);
+    ui->timeEdit_endTime->setTime(curTime);
     QDate curDate = QDate::currentDate();
     ui->dateEdit_date->setMinimumDate(curDate);
 }
@@ -42,8 +42,12 @@ void AddNewFilm::on_pushButton_confirm_clicked()
     QString type = ui->lineEdit_type->text().trimmed();
     QString hall = ui->comboBox_hall->currentText();
     QString language = ui->comboBox_language->currentText();
+    QTime curTime = QTime::currentTime();
+    QDate curDate = QDate::currentDate();
+    QString currentTime = curTime.toString("hh:mm:ss");
+    QString currentDate = curDate.toString("yyyy-MM-dd");
     int flg;
-    if(startTime < endTime)
+    if(startTime < endTime && ((currentDate < date) || (currentDate == date && currentTime < startTime)))
     {
         flg = sf.addNewFilmJudge(hall, startTime, endTime, date);
         QMessageBox::StandardButton result = QMessageBox::No; // 返回选择的按钮
@@ -74,7 +78,7 @@ void AddNewFilm::on_pushButton_confirm_clicked()
         }
     }
     else
-        QMessageBox::critical(nullptr, "输入有误", "请重新输入");
+        QMessageBox::critical(nullptr, "时间输入有误", "请重新输入");
 }
 
 void AddNewFilm::receiveAddNewFilm()

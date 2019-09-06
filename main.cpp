@@ -30,12 +30,14 @@ int main(int argc, char *argv[])
     SeatsSelect ss;
     AddNewHall anh;
     MovieSeatMap msm;
-    //  init database
-    while(!sf.connect("dataBase.db"))
+
+    while(!sf.connect("dataBase.db")) //  初始化数据库
         sleep(1);
     sf.createTables();
 
-    ldg.show();
+    ldg.show();                      // 显示登陆窗口
+
+    // 连接不同窗口之间的信号与槽
     QObject::connect(&ldg, SIGNAL(showRegisterWindow()), &rw, SLOT(receiveRegister()));
     //  login skip
     QObject::connect(&ldg, SIGNAL(showUserMainWindow()), &uw, SLOT(receiveLogin()));

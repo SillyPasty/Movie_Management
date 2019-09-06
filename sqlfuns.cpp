@@ -701,8 +701,6 @@ QSqlTableModel* SqlFuns::queryAdminOrder(QString movieName, QString userId,
 	model->setSort(15, Qt::DescendingOrder);									//	按照订单总价降序排列 
 	QString cinema = queryCinema(global_userName);								//	调用queryCinema函数，按照全局变量管理员用户名获得当前影院名
 	QString ord = "cinema = " + formal(cinema);
-	QTime curTime = QTime::currentTime();										//	获得当前时间
-	QDate curDate = QDate::currentDate();										//	获得当前日期
 
 	if (isPlayed == 1)															//	若查询当前尚未播放的电影
         ord = ord + " and isPlayed = 0 ";                                    	//	将当前日期转为“yyyy-mm-dd”格式，将时间转为“hh-mm-ss”格式
@@ -1310,7 +1308,7 @@ void SqlFuns::checkIsPlayed()
 	for (int i = 0; i < model.rowCount(); i++)
 	{
         if (model.record(i).value("date").toString() <= curDate.toString("yyyy-MM-dd") &&
-                model.record(i).value("startTime").toString() <= curDate.toString("hh:mm:ss"))
+                model.record(i).value("startTime").toString() <= curTime.toString("hh:mm:ss"))
 			model.setData(model.index(i, 8), 1);
 	}
 }

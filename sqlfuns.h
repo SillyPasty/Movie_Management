@@ -1,4 +1,3 @@
-#pragma once
 #ifndef SQLFUNS_H
 #define SQLFUNS_H
 #include <QString>

@@ -57,7 +57,8 @@ void UserMainWindow::receiveLogin()
     // 对场次展示进行初始化
     ui->lineEdit_currentBalance->setText(tem.sprintf("%.2f", sf.queryBalance()));
     QStringList head;
-    head<<""<<""<<"电影名"<<"影院"<<"影厅"<<"开始时间"<<"结束时间"<<""<<""<<"价格"<<"余票"<<"类型"<<""<<""<<""<<""<<"日期"<<""<<""<<""<<"语言"<<"是否打折";
+    head<<""<<""<<"电影名"<<"影院"<<"影厅"<<"开始时间"<<"结束时间"<<""<<""<<"价格"<<"余票"
+       <<"类型"<<""<<""<<""<<""<<"日期"<<""<<""<<""<<"语言"<<"是否打折";
     QSqlTableModel * model = sf.queryUserMovie("", "", "", "");
     for(int i = 0; i < 22; i++)
         model->setHeaderData(i, Qt::Horizontal, head[i]);
@@ -69,7 +70,8 @@ void UserMainWindow::receiveLogin()
     QSqlTableModel * model1 = sf.queryUserOrder("", "");
     QStringList head1;
     // 对当前订单进行初始化
-    head1<<""<<""<<""<<""<<"电影名"<<"电影院"<<"开始时间"<<"结束时间"<<"日期"<<"影厅"<<"座位信息"<<""<<""<<""<<"是否支付"<<"价格";
+    head1<<""<<""<<""<<""<<"电影名"<<"电影院"<<"开始时间"<<"结束时间"<<"日期"<<"影厅"
+        <<"座位信息"<<""<<""<<""<<"是否支付"<<"价格";
     for(int i = 0; i < 16; i++)
         model1->setHeaderData(i, Qt::Horizontal, head1[i]);
     updateOrdersTable(model1);
