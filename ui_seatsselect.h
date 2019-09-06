@@ -64,6 +64,7 @@ public:
     QRadioButton *radioButton_two;
     QRadioButton *radioButton_three;
     QLabel *label_disInfo;
+    QLabel *label_location;
 
     void setupUi(QWidget *SeatsSelect)
     {
@@ -145,7 +146,7 @@ public:
         tableWidget->setGeometry(QRect(20, 130, 431, 251));
         layoutWidget = new QWidget(SeatsSelect);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(20, 400, 431, 22));
+        layoutWidget->setGeometry(QRect(20, 380, 431, 22));
         horizontalLayout_2 = new QHBoxLayout(layoutWidget);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -300,6 +301,9 @@ public:
         label_disInfo->setObjectName(QStringLiteral("label_disInfo"));
         label_disInfo->setGeometry(QRect(50, 70, 321, 16));
         label_disInfo->setStyleSheet(QStringLiteral("color: rgb(255, 91, 15);"));
+        label_location = new QLabel(SeatsSelect);
+        label_location->setObjectName(QStringLiteral("label_location"));
+        label_location->setGeometry(QRect(20, 410, 141, 20));
 
         retranslateUi(SeatsSelect);
         QObject::connect(pushButton_cancel, SIGNAL(clicked()), SeatsSelect, SLOT(close()));
@@ -395,6 +399,7 @@ public:
         radioButton_two->setText(QApplication::translate("SeatsSelect", "\344\270\244\344\272\272", Q_NULLPTR));
         radioButton_three->setText(QApplication::translate("SeatsSelect", "\344\270\211\344\272\272", Q_NULLPTR));
         label_disInfo->setText(QApplication::translate("SeatsSelect", "\347\216\260\346\234\211\346\264\273\345\212\250\357\274\232  \347\254\254\344\272\214\345\274\2409\346\212\230\357\274\201\357\274\201   \347\254\254\344\270\211\345\274\2408\346\212\230\357\274\201\357\274\201\357\274\201", Q_NULLPTR));
+        label_location->setText(QString());
     } // retranslateUi
 
 };

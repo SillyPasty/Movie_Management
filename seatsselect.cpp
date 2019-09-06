@@ -84,25 +84,32 @@ void SeatsSelect::on_tableWidget_clicked(const QModelIndex &index) // 根据座�
 {
     QTableWidgetItem *selected = ui->tableWidget->item(index.row(), index.column());
     QVariant flg;
+    QString info;
+    int row, col;
     flg = selected->data(Qt::UserRole);
     // 如果现在为可选状态 更改图标
+    row = index.row();
+    col = index.column();
+    row -= yAxis;
+    col -= xAxis;
     if(flg == 1)
     {
         selected->setIcon(QPixmap(":/new/prefix1/chosen1.png"));
-        selected->setData(Qt::UserRole, 2);
+        selected->setData(Qt::UserRole, 2);     
+        ui->label_location->setText(info.sprintf("%d行 %d列", row, col));
     }
     // 如果为选中状态 更改图标
     else if(flg == 2)
     {
         selected->setIcon(QPixmap(":/new/prefix1/avi1.png"));
         selected->setData(Qt::UserRole, 1);
+        ui->label_location->setText(info.sprintf("%d行 %d列", row, col));
     }
 }
 
 void SeatsSelect::on_pushButton_puchase_clicked()
 {
     QMessageBox::StandardButton result1 = QMessageBox::No; // 返回选择的按钮
-    QMessageBox::StandardButton result2 = QMessageBox::No; // 返回选择的按钮
     int seatsInfo[3] = {0}, tickets = 0;
     SqlFuns sf;
     QString seatMap;

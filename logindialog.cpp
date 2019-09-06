@@ -60,9 +60,3 @@ void LoginDialog::on_pushButton_register_clicked()
 {
     emit showRegisterWindow();
 }
-
-void LoginDialog::on_pushButton_clicked()
-{
-    SqlFuns sf;
-    sf.addNewHallTemplate();
-}

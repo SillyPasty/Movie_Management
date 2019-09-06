@@ -145,7 +145,8 @@ void UserMainWindow::on_pushButton_search_clicked()  // 搜索符合条件的电
     if(type == "全部")
         type = "";
     QStringList head;
-    head<<""<<""<<"电影名"<<"影院"<<"影厅"<<"开始时间"<<"结束时间"<<""<<""<<"价格"<<"余票"<<"类型"<<""<<""<<""<<""<<"日期"<<""<<""<<""<<"语言"<<"是否打折";
+    head<<""<<""<<"电影名"<<"影院"<<"影厅"<<"开始时间"<<"结束时间"<<""<<""<<"价格"<<"余票"
+       <<"类型"<<""<<""<<""<<""<<"日期"<<""<<""<<""<<"语言"<<"是否打折";
     QSqlTableModel * model = sf.queryUserMovie(movieName, cinemaName, type, language);
     for(int i = 0; i < 22; i++)
         model->setHeaderData(i, Qt::Horizontal, head[i]);
@@ -177,8 +178,8 @@ void UserMainWindow::updateOrdersTable(QSqlTableModel *model)
     ui->tableView_orders->setColumnHidden(12, true);
     ui->tableView_orders->setColumnHidden(13, true);
 
-    ui->tableView_movie->resizeColumnsToContents();
-    ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView_orders->resizeColumnsToContents();
+    ui->tableView_orders->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void UserMainWindow::on_pushButton_search_2_clicked()  // 根据条件搜索订单信息
@@ -223,6 +224,13 @@ void UserMainWindow::on_pushButton_pay_clicked()  // 确认付款
             model->setHeaderData(i, Qt::Horizontal, head[i]);
         updateOrdersTable(model);
         ui->lineEdit_currentBalance->setText(tmp.sprintf("%.2f",sf.changeUserBalance(-1 * total))); // 更新当前余额
+        QStringList head1;
+        head1<<""<<""<<"电影名"<<"影院"<<"影厅"<<"开始时间"<<"结束时间"<<""<<""<<"价格"<<"余票"
+           <<"类型"<<""<<""<<""<<""<<"日期"<<""<<""<<""<<"语言"<<"是否打折";
+        QSqlTableModel * model1 = sf.queryUserMovie("", "", "", "");
+        for(int i = 0; i < 22; i++)
+            model1->setHeaderData(i, Qt::Horizontal, head1[i]);
+        updateMovieTable(model1);                          // 更新电影表格
     }
 }
 

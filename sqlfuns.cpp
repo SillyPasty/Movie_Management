@@ -34,6 +34,7 @@ QString global_userName = ""; //在登陆后进入操作界面后，用户的id�
 
 void SqlFuns::createTables()
 {
+    QSqlQuery query;
 	query.exec("CREATE TABLE user ("
 		"id INTEGER PRIMARY KEY AUTOINCREMENT," //	用户的数据库编号，数据库主键，用户不可操作              
 		"userId TEXT,"							//	用户的唯一ID
@@ -95,8 +96,8 @@ void SqlFuns::createTables()
 		"seat1pos INTEGER,"						//	本订单购买的第一个座位在所属影厅的座椅分布图中唯一位置编号，必须存在
 		"seat2pos INTEGER,"						//	本订单购买的第二个座位在所属影厅的座椅分布图中唯一位置编号，可选，若不存在置为-1
 		"seat3pos INTEGER,"						//	本订单购买的第三个座位在所属影厅的座椅分布图中唯一位置编号，可选，若不存在置为-1
-		"isPaid INTEGER,";						//	本订单是否付款的标志
-	"price REAL)");							//	本订单的总价
+        "isPaid INTEGER,"					//	本订单是否付款的标志
+        "price REAL)");							//	本订单的总价
 
 	query.exec("CREATE TABLE hallTemplate ("
 		"id INTEGER PRIMARY KEY AUTOINCREMENT,"	//	影厅模板的数据库编号，数据库主键，用户不可操作
@@ -692,7 +693,7 @@ float SqlFuns::queryPrice(QString movieId)
 //	若输入全部为空字符串，返回当前影院对应全部订单
 //	可按条件查找
 
-QSqlTableModel* SqlFuns::queryAdminOrder(QString movieName, QString userId, \
+QSqlTableModel* SqlFuns::queryAdminOrder(QString movieName, QString userId,
 	QString startDate, QString endDate, int isPlayed)
 {
 	QSqlTableModel* model = new QSqlTableModel;									//	新建QTSQL数据库表指针model
@@ -704,11 +705,11 @@ QSqlTableModel* SqlFuns::queryAdminOrder(QString movieName, QString userId, \
 	QDate curDate = QDate::currentDate();										//	获得当前日期
 
 	if (isPlayed == 1)															//	若查询当前尚未播放的电影
-		ord = ord + " and date >= " + formal(curDate.toString("yyyy-MM-dd")) \	//	将当前日期转为“yyyy-mm-dd”格式，将时间转为“hh-mm-ss”格式
-		+ " and startTime > " + formal(curTime.toString("hh:mm:ss"));			//	筛选得到的电影订单对应的电影播放时间应不早于当前日期，若日期与当前相同，应晚于当前时间
+        ord = ord + " and isPlayed = 0 ";                                    	//	将当前日期转为“yyyy-mm-dd”格式，将时间转为“hh-mm-ss”格式
+                                                                                //	筛选得到的电影订单对应的电影播放时间应不早于当前日期，若日期与当前相同，应晚于当前时间
 	if (isPlayed == 2)															//	若查询当前已经播放过的，或正在播放的电影	
-		ord = ord + " and date <= " + formal(curDate.toString("yyyy-MM-dd")) \	//	将当前日期转为“yyyy-mm-dd”格式，将时间转为“hh-mm-ss”格式
-		+ " and startTime < " + formal(curTime.toString("hh:mm:ss"));			//	筛选得到的电影订单对应的电影播放时间应不晚于当前日期，若日期与当前相同，应早于当前时间
+        ord = ord + " and idPlayed = 1 ";                                    	//	将当前日期转为“yyyy-mm-dd”格式，将时间转为“hh-mm-ss”格式
+                                                                                //	筛选得到的电影订单对应的电影播放时间应不晚于当前日期，若日期与当前相同，应早于当前时间
 
 	if (userId != "")															//	如果userId字符串非空，则增添userId筛选项
 	{
@@ -814,7 +815,7 @@ QStringList SqlFuns::queryMovieInfo(QString movieId)
 	tmp = "";																	//	初始化临时字符串变量
 	qsl.append(model.record(0).value("percent").toString());					//	将该记录中percent值转换为字符串并加入qsl列表
 	tmp = "";																	//	初始化临时字符串变量
-	qsl.append(tmp.sprintf("%.2f", \											//	将该记录中totalIncome值转换为float型，再按两位小数形式转换为字符串，并加入qsl列表中	
+    qsl.append(tmp.sprintf("%.2f", 											//	将该记录中totalIncome值转换为float型，再按两位小数形式转换为字符串，并加入qsl列表中
 		model.record(0).value("totalIncome").toFloat()));
 	return qsl;
 }
@@ -822,7 +823,7 @@ QStringList SqlFuns::queryMovieInfo(QString movieId)
 
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 //																										  //
-//          修改函数区：根据提供的信息或全局变量用户名在数据库中查询需要的数据，如果需要则返回					  // 
+//          修改函数区：根据提供的信息或全局变量用户名在数据库中查询需要的数据，如果需要则返回					      //
 //																										  //
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 
@@ -884,7 +885,7 @@ float SqlFuns::changeUserBalance(float amount)
 //	传入float型数据，为该场次电影的票价
 //	回传一个字符串，代表本订单的唯一编号
 
-QString SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos, \
+QString SqlFuns::addNewOrder(QString movieId, int seat1pos, int seat2pos,
 	int seat3pos, QString curTimeDate, float price)
 {
 	QSqlTableModel model;														//	新建QTSQL数据库model
@@ -1129,9 +1130,9 @@ int SqlFuns::judgeSeatOrder(QString movieId, int seat1pos, int seat2pos, int sea
 	int row_bias = (12 - now_seat_row) / 2;
 	int column_bias = (21 - now_seat_column) / 2;
 	QString now_seat_map = querySeatMap(movieId);
-	int y_pos = seat1pos % 100 - 1;
+    int yPos = seat1pos % 100 - 1;
 	int xPos = seat1pos / 100 - 1;
-	seat1pos = (y_pos + row_bias) * 21 + column_bias + xPos;
+    seat1pos = (yPos + row_bias) * 21 + column_bias + xPos;
 	if (now_seat_map[seat1pos] == '0')
 		now_seat_map[seat1pos] = '3';
 	else return -1;
@@ -1308,12 +1309,13 @@ void SqlFuns::checkIsPlayed()
 	model.select();
 	for (int i = 0; i < model.rowCount(); i++)
 	{
-		if (model.record(i).value("date").toString() <= curDate.toString("yyyy-MM-dd") && model.record(i).value("startTime").toString() <= curDate.toString("hh:mm:ss"))
+        if (model.record(i).value("date").toString() <= curDate.toString("yyyy-MM-dd") &&
+                model.record(i).value("startTime").toString() <= curDate.toString("hh:mm:ss"))
 			model.setData(model.index(i, 8), 1);
 	}
 }
 
-int SqlFuns::addNewFilmJudge(QString hallId, QString start_time, \
+int SqlFuns::addNewFilmJudge(QString hallId, QString start_time,
 	QString end_time, QString film_date)
 {
 	// 0 合法 1 冲突 2 不建议
