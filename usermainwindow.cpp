@@ -3,6 +3,8 @@
  * 查看现有场次 个人余额 当前订单 订单的购买
  * 利用mvc（movel-view controller）模型，对数据库中的信息进行了可视化显示
  * 方便用户操作的同时提高了鲁棒性，限制了选择，并对异常输入进行了判断
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
  */
 
 #include "usermainwindow.h"
@@ -43,6 +45,7 @@ void UserMainWindow::on_pushButton_changeUser_clicked()
 
 void UserMainWindow::receiveLogin()
 {
+    // 槽函数 接受登陆信息以后，初始化信息
     SqlFuns sf;
     QString tem;
     ui->label_userInfo->setText(global_userName);
@@ -79,8 +82,9 @@ void UserMainWindow::receiveLogin()
     this->show();
 }
 
-void UserMainWindow::timerUpdate()  //显示当前时间
+void UserMainWindow::timerUpdate()
 {
+    //显示当前时间
     QDateTime time = QDateTime::currentDateTime();
     QString str = time.toString("yyyy-MM-dd hh:mm:ss dddd");
     ui->label_currentTime->setText(str);
@@ -91,8 +95,9 @@ void UserMainWindow::on_pushButton_editPersonalInfo_clicked()
     emit showInfoChangeWindow();
 }
 
-void UserMainWindow::infoChangeDone() // 更新信息
+void UserMainWindow::infoChangeDone()
 {
+    // 更新信息
     SqlFuns sf;
     ui->label_userInfo->setText(global_userName);
     QStringList infoList = sf.queryEmailPhonePsd(global_userName);
@@ -101,8 +106,9 @@ void UserMainWindow::infoChangeDone() // 更新信息
     ui->label_password->setText(infoList[2]);
 }
 
-void UserMainWindow::on_pushButton_confirmTopUp_clicked() // 确认充值 并修改用户余额
+void UserMainWindow::on_pushButton_confirmTopUp_clicked()
 {
+    // 确认充值 并修改用户余额
     SqlFuns sf;
     QString tmp, addB = ui->lineEdit_topUp->text().trimmed();
     float amount = addB.toFloat();
@@ -110,8 +116,9 @@ void UserMainWindow::on_pushButton_confirmTopUp_clicked() // 确认充值 并修
     ui->lineEdit_topUp->clear();
 }
 
-void UserMainWindow::updateMovieTable(QSqlTableModel *model) // 更新电影表格
+void UserMainWindow::updateMovieTable(QSqlTableModel *model)
 {
+    // 更新电影表格
     QStringList head;
     ui->tableView_movie->setModel(model);
     ui->tableView_movie->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -133,8 +140,9 @@ void UserMainWindow::updateMovieTable(QSqlTableModel *model) // 更新电影表�
     ui->tableView_movie->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
-void UserMainWindow::on_pushButton_search_clicked()  // 搜索符合条件的电影名称
+void UserMainWindow::on_pushButton_search_clicked()
 {
+    // 搜索符合条件的电影名称
     SqlFuns sf;
     QString movieName = ui->lineEdit_movieName->text().trimmed();
     QString cinemaName = ui->comboBox_cinema->currentText();
@@ -155,8 +163,9 @@ void UserMainWindow::on_pushButton_search_clicked()  // 搜索符合条件的电
     updateMovieTable(model);                          // 更新电影表格
 }
 
-void UserMainWindow::on_pushButton_buy_clicked()    // 购买界面 触发购买界面信号
+void UserMainWindow::on_pushButton_buy_clicked()
 {
+    // 购买界面 触发购买界面信号
     SqlFuns sf;
     int row = ui->tableView_movie->currentIndex().row();
     QAbstractItemModel *model = ui->tableView_movie->model();
@@ -184,8 +193,9 @@ void UserMainWindow::updateOrdersTable(QSqlTableModel *model)
     ui->tableView_orders->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
-void UserMainWindow::on_pushButton_search_2_clicked()  // 根据条件搜索订单信息
+void UserMainWindow::on_pushButton_search_2_clicked()
 {
+    // 根据条件搜索订单信息
     SqlFuns sf;
     // 读取输入信息
     QString cinema = ui->lineEdit_cinemaName_2->text().trimmed();
@@ -198,8 +208,9 @@ void UserMainWindow::on_pushButton_search_2_clicked()  // 根据条件搜索订�
     updateOrdersTable(model);
 }
 
-void UserMainWindow::on_pushButton_pay_clicked()  // 确认付款
+void UserMainWindow::on_pushButton_pay_clicked()
 {
+    // 槽函数 确认付款
     // 通过表格被选取行读入信息
     SqlFuns sf;
     int row = ui->tableView_orders->currentIndex().row();
@@ -236,8 +247,9 @@ void UserMainWindow::on_pushButton_pay_clicked()  // 确认付款
     }
 }
 
-void UserMainWindow::on_pushButton_cancelOrder_clicked()  //取消订单
+void UserMainWindow::on_pushButton_cancelOrder_clicked()
 {
+    //取消订单
     SqlFuns sf;
     // 读取当前行
     int row = ui->tableView_orders->currentIndex().row();
@@ -254,8 +266,9 @@ void UserMainWindow::on_pushButton_cancelOrder_clicked()  //取消订单
     updateOrdersTable(model1);
 }
 
-void UserMainWindow::receiveBalanceChange() // 余额改变
+void UserMainWindow::receiveBalanceChange()
 {
+    // 槽函数 余额改变
     SqlFuns sf;
     QString tmp;
     QSqlTableModel * model1 = sf.queryUserOrder("", "");
@@ -267,8 +280,9 @@ void UserMainWindow::receiveBalanceChange() // 余额改变
     ui->lineEdit_currentBalance->setText(tmp.sprintf("%.2f",sf.queryBalance()));
 }
 
-void UserMainWindow::orderCheck() // 订单检查 检查订单是否过期 如果过期 删除
+void UserMainWindow::orderCheck()
 {
+    // 订单检查 检查订单是否过期 如果过期 删除
     SqlFuns sf;
     QDate curDate = QDate::currentDate();
     QTime curTime = QTime::currentTime();

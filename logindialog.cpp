@@ -2,7 +2,9 @@
  * 本文件内实现了用户登陆界面的各项功能
  * 通过对数据库密码的查找并比对，实现了登陆功能
  * 并根据用户身份自动进入管理院界面或用户界面
-*/
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
+ */
 #include "logindialog.h"
 #include "ui_logindialog.h"
 
@@ -25,7 +27,7 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::on_pushButton_login_clicked()
 {
-
+    // 槽函数 接受登陆信号 检查信息
     QString user = ui->lineEdit_userName->text().trimmed();
     QString pswd = ui->lineEdit_password->text().trimmed();
     SqlFuns sf;
@@ -49,8 +51,9 @@ void LoginDialog::on_pushButton_login_clicked()
         QMessageBox::critical(nullptr, "密码错误", "请重新输入");
 }
 
-void LoginDialog::userExchange() // 槽函数：接受切换用户信号
+void LoginDialog::userExchange()
 {
+    // 槽函数：接受切换用户信号
     ui->lineEdit_userName->clear();
     ui->lineEdit_password->clear();
     this->show();

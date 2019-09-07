@@ -1,3 +1,8 @@
+/*
+ * 代码完成了对注册用户功能的实现，与数据库进行了交互
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
+ */
 #ifndef REGISTERWINDOW_H
 #define REGISTERWINDOW_H
 

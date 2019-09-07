@@ -2,7 +2,9 @@
  * 本程序实现了对新影厅的添加
  * 用户可以从现有的模板中选择影厅并添加到数据库
  * 采用了mvc模型进行座位的可视化显示
-*/
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
+ */
 
 #include "addnewhall.h"
 #include "ui_addnewhall.h"

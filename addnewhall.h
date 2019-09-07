@@ -1,3 +1,8 @@
+/*
+ * 代码完成了对添加影厅界面各项配置的实现，与管理员用户和数据库进行了交互
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
+ */
 #ifndef ADDNEWHALL_H
 #define ADDNEWHALL_H
 
@@ -14,6 +19,7 @@ class AddNewHall : public QWidget
 
 public:
     explicit AddNewHall(QWidget *parent = nullptr);
+    // 展示座位 输入座位图字符串
     void showSeat(QString seatMap);
     ~AddNewHall();
 private slots:

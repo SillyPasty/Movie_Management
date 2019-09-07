@@ -3,6 +3,8 @@
  * 利用密钥判断注册人是否拥有管理员身份
  * 使用正则表达式判断邮箱是否合法
  * 对可能出现的异常情况做出了判断
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
  */
 #include "registerwindow.h"
 #include "ui_registerwindow.h"
@@ -29,6 +31,7 @@ RegisterWindow::~RegisterWindow()
 
 void RegisterWindow::receiveRegister()
 {
+    // 槽函数 清空当前输入栏内内容
     ui->lineEdit_userName->clear();
     ui->lineEdit_realName->clear();
     ui->lineEdit_psd->clear();

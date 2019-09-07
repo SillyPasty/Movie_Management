@@ -1,5 +1,7 @@
 /*
  * 管理员查看订单信息
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
  */
 #include "movieseatmap.h"
 #include "ui_movieseatmap.h"
@@ -24,15 +26,16 @@ MovieSeatMap::MovieSeatMap(QWidget *parent) :
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
-void MovieSeatMap::showSeat(QString seatMap)  // 对字符串逐位判断 在表格上显示图片
+void MovieSeatMap::showSeat(QString seatMap)
 {
+    // 传入座位图字符串，在view中展示
     QChar choice;
     QList<QTableWidgetItem *> ql;
     for(int i = 0; i < 252; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         choice = seatMap[i];
-        if(choice == "0")
+        if(choice == "0")                                       // 判断当前位置类型
         {
             item->setIcon(QPixmap(":/new/prefix1/avi1.png"));
             item->setData(Qt::UserRole, 1);
@@ -57,8 +60,9 @@ void MovieSeatMap::showSeat(QString seatMap)  // 对字符串逐位判断 在表
 }
 
 
-void MovieSeatMap::receiveMovieDetail(QString movieId) // 查询电影信息并展示与label
+void MovieSeatMap::receiveMovieDetail(QString movieId)
 {
+    // 查询电影信息并展示于label
     SqlFuns sf;
     QStringList info = sf.queryMovieInfo(movieId);
     ui->label_movieName->setText(sf.queryMovieName(movieId));

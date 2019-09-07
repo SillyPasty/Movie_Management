@@ -4,7 +4,9 @@
  * 并且添加了电影日期和时间的限制，无法添加过去的电影，结束时间无法早于开始时间
  * 对每场电影的添加都进行了判断，为每场次预留10分钟入场出场时间，如果有冲突，会予以提示
  * 如果影厅时段有电影播放，会取消对新电影的添加
-*/
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
+ */
 #include "addnewfilm.h"
 #include "ui_addnewfilm.h"
 
@@ -32,6 +34,7 @@ AddNewFilm::~AddNewFilm()
 
 void AddNewFilm::on_pushButton_confirm_clicked()
 {
+    // 当确定按钮被点击时，进行合法性判断，并向数据库中添加电影信息
     SqlFuns sf;
     // QDateTime dt;
     QString name = ui->lineEdit_name->text().trimmed();
@@ -47,6 +50,7 @@ void AddNewFilm::on_pushButton_confirm_clicked()
     QString currentTime = curTime.toString("hh:mm:ss");
     QString currentDate = curDate.toString("yyyy-MM-dd");
     int flg;
+    // 进行合法性判断，并予以提示
     if(startTime < endTime && ((currentDate < date) || (currentDate == date && currentTime < startTime)))
     {
         flg = sf.addNewFilmJudge(hall, startTime, endTime, date);
@@ -83,6 +87,7 @@ void AddNewFilm::on_pushButton_confirm_clicked()
 
 void AddNewFilm::receiveAddNewFilm()
 {
+    // 槽函数 与管理员用户进行交互
     this->show();
     SqlFuns sf;
 
@@ -100,6 +105,7 @@ void AddNewFilm::receiveAddNewFilm()
 
 void AddNewFilm::on_comboBox_hall_currentTextChanged(const QString &arg1)
 {
+    // 槽函数 当前影厅改变时 改变相应信息
     SqlFuns sf;
     QString cinema = sf.queryCinema(global_userName);
     //  更改电影种类

@@ -1,3 +1,8 @@
+/*
+ * 代码完成了对管理员页面的各项功能的实现，与新增影厅页面、新增场次界面、数据库进行了交互
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
+ */
 #ifndef ADMINMAINWINDOW_H
 #define ADMINMAINWINDOW_H
 
@@ -18,9 +23,16 @@ class AdminMainWindow : public QMainWindow
 
 public:
     explicit AdminMainWindow(QWidget *parent = nullptr);
+    // 输入一个模型指针，更新电影表格
     void updateMovieTable(QSqlTableModel *model);
+
+    // 输入一个模型指针，更新影厅表格
     void updateHallTable(QSqlTableModel *model);
+
+    // 输入一个模型指针，更新订单表格
     void updateOrdersTable(QSqlTableModel *model);
+
+    // 输入座位图字符串，展示当前座位图
     void showSeat(QString seatMap);
     ~AdminMainWindow();
 

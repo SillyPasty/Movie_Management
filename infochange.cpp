@@ -2,6 +2,7 @@
  * 本文件内实现了更改个人信息功能
  * 利用正则表达式判断邮箱是否合法
  * 同时对其他信息合法性进行了判断
+ *
  */
 #include "infochange.h"
 #include "ui_infochange.h"

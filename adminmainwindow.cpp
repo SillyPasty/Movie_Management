@@ -3,6 +3,8 @@
  * 添加新影厅、查看现有订单、添加新场次、查看电影
  * 利用mvc（movel-view controller）模型，对数据库中的信息进行了可视化显示
  * 方便用户操作的同时提高了鲁棒性，限制了选择，并对异常输入进行了判断
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
  */
 #include "adminmainwindow.h"
 #include "ui_adminmainwindow.h"
@@ -42,7 +44,8 @@ AdminMainWindow::~AdminMainWindow()
 }
 void AdminMainWindow::updateMovieTable(QSqlTableModel *model)
 {
-
+    // 输入一个模型指针，利用mvc对模型进行可视化展示
+    // 对电影展示view元素进行初始化
     ui->tableView_movie->setModel(model);
     ui->tableView_movie->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_movie->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -59,6 +62,8 @@ void AdminMainWindow::updateMovieTable(QSqlTableModel *model)
 
 void AdminMainWindow::updateHallTable(QSqlTableModel *model)
 {
+    // 输入一个模型指针，利用mvc对模型进行可视化展示
+    // 对影厅展示view元素进行初始化
     ui->tableView_currentHall->setModel(model);
     ui->tableView_currentHall->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_currentHall->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -73,6 +78,8 @@ void AdminMainWindow::updateHallTable(QSqlTableModel *model)
 
 void AdminMainWindow::receiveLogin()
 {
+    // 槽函数，响应登陆信号
+    // 初始化各个表格的表头、个人信息等
     SqlFuns sf;
     // 初始化信息
     ui->label_userInfo->setText(global_userName);
@@ -150,6 +157,7 @@ void AdminMainWindow::on_pushButton_addNewHall_clicked()  //释放信号
 
 void AdminMainWindow::receiveMovieInfoChange()
 {
+    // 当电影信息数据库被修改时，更新页面
     SqlFuns sf;
     QSqlTableModel * model = sf.queryAdminMovie("", "");
     QStringList head;
@@ -166,6 +174,7 @@ void AdminMainWindow::receiveMovieInfoChange()
 
 void AdminMainWindow::infoChangeDone() // 槽函数
 {
+    // 当个人信息被修改后，更新信息
     SqlFuns sf;
     ui->label_userInfo->setText(global_userName);
     QStringList infoList = sf.queryEmailPhonePsd(global_userName);
@@ -174,8 +183,9 @@ void AdminMainWindow::infoChangeDone() // 槽函数
     ui->label_password->setText(infoList[2]); 
 }
 
-void AdminMainWindow::on_pushButton_search_2_clicked() // 搜索对应电影场次
+void AdminMainWindow::on_pushButton_search_2_clicked()
 {
+    // 搜索符合条件对应电影场次
     SqlFuns sf;
     QString movieName = ui->lineEdit_movieName_2->text().trimmed();
     QString hallId = ui->comboBox_hall_2->currentText();
@@ -192,13 +202,13 @@ void AdminMainWindow::on_pushButton_search_2_clicked() // 搜索对应电影场�
 }
 
 
-void AdminMainWindow::on_comboBox_hall_currentTextChanged(const QString &arg1) // 查看不同影厅的信息
+void AdminMainWindow::on_comboBox_hall_currentTextChanged(const QString &arg1)
 {
+    // 查看不同影厅的信息
     SqlFuns sf;
     QString hallId = ui->comboBox_hall->currentText();
     QSqlTableModel * model1 = sf.queryAdminHall(hallId);
     QStringList head1;
-    //
     head1<<""<<"影厅名"<<"电影名"<<"总座位"<<""<<"行数"<<"列数"<<"种类";
     for(int i = 0; i < 8; i++)
         model1->setHeaderData(i, Qt::Horizontal, head1[i]);
@@ -206,8 +216,9 @@ void AdminMainWindow::on_comboBox_hall_currentTextChanged(const QString &arg1) /
     updateHallTable(model1);
 }
 
-void AdminMainWindow::updateOrdersTable(QSqlTableModel *model) // 更新订单界面
+void AdminMainWindow::updateOrdersTable(QSqlTableModel *model)
 {
+    // 传入一个订单模型指针，更新订单界面
     float totalIncome = 0;
     for(int i = 0; i < model->rowCount(); i++)
         totalIncome += model->record(i).value("price").toFloat();
@@ -226,8 +237,9 @@ void AdminMainWindow::updateOrdersTable(QSqlTableModel *model) // 更新订单�
     ui->tableView_orders->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
-void AdminMainWindow::on_pushButton_search_clicked() // 根据条件搜索电影
+void AdminMainWindow::on_pushButton_search_clicked()
 {
+    // 根据条件搜索电影
     SqlFuns sf;
     QString userName = ui->lineEdit_userName->text().trimmed();
     QString movieName = ui->lineEdit_movieName->text().trimmed();
@@ -255,8 +267,9 @@ void AdminMainWindow::on_pushButton_search_clicked() // 根据条件搜索电影
         QMessageBox::critical(nullptr, "输入有误", "请重新输入");
 }
 
-void AdminMainWindow::receiveHallAdded() // 在添加新影厅之后 刷新影厅展示界面
+void AdminMainWindow::receiveHallAdded()
 {
+    // 在添加新影厅之后 刷新影厅展示界面
     SqlFuns sf;
     QSqlTableModel * model1 = sf.queryAdminHall("");
     QStringList head1;
@@ -273,8 +286,9 @@ void AdminMainWindow::receiveHallAdded() // 在添加新影厅之后 刷新影�
     ui->comboBox_hall->addItems(sf.queryHallId(sf.queryCinema(global_userName)));
 }
 
-void AdminMainWindow::showSeat(QString seatMap)  // 在tablewidget中展示座位
+void AdminMainWindow::showSeat(QString seatMap)
 {
+    // 输入一个座位图字符串，在tablewidget中展示座位
     QChar choice;
     QList<QTableWidgetItem *> ql;
     for(int i = 0; i < 252; i++)

@@ -3,6 +3,8 @@
  * 利用tableview可视化显示可用座位
  * 调用算法判断座位是否合法，同时判断用户当前订单是否达到上限（5），或与现有订单冲突
  * 智能推荐算法为用户推荐尽量居中的座位
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
  */
 #include "seatsselect.h"
 #include "ui_seatsselect.h"
@@ -28,8 +30,9 @@ SeatsSelect::SeatsSelect(QWidget *parent) :
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
-void SeatsSelect::receivePayment(QString movieId) //槽函数：接受信号 初始化界面
+void SeatsSelect::receivePayment(QString movieId)
 {
+    //槽函数：接受信号 初始化界面
     movieIdStore = movieId;
     SqlFuns sf;
     QStringList qsl = sf.queryOrderInfo(movieIdStore);
@@ -44,8 +47,9 @@ void SeatsSelect::receivePayment(QString movieId) //槽函数：接受信号 初
     showSeat(seatMap);
     this->show();
 }
-void SeatsSelect::showSeat(QString seatMap) // 根据seatMap储存字符可视化显示座位
+void SeatsSelect::showSeat(QString seatMap)
 {
+    // 根据seatMap储存字符可视化显示座位
     QChar choice;
     QList<QTableWidgetItem *> ql;
     for(int i = 0; i < 252; i++)
@@ -80,8 +84,9 @@ SeatsSelect::~SeatsSelect()
     delete ui;
 }
 
-void SeatsSelect::on_tableWidget_clicked(const QModelIndex &index) // 根据座位当前状态对单击事件进行相应
+void SeatsSelect::on_tableWidget_clicked(const QModelIndex &index)
 {
+    // 根据座位当前状态对单击事件进行相应
     QTableWidgetItem *selected = ui->tableWidget->item(index.row(), index.column());
     QVariant flg;
     QString info;
@@ -109,6 +114,7 @@ void SeatsSelect::on_tableWidget_clicked(const QModelIndex &index) // 根据座�
 
 void SeatsSelect::on_pushButton_puchase_clicked()
 {
+    // 购买按钮确定以后，更新座位图并判断购买是否合法
     QMessageBox::StandardButton result1 = QMessageBox::No; // 返回选择的按钮
     int seatsInfo[3] = {0}, tickets = 0;
     SqlFuns sf;

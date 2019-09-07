@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <algorithm>
 
+// 定义一个全局变量，储存当前用户ID
 extern QString global_userName;
 
 

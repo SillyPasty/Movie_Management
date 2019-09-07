@@ -1,3 +1,8 @@
+/*
+ * 代码完成了普通用户界面各项功能的实现，与购票界面和数据库进行了交互
+ * By Yubo Wang
+ * Copyright 2019 Yubo Wang, Lingsong Feng, Yining Zhu.
+ */
 #ifndef USERMAINWINDOW_H
 #define USERMAINWINDOW_H
 
@@ -14,8 +19,9 @@ class UserMainWindow : public QMainWindow
 
 public:
     explicit UserMainWindow(QWidget *parent = nullptr);
-
+    // 输入一个模型指针，更新电影表格
     void updateMovieTable(QSqlTableModel *model);
+    // 输入一个模型指针，更新订单表格
     void updateOrdersTable(QSqlTableModel *model);
 
     ~UserMainWindow();
