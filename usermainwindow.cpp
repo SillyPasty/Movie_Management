@@ -27,7 +27,7 @@ UserMainWindow::UserMainWindow(QWidget *parent) :
     connect(minute, SIGNAL(timeout()), this, SLOT(orderCheck()));
     timer->start(1000);
     // 每30分钟检查一次订单是否过期
-    minute->start(1800000);
+    minute->start(60000);
 
     ui->lineEdit_currentBalance->setReadOnly(true);
 }
